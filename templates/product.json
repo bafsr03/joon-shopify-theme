@@ -114,60 +114,18 @@
         "padding_bottom": 80
       }
     },
-    "product_recommendations_custom": {
-      "type": "product-recommendations-custom",
-      "blocks": {
-        "mock_1": {
-          "type": "product_mock",
-          "settings": {
-            "title": "Mind Magic THC Gummies",
-            "effect_label": "Creative",
-            "rating": "4.31",
-            "potency": "high",
-            "price": "$35.00"
-          }
-        },
-        "mock_2": {
-          "type": "product_mock",
-          "settings": {
-            "title": "Testosterone Support THC Gummies",
-            "effect_label": "Happy",
-            "rating": "4.47",
-            "potency": "mild",
-            "price": "$35.00"
-          }
-        },
-        "mock_3": {
-          "type": "product_mock",
-          "settings": {
-            "title": "Dual-Wave Relief THC Gummies",
-            "effect_label": "Soothing",
-            "rating": "4.57",
-            "potency": "medium",
-            "price": "$35.00"
-          }
-        },
-        "mock_4": {
-          "type": "product_mock",
-          "settings": {
-            "title": "Morning Delta 9 THC Gummies",
-            "effect_label": "Energized",
-            "rating": "4.17",
-            "potency": "mild",
-            "price": "$29.00"
-          }
-        }
-      },
-      "block_order": [
-        "mock_1",
-        "mock_2",
-        "mock_3",
-        "mock_4"
-      ],
+    "product_grid_tilted": {
+      "type": "product-grid-tilted",
       "settings": {
-        "heading": "You may also like",
-        "products_to_show": 4,
-        "show_arrow": true,
+        "color_scheme": "scheme-2",
+        "eyebrow": "STOCK UP ON YOUR SUPPLY",
+        "title": "Proven Best Sellers",
+        "side_label_text": "Premium Quality Cannabis",
+        "collection": "frontpage",
+        "products_to_show": 8,
+        "show_vendor": false,
+        "button_label": "View All",
+        "button_link": "shopify://collections/all",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -177,6 +135,6 @@
     "main_product_custom",
     "product_accordion_image",
     "product_benefits_icons",
-    "product_recommendations_custom"
+    "product_grid_tilted"
   ]
 }
