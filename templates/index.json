@@ -31,6 +31,14 @@
     "focus_carousel": {
       "type": "focus-carousel",
       "blocks": {
+        "brand_qaUBff": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/geekbar.png",
+            "title": "Geek Bar",
+            "link": ""
+          }
+        },
         "brand_AwXDxQ": {
           "type": "brand",
           "settings": {
@@ -97,6 +105,7 @@
         }
       },
       "block_order": [
+        "brand_qaUBff",
         "brand_AwXDxQ",
         "brand_4KmgEE",
         "brand1",
