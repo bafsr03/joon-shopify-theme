@@ -3,6 +3,7 @@
   color: #fff;
   border-top: none;
   font-family: var(--font-body-family);
+  overflow: hidden; /* Prevent child elements from causing horizontal scroll */
 }
 
 .footer__inner {
@@ -97,8 +98,6 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  margin-left: -2rem;
-  margin-right: -2rem;
 }
 
 @media screen and (min-width: 900px) {
