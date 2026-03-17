@@ -42,7 +42,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
-  justify-content: end; /* Shift content towards right */
+  justify-content: end;
+  /* Shift content towards right */
 }
 
 .hero-parallax__content {
@@ -117,44 +118,44 @@
 }
 
 .hero-parallax__float-item--1 {
-  width: 45rem; 
+  width: 60rem;
   height: auto;
   aspect-ratio: 16 / 9;
   top: 50%;
-  left: 60%; /* Shifted from 50% to 60% to move main item right */
+  left: 55%;
   transform: translate(-50%, -50%);
-  z-index: 3;
+  z-index: 10;
   animation-duration: 6s;
   animation-delay: 0s;
 }
 
 .hero-parallax__float-item--2 {
-  width: 32rem; 
-  height: 32rem;
-  top: 10%;
-  right: -15%; /* Shifted from -5% to -15% to move even further right */
-  z-index: 2;
+  width: 45rem;
+  height: 45rem;
+  top: 0%;
+  right: -40%;
+  z-index: 5;
   animation-duration: 8s;
   animation-delay: -2s;
 }
 
 .hero-parallax__float-item--3 {
-  width: 26rem; /* Increased from 18rem */
+  width: 40rem;
   height: auto;
   aspect-ratio: 16 / 9;
-  bottom: 15%;
-  left: 0%;
-  z-index: 2;
+  bottom: 0%;
+  left: -20%;
+  z-index: 4;
   animation-duration: 7s;
   animation-delay: -4s;
 }
 
 .hero-parallax__float-item--4 {
-  width: 22rem; 
-  height: 22rem;
-  top: 5%;
-  left: 10%;
-  z-index: 1;
+  width: 32rem;
+  height: 32rem;
+  top: -10%;
+  left: -15%;
+  z-index: 3;
   animation-duration: 9s;
   animation-delay: -1s;
 }
@@ -168,9 +169,20 @@
 }
 
 @keyframes heroFloat {
-  0%,  100% { transform: translateY(0px) rotate(0deg); }
-  25%        { transform: translateY(-12px) rotate(1deg); }
-  75%        { transform: translateY(8px) rotate(-1deg); }
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-25px) rotate(2deg);
+  }
+
+  /* More exaggerated movement */
+  75% {
+    transform: translateY(15px) rotate(-1deg);
+  }
 }
 
 /* Item 1 needs its own transform baseline since it uses translate(-50%,-50%) */
@@ -179,9 +191,20 @@
 }
 
 @keyframes heroFloat1 {
-  0%,  100% { transform: translate(-50%, -50%) translateY(0px); }
-  25%        { transform: translate(-50%, -50%) translateY(-12px); }
-  75%        { transform: translate(-50%, -50%) translateY(8px); }
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+
+  25% {
+    transform: translate(-50%, -50%) translateY(-25px);
+  }
+
+  /* More exaggerated movement */
+  75% {
+    transform: translate(-50%, -50%) translateY(15px);
+  }
 }
 
 /* Cloud overlay at section bottom */
@@ -193,12 +216,10 @@
   height: 14rem;
   z-index: 10;
   pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(var(--color-background), 0.2) 30%,
-    rgb(var(--color-background)) 85%
-  );
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(var(--color-background), 0.2) 30%,
+      rgb(var(--color-background)) 85%);
 }
 
 .hero-parallax__cloud::before,
@@ -245,34 +266,43 @@
 @media screen and (max-width: 749px) {
   .hero-parallax__inner {
     grid-template-columns: 1fr;
-    padding: 2rem 2rem 10rem; /* Reduced top padding to move items up */
-    gap: 2rem;
+    padding: 4rem 2rem 12rem;
+    /* Adjusted padding */
+    gap: 4rem;
   }
 
   .hero-parallax__media {
-    min-height: 40rem;
-    margin-top: -5rem; /* Further nudge items up */
+    min-height: 50rem;
+    /* Increased height */
+    margin-top: 2rem;
+    /* Changed to positive margin to move items lower */
   }
 
   .hero-parallax__float-item--1 {
-    width: 28rem;
+    width: 52rem;
   }
 
   /* Showing right image (Item 2) and bottom left image (Item 3) on mobile */
   .hero-parallax__float-item--2 {
     display: block;
-    width: 20rem;
-    height: 20rem;
-    top: 0;
-    right: 2%;
+    width: 32rem;
+    /* Increased as requested */
+    height: 32rem;
+    top: -15%;
+    right: -10%;
   }
 
   .hero-parallax__float-item--3 {
     display: block;
-    width: 22rem;
+    width: 38rem;
+    /* Increased as requested */
     height: auto;
     aspect-ratio: 16 / 9;
-    bottom: 5%;
-    left: 2%;
+    bottom: -10%;
+    left: -15%;
+  }
+
+  .hero-parallax__float-item--4 {
+    width: 32rem;
   }
 }

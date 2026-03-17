@@ -6,7 +6,11 @@
     padding-bottom: {{ section.settings.padding_bottom }}px;
   }
   .hero-parallax--{{ section.id }} {
-    background: {{ section.settings.background_color | default: '#3bb2e2' }};
+    {%- if section.settings.background_color_2 != blank -%}
+      background: linear-gradient({{ section.settings.background_gradient_direction }}, {{ section.settings.background_color }}, {{ section.settings.background_color_2 }});
+    {%- else -%}
+      background: {{ section.settings.background_color | default: '#3bb2e2' }};
+    {%- endif -%}
   }
 {%- endstyle -%}
 
@@ -69,33 +73,33 @@
     <div class="hero-parallax__media scroll-trigger animate--slide-in" data-cascade>
       <div class="hero-parallax__float-item hero-parallax__float-item--1">
         {%- if section.settings.product_image_1 != blank -%}
-          {{ section.settings.product_image_1 | image_url: width: 800 | image_tag: loading: 'eager', alt: section.settings.product_image_1.alt }}
+          {{ section.settings.product_image_1 | image_url: width: 1200 | image_tag: loading: 'eager', alt: section.settings.product_image_1.alt }}
         {%- else -%}
-          <img src="{{ 'weed-gummies.png' | asset_url }}" alt="Weed Gummies" width="800" height="450" loading="eager" class="placeholder-svg">
+          <img src="{{ 'weed-gummies.png' | asset_url }}" alt="Weed Gummies" width="1200" height="675" loading="eager" class="placeholder-svg">
         {%- endif -%}
       </div>
 
       <div class="hero-parallax__float-item hero-parallax__float-item--2">
         {%- if section.settings.product_image_2 != blank -%}
-          {{ section.settings.product_image_2 | image_url: width: 600 | image_tag: loading: 'lazy', alt: section.settings.product_image_2.alt }}
+          {{ section.settings.product_image_2 | image_url: width: 800 | image_tag: loading: 'lazy', alt: section.settings.product_image_2.alt }}
         {%- else -%}
-          <img src="{{ 'weed-gummies.png' | asset_url }}" alt="Weed Gummies" width="600" height="600" loading="lazy" class="placeholder-svg">
+          <img src="{{ 'weed-gummies.png' | asset_url }}" alt="Weed Gummies" width="800" height="800" loading="lazy" class="placeholder-svg">
         {%- endif -%}
       </div>
 
       <div class="hero-parallax__float-item hero-parallax__float-item--3">
         {%- if section.settings.product_image_3 != blank -%}
-          {{ section.settings.product_image_3 | image_url: width: 500 | image_tag: loading: 'lazy', alt: section.settings.product_image_3.alt }}
+          {{ section.settings.product_image_3 | image_url: width: 700 | image_tag: loading: 'lazy', alt: section.settings.product_image_3.alt }}
         {%- else -%}
-          <img src="{{ 'weed-gummies.png' | asset_url }}" alt="Weed Gummies" width="500" height="280" loading="lazy" class="placeholder-svg">
+          <img src="{{ 'weed-gummies.png' | asset_url }}" alt="Weed Gummies" width="700" height="400" loading="lazy" class="placeholder-svg">
         {%- endif -%}
       </div>
 
       <div class="hero-parallax__float-item hero-parallax__float-item--4">
         {%- if section.settings.product_image_4 != blank -%}
-          {{ section.settings.product_image_4 | image_url: width: 400 | image_tag: loading: 'lazy', alt: section.settings.product_image_4.alt }}
+          {{ section.settings.product_image_4 | image_url: width: 600 | image_tag: loading: 'lazy', alt: section.settings.product_image_4.alt }}
         {%- else -%}
-          <img src="{{ 'weed-gummies.png' | asset_url }}" alt="Weed Gummies" width="400" height="400" loading="lazy" class="placeholder-svg">
+          <img src="{{ 'weed-gummies.png' | asset_url }}" alt="Weed Gummies" width="600" height="600" loading="lazy" class="placeholder-svg">
         {%- endif -%}
       </div>
     </div>
@@ -174,8 +178,24 @@
     {
       "type": "color",
       "id": "background_color",
-      "label": "Background color",
+      "label": "Background color 1",
       "default": "#3bb2e2"
+    },
+    {
+      "type": "color",
+      "id": "background_color_2",
+      "label": "Background color 2 (for gradient)"
+    },
+    {
+      "type": "select",
+      "id": "background_gradient_direction",
+      "label": "Gradient direction",
+      "options": [
+        { "value": "to right", "label": "To right" },
+        { "value": "to bottom", "label": "To bottom" },
+        { "value": "135deg", "label": "Diagonal" }
+      ],
+      "default": "to bottom"
     },
     {
       "type": "image_picker",
