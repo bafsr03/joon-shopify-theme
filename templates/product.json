@@ -1,138 +1,182 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "main": {
-      "type": "main-product",
-      "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "collapsible-row-1": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Product features",
-            "icon": "star",
-            "content": "",
-            "page": "product-features"
-          }
-        },
-        "collapsible-row-0": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Materials and care",
-            "icon": "leaf",
-            "content": "",
-            "page": "materials-and-care"
-          }
-        },
-        "collapsible-row-2": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Merchandising tips",
-            "icon": "check_mark",
-            "content": "",
-            "page": "merchandising-tips"
-          }
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
-        }
-      },
-      "block_order": [
-        "title",
-        "price",
-        "description",
-        "collapsible-row-1",
-        "collapsible-row-0",
-        "collapsible-row-2",
-        "share"
-      ],
+    "main_product_custom": {
+      "type": "main-product-custom",
       "settings": {
-        "enable_sticky_info": true,
-        "color_scheme": "",
-        "media_size": "small",
-        "constrain_to_viewport": false,
-        "media_fit": "cover",
-        "gallery_layout": "thumbnail_slider",
-        "mobile_thumbnails": "hide",
-        "media_position": "right",
-        "image_zoom": "lightbox",
-        "hide_variants": true,
-        "enable_video_looping": false,
+        "eyebrow": "Fragrance Free",
+        "quote_text": "My butt's never felt cleaner. Where have these been all my life?!",
         "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "quick-order-list": {
-      "type": "quick-order-list",
+    "product_accordion_image": {
+      "type": "product-accordion-image",
+      "blocks": {
+        "accordion_1": {
+          "type": "accordion",
+          "settings": {
+            "heading": "CERTIFIED FLUSHABLE",
+            "content": "Our wipes are rigorously tested to ensure they break down safely."
+          }
+        },
+        "accordion_2": {
+          "type": "accordion",
+          "settings": {
+            "heading": "HYPOALLERGENIC & SENSITIVE",
+            "content": "Made with friendly ingredients for sensitive skin."
+          }
+        },
+        "accordion_3": {
+          "type": "accordion",
+          "settings": {
+            "heading": "PLANT BASED INGREDIENTS",
+            "content": "Eco-friendly and sustainable."
+          }
+        },
+        "accordion_4": {
+          "type": "accordion",
+          "settings": {
+            "heading": "RESEALABLE DISPENSER BOX",
+            "content": "Keeps your wipes fresh and moist."
+          }
+        },
+        "accordion_5": {
+          "type": "accordion",
+          "settings": {
+            "heading": "POO~POURRI GUARANTEE",
+            "content": "Satisfaction guaranteed or your money back."
+          }
+        },
+        "accordion_6": {
+          "type": "accordion",
+          "settings": {
+            "heading": "SIZE GUIDE",
+            "content": "Compact and fits perfectly."
+          }
+        }
+      },
+      "block_order": [
+        "accordion_1",
+        "accordion_2",
+        "accordion_3",
+        "accordion_4",
+        "accordion_5",
+        "accordion_6"
+      ],
       "settings": {
-        "variants_per_page": 50,
-        "show_image": true,
-        "show_sku": true,
-        "color_scheme": "scheme-2",
-        "padding_top": 36,
-        "padding_bottom": 16
+        "title": "Soft On Buns.\\nStrong On Runs.",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
-    "related-products": {
-      "type": "related-products",
+    "product_benefits_icons": {
+      "type": "product-benefits-icons",
+      "blocks": {
+        "icon_1": {
+          "type": "icon_block"
+        },
+        "icon_2": {
+          "type": "icon_block"
+        },
+        "icon_3": {
+          "type": "icon_block"
+        },
+        "icon_4": {
+          "type": "icon_block"
+        },
+        "icon_5": {
+          "type": "icon_block"
+        },
+        "icon_6": {
+          "type": "icon_block"
+        },
+        "icon_7": {
+          "type": "icon_block"
+        },
+        "icon_8": {
+          "type": "icon_block"
+        }
+      },
+      "block_order": [
+        "icon_1",
+        "icon_2",
+        "icon_3",
+        "icon_4",
+        "icon_5",
+        "icon_6",
+        "icon_7",
+        "icon_8"
+      ],
       "settings": {
-        "heading": "",
-        "heading_size": "h2",
-        "products_to_show": 5,
-        "columns_desktop": 5,
-        "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "padding_top": 36,
-        "padding_bottom": 44
+        "eyebrow": "PREMIUM QUALITY CANNABIS",
+        "heading": "Elevate Your Experience",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
-    "product_grid_tilted_rTV6bm": {
-      "type": "product-grid-tilted",
+    "product_recommendations_custom": {
+      "type": "product-recommendations-custom",
+      "blocks": {
+        "mock_1": {
+          "type": "product_mock",
+          "settings": {
+            "title": "Mind Magic THC Gummies",
+            "effect_label": "Creative",
+            "rating": "4.31",
+            "potency": "high",
+            "price": "$35.00"
+          }
+        },
+        "mock_2": {
+          "type": "product_mock",
+          "settings": {
+            "title": "Testosterone Support THC Gummies",
+            "effect_label": "Happy",
+            "rating": "4.47",
+            "potency": "mild",
+            "price": "$35.00"
+          }
+        },
+        "mock_3": {
+          "type": "product_mock",
+          "settings": {
+            "title": "Dual-Wave Relief THC Gummies",
+            "effect_label": "Soothing",
+            "rating": "4.57",
+            "potency": "medium",
+            "price": "$35.00"
+          }
+        },
+        "mock_4": {
+          "type": "product_mock",
+          "settings": {
+            "title": "Morning Delta 9 THC Gummies",
+            "effect_label": "Energized",
+            "rating": "4.17",
+            "potency": "mild",
+            "price": "$29.00"
+          }
+        }
+      },
+      "block_order": [
+        "mock_1",
+        "mock_2",
+        "mock_3",
+        "mock_4"
+      ],
       "settings": {
-        "color_scheme": "scheme-2",
-        "eyebrow": "STOCK UP ON YOUR SUPPLY",
-        "title": "Proven Best Sellers",
-        "side_label_text": "Breathable, moisture-wicking material",
-        "collection": "frontpage",
-        "products_to_show": 8,
-        "show_vendor": false,
-        "button_label": "View All",
-        "button_link": "shopify://collections/all",
+        "heading": "You may also like",
+        "products_to_show": 4,
+        "show_arrow": true,
         "padding_top": 60,
         "padding_bottom": 60
       }
     }
   },
   "order": [
-    "main",
-    "quick-order-list",
-    "related-products",
-    "product_grid_tilted_rTV6bm"
+    "main_product_custom",
+    "product_accordion_image",
+    "product_benefits_icons",
+    "product_recommendations_custom"
   ]
 }

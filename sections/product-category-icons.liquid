@@ -1,0 +1,244 @@
+{%- style -%}
+  .category-icons-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    background-color: #f4f4f4; /* Light background matching the previous section */
+  }
+
+  @media screen and (min-width: 750px) {
+    .category-icons-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .category-icons-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .category-icons-scroll-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  .category-icons-scroll-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  /* Left-align and allow scroll on small screens */
+  @media screen and (max-width: 900px) {
+    .category-icons-scroll-wrapper {
+      justify-content: flex-start;
+    }
+  }
+
+  .category-icon-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .category-icon-link:hover {
+    transform: translateY(-3px);
+  }
+
+  .category-icon-circle {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #222222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  /* Active state logic */
+  .category-icon-link.active .category-icon-circle,
+  .category-icon-link:hover .category-icon-circle {
+    background-color: #fcb941; /* Yellow active color */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 0 0 2px #1d6e15; /* subtle green border effect */
+  }
+
+  .category-icon-circle svg,
+  .category-icon-circle img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* If SVG has filled areas (like star) */
+  .category-icon-circle .filled-svg {
+    fill: #ffffff;
+    stroke: none;
+  }
+
+{%- endstyle -%}
+
+<div class="category-icons-section-{{ section.id }}">
+  <div class="category-icons-container">
+    
+    <div class="category-icons-scroll-wrapper">
+      {% for block in section.blocks %}
+        {%- assign is_active = false -%}
+        {%- if block.settings.active -%}
+          {%- assign is_active = true -%}
+        {%- endif -%}
+
+        <a href="{{ block.settings.link | default: '#products' }}" class="category-icon-link {% if is_active %}active{% endif %}" {{ block.shopify_attributes }}>
+          <div class="category-icon-circle">
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url: width: 100 }}" alt="{{ block.settings.title }}" loading="lazy">
+            {% else %}
+              <!-- Fallback SVGs based on position/type -->
+              {% case forloop.index %}
+                {% when 1 %}
+                  <!-- Star -->
+                  <svg viewBox="0 0 24 24" class="filled-svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                {% when 2 %}
+                  <!-- Square -->
+                  <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4" ry="4"/></svg>
+                {% when 3 %}
+                  <!-- Heart -->
+                  <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                {% when 4 %}
+                  <!-- Circle -->
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+                {% when 5 %}
+                  <!-- Bag -->
+                  <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                {% when 6 %}
+                  <!-- Triangle -->
+                  <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2z"/></svg>
+                {% when 7 %}
+                  <!-- Pill/Capsule -->
+                  <svg viewBox="0 0 24 24"><rect x="9" y="4" width="6" height="16" rx="3" ry="3"/></svg>
+                {% when 8 %}
+                  <!-- Magic Wand -->
+                  <svg viewBox="0 0 24 24"><path d="M2.5 21.5L20 4"/><path d="M18 2h4v4"/><path d="M6 6H2V2"/></svg>
+                {% when 9 %}
+                  <!-- Tshirt -->
+                  <svg viewBox="0 0 24 24"><path d="M20.66 6.98l-2.02-2.14a2.98 2.98 0 0 0-2.31-1.12H7.67c-.8 0-1.57.34-2.11.95L3.5 6.8c-.68.75-.46 1.95.42 2.37l1.08.52V20c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V9.88l.8-.4c1-.5.95-1.9.16-2.5z"/></svg>
+                {% else %}
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+              {% endcase %}
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+
+      {% if section.blocks.size == 0 %}
+        <!-- Mock up multiple icons if none are added -->
+        {% for i in (1..9) %}
+          <a href="#products" class="category-icon-link {% if forloop.first %}active{% endif %}">
+            <div class="category-icon-circle">
+               {% case forloop.index %}
+                {% when 1 %}<svg viewBox="0 0 24 24" class="filled-svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                {% when 2 %}<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4" ry="4"/></svg>
+                {% when 3 %}<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                {% when 4 %}<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+                {% when 5 %}<svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                {% when 6 %}<svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2z"/></svg>
+                {% when 7 %}<svg viewBox="0 0 24 24"><rect x="9" y="4" width="6" height="16" rx="3" ry="3"/></svg>
+                {% when 8 %}<svg viewBox="0 0 24 24"><path d="M2.5 21.5L20 4"/><path d="M18 2h4v4"/><path d="M6 6H2V2"/></svg>
+                {% when 9 %}<svg viewBox="0 0 24 24"><path d="M20.66 6.98l-2.02-2.14a2.98 2.98 0 0 0-2.31-1.12H7.67c-.8 0-1.57.34-2.11.95L3.5 6.8c-.68.75-.46 1.95.42 2.37l1.08.52V20c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V9.88l.8-.4c1-.5.95-1.9.16-2.5z"/></svg>
+              {% endcase %}
+            </div>
+          </a>
+        {% endfor %}
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Category Protocol Icons",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_link",
+      "name": "Category Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Icon Image (Optional)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link to Products/Collection",
+          "info": "Redirect to a specific collection or product section."
+        },
+        {
+          "type": "checkbox",
+          "id": "active",
+          "label": "Is Active?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Protocol Icons",
+      "blocks": [
+        { "type": "icon_link", "settings": {"active": true} },
+        { "type": "icon_link" },
+        { "type": "icon_link" },
+        { "type": "icon_link" },
+        { "type": "icon_link" },
+        { "type": "icon_link" },
+        { "type": "icon_link" },
+        { "type": "icon_link" },
+        { "type": "icon_link" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,419 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    background-color: #111111; /* Dark theme */
+    color: #ffffff;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .custom-product-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .custom-product-container {
+      grid-template-columns: 120px 1.5fr 1fr;
+    }
+  }
+
+  /* Thumbnails */
+  .custom-product-thumbnails {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    overflow-x: auto;
+  }
+  @media screen and (min-width: 990px) {
+    .custom-product-thumbnails {
+      flex-direction: column;
+      overflow-y: auto;
+      max-height: 700px;
+    }
+  }
+
+  .custom-thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    background-color: #222;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+    flex-shrink: 0;
+  }
+  .custom-thumbnail:hover, .custom-thumbnail.active {
+    border-color: #008a00; /* Green accent */
+  }
+  .custom-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Main Image */
+  .custom-main-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .custom-main-image {
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+  }
+  .custom-main-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Details Panel */
+  .custom-product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .custom-product-title {
+    font-size: 2.8rem;
+    margin: 0;
+    line-height: 1.1;
+    font-family: var(--font-heading-family);
+    color: #f4f4f4; /* Different font color */
+  }
+  
+  .custom-product-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #008a00; /* Price in green */
+  }
+
+  .custom-product-shipping {
+    font-size: 0.85rem;
+    color: #888888;
+    margin-top: -10px;
+  }
+
+  .custom-product-category {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #aaaaaa;
+  }
+
+  /* Selectors */
+  .custom-selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .custom-selector-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #ffffff;
+  }
+  .custom-selector-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .custom-option {
+    padding: 10px 16px;
+    border: 1px solid #444;
+    background-color: transparent;
+    color: #ddd;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+  .custom-option:hover {
+    border-color: #666;
+  }
+  .custom-option.selected {
+    border-color: #008a00;
+    background-color: #008a00;
+    color: white;
+  }
+
+  /* Quantity */
+  .custom-quantity-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .custom-quantity-selector label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #ffffff;
+  }
+  .quantity-input-wrapper {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #444;
+    border-radius: 6px;
+    width: 120px;
+    height: 44px;
+  }
+  .qty-btn {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    width: 35px;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .qty-btn:hover {
+    color: #008a00;
+  }
+  .qty-input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    width: 50px;
+    text-align: center;
+    font-size: 1rem;
+    -moz-appearance: textfield;
+  }
+  .qty-input::-webkit-outer-spin-button,
+  .qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Buttons */
+  .custom-product-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  .custom-add-to-cart {
+    width: 100%;
+    padding: 16px;
+    background-color: transparent;
+    border: 2px solid #008a00;
+    color: #008a00;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+  .custom-add-to-cart:hover {
+    background-color: rgba(0, 138, 0, 0.1);
+  }
+  .custom-buy-it-now {
+    width: 100%;
+    padding: 16px;
+    background-color: #008a00;
+    border: 2px solid #008a00;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+  .custom-buy-it-now:hover {
+    background-color: #006e00;
+    border-color: #006e00;
+  }
+
+  /* Description */
+  .custom-product-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #cccccc;
+    margin-top: 10px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding bg-dark">
+  <div class="custom-product-container">
+    
+    <!-- Thumbnails -->
+    <div class="custom-product-thumbnails">
+      {% for media in product.media %}
+        <div class="custom-thumbnail {% if forloop.first %}active{% endif %}">
+          <img src="{{ media.preview_image | image_url: width: 150 }}" alt="{{ media.alt | escape }}" loading="lazy">
+        </div>
+      {% endfor %}
+      {% if product.media.size == 0 %}
+        <!-- Mock Thumbs -->
+        <div class="custom-thumbnail active"><div style="width:100%;height:100%;background:#333;"></div></div>
+        <div class="custom-thumbnail"><div style="width:100%;height:100%;background:#333;"></div></div>
+        <div class="custom-thumbnail"><div style="width:100%;height:100%;background:#333;"></div></div>
+        <div class="custom-thumbnail"><div style="width:100%;height:100%;background:#333;"></div></div>
+      {% endif %}
+    </div>
+
+    <!-- Main Image -->
+    <div class="custom-main-image-wrapper">
+      <div class="custom-main-image">
+        {% if product.featured_media %}
+          <img src="{{ product.featured_media | image_url: width: 1000 }}" alt="{{ product.title | escape }}" loading="eager">
+        {% else %}
+          <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:#333;display:flex;align-items:center;justify-content:center;">Product Image</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Details -->
+    <div class="custom-product-details">
+      <!-- Title -->
+      <h1 class="custom-product-title">{{ product.title | default: 'Premium Product' }}</h1>
+      
+      <!-- Price -->
+      <div class="custom-product-price">
+        {{ product.price | money | default: '$19.99' }}
+      </div>
+
+      <!-- Shipping -->
+      <div class="custom-product-shipping">
+        Shipping calculated at checkout.
+      </div>
+
+      <!-- Category -->
+      <div class="custom-product-category">
+        {{ product.type | default: 'Product Category' }}
+      </div>
+
+      <!-- Options -->
+      {% unless product.has_only_default_variant %}
+        {% for option in product.options_with_values %}
+          <div class="custom-selector-group">
+            <div class="custom-selector-label">{{ option.name }}</div>
+            <div class="custom-selector-options">
+              {% for value in option.values %}
+                <div class="custom-option {% if forloop.first %}selected{% endif %}">
+                  {{ value }}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+         <!-- Mock Selectors based if no variants exist -->
+         <div class="custom-selector-group">
+            <div class="custom-selector-label">Size</div>
+            <div class="custom-selector-options">
+               <div class="custom-option selected">Standard</div>
+               <div class="custom-option">Large</div>
+            </div>
+         </div>
+      {% endunless %}
+
+      <!-- Quantity -->
+      <div class="custom-quantity-selector">
+        <label for="Quantity-{{ section.id }}">Quantity</label>
+        <div class="quantity-input-wrapper">
+          <button type="button" class="qty-btn minus">-</button>
+          <input type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1" class="qty-input">
+          <button type="button" class="qty-btn plus">+</button>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="custom-product-buttons">
+        <button class="custom-add-to-cart">Add to Cart</button>
+        <button class="custom-buy-it-now">Buy it Now</button>
+      </div>
+
+      <!-- Description -->
+      <div class="custom-product-description">
+        {{ product.description | default: 'Experience our premium product, carefully crafted with the highest quality ingredients. Designed to provide you with the best experience possible.' }}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Simple functional JS to make the quantity buttons work locally in the UI
+  document.addEventListener('DOMContentLoaded', function() {
+    const qtyWrappers = document.querySelectorAll('.quantity-input-wrapper');
+    qtyWrappers.forEach(wrapper => {
+      const minus = wrapper.querySelector('.minus');
+      const plus = wrapper.querySelector('.plus');
+      const input = wrapper.querySelector('.qty-input');
+
+      minus.addEventListener('click', () => {
+        let val = parseInt(input.value);
+        if (val > 1) {
+          input.value = val - 1;
+        }
+      });
+
+      plus.addEventListener('click', () => {
+        let val = parseInt(input.value);
+        input.value = val + 1;
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Main Product",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Main Product"
+    }
+  ]
+}
+{% endschema %}

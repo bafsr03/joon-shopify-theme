@@ -1,0 +1,346 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    background-color: #111111; /* Dark theme */
+    color: #ffffff;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .related-custom-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+  }
+
+  .related-custom-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-family: var(--font-heading-family);
+  }
+
+  .related-custom-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 20px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .related-custom-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .related-custom-card {
+    flex: 0 0 calc(80vw - 40px);
+    display: flex;
+    flex-direction: column;
+    min-width: 260px;
+    max-width: 300px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .related-custom-card {
+      flex: 0 0 calc(25% - 20px);
+    }
+  }
+
+  .related-image-wrapper {
+    position: relative;
+    border-radius: 12px;
+    padding-bottom: 120%; /* portrait aspect ratio */
+    overflow: hidden;
+    margin-bottom: 16px;
+    /* Simulate the colorful glow background from the images */
+    background: radial-gradient(circle at center, rgba(100,100,100,0.5) 0%, rgba(30,30,30,1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  /* Specific glowing gradients based on blocks/types. We'll add some random-ish colors based on index */
+  .related-custom-card:nth-child(4n+1) .related-image-wrapper { background: radial-gradient(circle at center, rgba(120, 160, 40, 0.4) 0%, #222 80%); } /* Green glow */
+  .related-custom-card:nth-child(4n+2) .related-image-wrapper { background: radial-gradient(circle at center, rgba(180, 40, 60, 0.4) 0%, #222 80%); } /* Red glow */
+  .related-custom-card:nth-child(4n+3) .related-image-wrapper { background: radial-gradient(circle at center, rgba(180, 80, 40, 0.4) 0%, #222 80%); } /* Orange glow */
+  .related-custom-card:nth-child(4n+4) .related-image-wrapper { background: radial-gradient(circle at center, rgba(100, 40, 180, 0.4) 0%, #222 80%); } /* Purple glow */
+
+  .related-image-wrapper img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+  }
+
+  .related-effect-tag {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+  }
+
+  .related-product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+  }
+
+  .related-product-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.3;
+    color: #fff;
+    text-decoration: none;
+  }
+  .related-product-title:hover {
+    text-decoration: underline;
+  }
+
+  .related-product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #ccc;
+  }
+
+  .related-product-price {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 12px;
+  }
+
+  .related-add-to-cart {
+    background-color: #008a00; /* Green accent */
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-top: auto;
+  }
+  .related-add-to-cart:hover {
+    background-color: #006e00;
+  }
+
+  /* Slider Navigation Arrow */
+  .related-slider-arrow {
+    position: absolute;
+    right: -20px;
+    top: 40%;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255,255,255,0.2);
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    color: #fff;
+  }
+  .related-slider-arrow:hover {
+    background-color: rgba(255,255,255,0.4);
+  }
+
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding bg-dark">
+  <div class="related-custom-container">
+    
+    <h2 class="related-custom-title">{{ section.settings.heading }}</h2>
+
+    {% if section.settings.show_arrow %}
+      <div class="related-slider-arrow">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </div>
+    {% endif %}
+
+    <div class="related-custom-grid">
+      
+      {%- if recommendations.performed and recommendations.products_count > 0 -%}
+        {%- for product in recommendations.products limit: section.settings.products_to_show -%}
+          <div class="related-custom-card">
+            <a href="{{ product.url }}" class="related-product-link-wrapper" style="text-decoration: none; color: inherit; display:flex; flex-direction:column; height: 100%;">
+              <div class="related-image-wrapper">
+                <img src="{{ product.featured_media | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy">
+                <div class="related-effect-tag">Effect</div>
+              </div>
+              
+              <div class="related-product-info">
+                <h3 class="related-product-title">{{ product.title }}</h3>
+                
+                <div class="related-product-meta">
+                  <span>★ 4.8 (120)</span>
+                  <span>|ll High</span>
+                </div>
+
+                <div class="related-product-price">
+                  From {{ product.price | money }}
+                </div>
+                
+                <button class="related-add-to-cart" onclick="event.preventDefault(); /* cart logic */">Add to Cart</button>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Mock Data if recommendations not ready / not used dynamically -->
+        {% for block in section.blocks limit: section.settings.products_to_show %}
+          <div class="related-custom-card">
+            <div class="related-image-wrapper">
+              {% if block.settings.image %}
+                <img src="{{ block.settings.image | image_url: width: 400 }}" alt="Product" loading="lazy">
+              {% else %}
+                <img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=webp&v=1530129081" alt="Product" loading="lazy" style="filter:none;">
+              {% endif %}
+              <div class="related-effect-tag">{{ block.settings.effect_label | default: "Creative" }}</div>
+            </div>
+            
+            <div class="related-product-info">
+              <h3 class="related-product-title">{{ block.settings.title | default: "Sample Product" }}</h3>
+              
+              <div class="related-product-meta">
+                <span>★ {{ block.settings.rating | default: "4.5" }} (123)</span>
+                <span>|ll {{ block.settings.potency | default: "high" }}</span>
+              </div>
+
+              <div class="related-product-price">
+                From {{ block.settings.price | default: "$35.00" }}
+              </div>
+              
+              <button class="related-add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        {% endfor %}
+        
+        <!-- Generate more mock blocks if section.blocks is empty -->
+        {% if section.blocks.size == 0 %}
+          {% for i in (1..4) %}
+            <div class="related-custom-card">
+              <div class="related-image-wrapper">
+                <svg viewBox="0 0 24 24" width="60%" height="60%" fill="#aaa"><path d="M12 2L2 22h20L12 2z"/></svg>
+                <div class="related-effect-tag">Effect</div>
+              </div>
+              <div class="related-product-info">
+                <h3 class="related-product-title">Sample Product {{ i }}</h3>
+                <div class="related-product-meta"><span>★ 4.0 (10)</span><span>|ll Mid</span></div>
+                <div class="related-product-price">From $29.00</div>
+                <button class="related-add-to-cart">Add to Cart</button>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Recommendations",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You may also like"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Show slider arrow",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_mock",
+      "name": "Mock Product",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Product Title", "default": "Mind Magic THC Gummies" },
+        { "type": "image_picker", "id": "image", "label": "Product Image" },
+        { "type": "text", "id": "effect_label", "label": "Effect Label", "default": "Creative" },
+        { "type": "text", "id": "rating", "label": "Rating", "default": "4.31" },
+        { "type": "text", "id": "potency", "label": "Potency", "default": "high" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$35.00" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Recommendations",
+      "blocks": [
+        { "type": "product_mock", "settings": {"title": "Mind Magic THC Gummies", "effect_label": "Creative", "rating": "4.31", "potency": "high", "price": "$35.00"} },
+        { "type": "product_mock", "settings": {"title": "Testosterone Support THC Gummies", "effect_label": "Happy", "rating": "4.47", "potency": "mild", "price": "$35.00"} },
+        { "type": "product_mock", "settings": {"title": "Dual-Wave Relief THC Gummies", "effect_label": "Soothing", "rating": "4.57", "potency": "medium", "price": "$35.00"} },
+        { "type": "product_mock", "settings": {"title": "Morning Delta 9 THC Gummies", "effect_label": "Energized", "rating": "4.17", "potency": "mild", "price": "$29.00"} }
+      ]
+    }
+  ]
+}
+{% endschema %}
