@@ -1,0 +1,193 @@
+{{ 'component-background-video-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  .bg-video-banner--{{ section.id }} .bg-video-banner__overlay {
+    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+  }
+{%- endstyle -%}
+
+<div class="bg-video-banner bg-video-banner--{{ section.id }} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+
+  <div class="bg-video-banner__media" aria-hidden="true">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          class: 'bg-video-banner__video'
+      }}
+    {%- elsif section.settings.fallback_image != blank -%}
+      {{ section.settings.fallback_image
+          | image_url: width: 1920
+          | image_tag: loading: 'lazy', alt: '', class: 'bg-video-banner__fallback'
+      }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg bg-video-banner__fallback' }}
+    {%- endif -%}
+  </div>
+
+  <div class="bg-video-banner__overlay" aria-hidden="true"></div>
+
+  <div class="bg-video-banner__content scroll-trigger animate--slide-in">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="bg-video-banner__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtext != blank -%}
+      <p class="bg-video-banner__subtext">{{ section.settings.subtext }}</p>
+    {%- endif -%}
+
+    <div class="bg-video-banner__ctas">
+      {%- if section.settings.button_label_1 != blank -%}
+        <a
+          href="{{ section.settings.button_link_1 | default: '#' }}"
+          class="button{% if section.settings.button_style_1_secondary %} button--secondary{% else %} button--primary{% endif %}"
+        >
+          {{ section.settings.button_label_1 }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.button_label_2 != blank -%}
+        <a
+          href="{{ section.settings.button_link_2 | default: '#' }}"
+          class="button{% if section.settings.button_style_2_secondary %} button--secondary{% else %} button--primary{% endif %}"
+        >
+          {{ section.settings.button_label_2 }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Background Video Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-5"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (Shopify-hosted)"
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Fallback / background image (16:9 recommended)"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay darkness",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Big Bulk Discounts!"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "HCA Flower Wholesale and More. Big buys mean Big Discounts. Apply to our Wholesale Delivery program for major savings!"
+    },
+    {
+      "type": "header",
+      "content": "Button 1"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Button 1 label",
+      "default": "Apply Now & Save"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_1_secondary",
+      "label": "Use secondary style",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Button 2"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button 2 label",
+      "default": "Current Inventory"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_2_secondary",
+      "label": "Use secondary style",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Background Video Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,100 @@
+/* ============================================================
+   Background Video Banner — component-background-video-banner.css
+   ============================================================ */
+
+.bg-video-banner {
+  position: relative;
+  overflow: hidden;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-video-banner__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bg-video-banner__video,
+.bg-video-banner__fallback,
+.bg-video-banner__media iframe,
+.bg-video-banner__media .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bg-video-banner__media iframe {
+  pointer-events: none;
+  transform: scale(1.1);
+}
+
+.bg-video-banner__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.bg-video-banner__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 8rem 2rem;
+  text-align: center;
+}
+
+.bg-video-banner__heading {
+  font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
+  font-size: clamp(4rem, 7vw, 7rem);
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0 0 1.6rem;
+}
+
+.bg-video-banner__subtext {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  max-width: 60rem;
+  margin: 0 auto 3.2rem;
+  opacity: 0.85;
+}
+
+.bg-video-banner__ctas {
+  display: flex;
+  gap: 1.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Scroll-reveal */
+.bg-video-banner .scroll-trigger {
+  opacity: 0;
+  transform: translateY(3rem);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.bg-video-banner .scroll-trigger:not(.scroll-trigger--offscreen) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media screen and (max-width: 749px) {
+  .bg-video-banner {
+    min-height: 65vh;
+  }
+
+  .bg-video-banner__ctas {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bg-video-banner__ctas .button {
+    width: 100%;
+    max-width: 28rem;
+  }
+}

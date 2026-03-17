@@ -1,1 +1,93 @@
-{"name":"t:sections.header.name","type":"header","sections":{"announcement-bar":{"type":"announcement-bar","settings":{"auto_rotate":false,"change_slides_speed":5,"color_scheme":"scheme-5","show_line_separator":false,"show_social":false,"enable_country_selector":false,"enable_language_selector":false}},"header":{"type":"header","settings":{"logo_position":"middle-left","mobile_logo_position":"center","menu":"main-menu","menu_type_desktop":"mega","sticky_header_type":"reduce-logo-size","show_line_separator":true,"color_scheme":"scheme-4","menu_color_scheme":"","enable_country_selector":true,"enable_language_selector":true,"enable_customer_avatar":true,"margin_bottom":0,"padding_top":0,"padding_bottom":0}}},"order":["announcement-bar","header"]}
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-5",
+        "show_line_separator": false,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "middle-center",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "cta_button_label": "SHOP ALL",
+        "cta_button_link": "\/collections\/all",
+        "account_subtext": "to earn rewards",
+        "wholesale_title": "Become a Wholesale Partner",
+        "wholesale_description": "Apply for exclusive B2B pricing, bulk discounts, and dedicated support.",
+        "wholesale_link": "\/pages\/wholesale",
+        "wholesale_cta": "Apply Now",
+        "menu_type_desktop": "mega",
+        "sticky_header_type": "reduce-logo-size",
+        "show_line_separator": true,
+        "color_scheme": "scheme-4",
+        "menu_color_scheme": "",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "promo_1": {
+          "type": "promo_card",
+          "settings": {
+            "title_line1": "SHOP",
+            "title_line2": "THCA",
+            "accent_color": "#f5cf8a",
+            "link": "\/collections\/all"
+          }
+        },
+        "promo_2": {
+          "type": "promo_card",
+          "settings": {
+            "title_line1": "SHOP",
+            "title_line2": "POUNDS",
+            "accent_color": "#f5cf8a",
+            "link": "\/collections\/all"
+          }
+        },
+        "promo_3": {
+          "type": "promo_card",
+          "settings": {
+            "title_line1": "FREE",
+            "title_line2": "EDIBLES",
+            "accent_color": "#f97316",
+            "link": "\/collections\/all"
+          }
+        },
+        "promo_4": {
+          "type": "promo_card",
+          "settings": {
+            "title_line1": "BECOME A",
+            "title_line2": "PARTNER",
+            "accent_color": "#f5cf8a",
+            "link": "\/pages\/wholesale"
+          }
+        }
+      },
+      "block_order": ["promo_1", "promo_2", "promo_3", "promo_4"]
+    },
+    "promo-banner": {
+      "type": "promo-banner",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "promo-banner"
+  ]
+}

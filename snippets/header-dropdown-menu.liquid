@@ -99,5 +99,15 @@
         {%- endif -%}
       </li>
     {%- endfor -%}
+    {%- if section.settings.cta_button_label != blank -%}
+      <li>
+        <a
+          href="{{ section.settings.cta_button_link | default: '#' }}"
+          class="header__cta-btn"
+        >
+          {{- section.settings.cta_button_label -}}
+        </a>
+      </li>
+    {%- endif -%}
   </ul>
 </nav>

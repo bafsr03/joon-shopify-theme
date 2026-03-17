@@ -222,6 +222,20 @@
         --variant-pills-shadow-blur-radius: {{ settings.variant_pills_shadow_blur }}px;
       }
 
+      @font-face {
+        font-family: 'Sergio Trendy';
+        src: url('{{ 'Sergio Trendy.ttf' | asset_url }}') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      :root {
+        --font-heading-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
+        --font-heading-style: normal;
+        --font-heading-weight: 400;
+      }
+
       *,
       *::before,
       *::after {

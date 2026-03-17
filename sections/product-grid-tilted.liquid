@@ -1,0 +1,192 @@
+{{ 'component-product-grid-tilted.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<div class="product-grid-tilted color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+
+    <div class="product-grid-tilted__header scroll-trigger animate--slide-in">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="product-grid-tilted__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="product-grid-tilted__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: '#' }}" class="button button--secondary">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="product-grid-tilted__grid">
+      {%- liquid
+        assign collection = collections[section.settings.collection]
+        assign products_to_show = section.settings.products_to_show
+        if collection != blank and collection.products.size > 0
+          assign product_list = collection.products | limit: products_to_show
+          assign use_placeholders = false
+        else
+          assign use_placeholders = true
+        endif
+      -%}
+
+      {%- unless use_placeholders -%}
+        {%- for product in product_list -%}
+          {%- assign r_raw = forloop.index | modulo: 2 -%}
+          {%- if r_raw == 1 -%}
+            {%- assign card_rotation = '-2deg' -%}
+          {%- else -%}
+            {%- assign card_rotation = '2deg' -%}
+          {%- endif -%}
+          <div
+            class="product-grid-tilted__card scroll-trigger animate--slide-in"
+            style="--card-rotation: {{ card_rotation }}; --animation-order: {{ forloop.index }};"
+          >
+            <div class="product-grid-tilted__card-inner">
+              <div class="product-grid-tilted__image-wrap">
+                {%- if product.featured_image != blank -%}
+                  {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.featured_image.alt }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="product-grid-tilted__info">
+                {%- if section.settings.show_vendor and product.vendor != blank -%}
+                  <p class="product-grid-tilted__vendor">{{ product.vendor }}</p>
+                {%- endif -%}
+                <h3 class="product-grid-tilted__name">{{ product.title }}</h3>
+                <p class="product-grid-tilted__price">{{ product.price | money }}</p>
+                <a href="{{ product.url }}" class="product-grid-tilted__cta">
+                  {{ 'general.product_grid_tilted.shop_now' | t | default: 'Shop now' }}
+                </a>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..products_to_show) -%}
+          {%- assign r_raw = i | modulo: 2 -%}
+          {%- if r_raw == 1 -%}
+            {%- assign card_rotation = '-2deg' -%}
+          {%- else -%}
+            {%- assign card_rotation = '2deg' -%}
+          {%- endif -%}
+          <div
+            class="product-grid-tilted__card scroll-trigger animate--slide-in"
+            style="--card-rotation: {{ card_rotation }}; --animation-order: {{ i }};"
+          >
+            <div class="product-grid-tilted__card-inner">
+              <div class="product-grid-tilted__image-wrap">
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="product-grid-tilted__info">
+                <h3 class="product-grid-tilted__name">{{ 'general.product_grid_tilted.product_title' | t | default: 'Sample Product' }}</h3>
+                <p class="product-grid-tilted__price">$00.00</p>
+                <a href="#" class="product-grid-tilted__cta">
+                  {{ 'general.product_grid_tilted.shop_now' | t | default: 'Shop now' }}
+                </a>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endunless -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Grid Tilted",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "EXPLORE APPAREL"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Performance Pack"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "View all button label",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "View all button link"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid Tilted"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,153 @@
+{% comment %}
+  Section: Promo Banner
+  A closable promotion banner inspired by the "Monthly Mood Box" design.
+{% endcomment %}
+
+{{ 'section-promo-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .promo-banner--{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+  
+  {% if section.settings.background_image != blank %}
+    .promo-banner--{{ section.id }} {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('{{ section.settings.background_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+    }
+  {% endif %}
+{%- endstyle -%}
+
+<section id="PromoBanner-{{ section.id }}" class="promo-banner promo-banner--{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="promo-banner__content page-width">
+    <div class="promo-banner__text-container">
+      <h2 class="promo-banner__heading">{{ section.settings.heading }}</h2>
+      <div class="promo-banner__subtext">
+        {{ section.settings.subtext_1 }}
+      </div>
+      <div class="promo-banner__subtext promo-banner__subtext--small">
+        {{ section.settings.subtext_2 }}
+      </div>
+    </div>
+    
+    {%- if section.settings.image != blank -%}
+      <div class="promo-banner__image-container">
+        {{ section.settings.image | image_url: width: 400 | image_tag: class: 'promo-banner__image', loading: 'lazy' }}
+      </div>
+    {%- else -%}
+       <div class="promo-banner__image-container">
+         <span class="svg-wrapper" style="width: 80px; height: 80px;">{{ 'icon-box.svg' | inline_asset_content }}</span>
+       </div>
+    {%- endif -%}
+
+    <div class="promo-banner__actions">
+      <a href="{{ section.settings.button_link }}" class="promo-banner__button button">
+        {{ section.settings.button_label }}
+      </a>
+    </div>
+
+    <button type="button" class="promo-banner__close" id="ClosePromo-{{ section.id }}" aria-label="Close promotion">
+      <span class="svg-wrapper">{{ 'icon-close.svg' | inline_asset_content }}</span>
+    </button>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const bannerId = 'PromoBanner-{{ section.id }}';
+    const closeBtnId = 'ClosePromo-{{ section.id }}';
+    const storageKey = 'promo_banner_closed_{{ section.id }}';
+
+    function initPromoBanner() {
+      const banner = document.getElementById(bannerId);
+      const closeBtn = document.getElementById(closeBtnId);
+      
+      if (!banner || !closeBtn) return;
+
+      closeBtn.addEventListener('click', function() {
+        banner.style.opacity = '0';
+        setTimeout(() => {
+          banner.style.display = 'none';
+        }, 300);
+      });
+    }
+
+    // Run on load and if the section is re-rendered in the editor
+    document.addEventListener('DOMContentLoaded', initPromoBanner);
+    if (Shopify.designMode) {
+      document.addEventListener('shopify:section:load', function(event) {
+        if (event.detail.sectionId === '{{ section.id }}') {
+          initPromoBanner();
+        }
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Promo Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Monthly Mood Box"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext_1",
+      "label": "Subtext 1",
+      "default": "<p>Subscribe now for $39/month and <strong>get $50+ in Value</strong>.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext_2",
+      "label": "Subtext 2",
+      "default": "<p>Ready to find your new favorite mood?</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Box Image",
+      "info": "Upload the product box image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Texture",
+      "info": "Optional subtle background image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Subscribe Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#1a472a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Banner"
+    }
+  ]
+}
+{% endschema %}

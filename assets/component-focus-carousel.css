@@ -1,0 +1,244 @@
+/* ============================================================
+   Focus Carousel — component-focus-carousel.css
+   ============================================================ */
+
+.focus-carousel {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  overflow: hidden;
+}
+
+.focus-carousel__header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.focus-carousel__eyebrow {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.5);
+  margin: 0 0 0.8rem;
+}
+
+.focus-carousel__title {
+  font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+  color: rgb(var(--color-foreground));
+}
+
+/* Track */
+.focus-carousel__track-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5rem;
+}
+
+.focus-carousel__track {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  justify-content: center;
+  padding: 4rem 0;
+  list-style: none;
+  margin: 0;
+}
+
+/* Items */
+.focus-carousel__item {
+  flex: 0 0 auto;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.focus-carousel__item--side {
+  width: 16rem;
+  opacity: 0.45;
+  transform: scale(0.75);
+  filter: grayscale(30%);
+}
+
+.focus-carousel__item--active {
+  width: 22rem;
+  opacity: 1;
+  transform: scale(1);
+  filter: none;
+  z-index: 2;
+}
+
+/* Blob aura */
+.focus-carousel__item--active::before {
+  content: '';
+  position: absolute;
+  inset: -25% -20%;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--color-button), 0.5) 0%,
+    rgba(var(--color-button), 0.15) 50%,
+    transparent 72%
+  );
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+  animation: blobPulse 5s ease-in-out infinite alternate;
+  filter: blur(1.8rem);
+}
+
+@keyframes blobPulse {
+  0%   { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; transform: scale(1)    rotate(0deg);  }
+  33%  { border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%; transform: scale(1.05) rotate(3deg);  }
+  66%  { border-radius: 70% 30% 50% 50% / 40% 70% 30% 60%; transform: scale(0.97) rotate(-2deg); }
+  100% { border-radius: 50% 50% 40% 60% / 30% 50% 70% 50%; transform: scale(1.03) rotate(1deg);  }
+}
+
+.focus-carousel__image-wrap {
+  border-radius: 50%;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: rgba(var(--color-foreground), 0.06);
+  box-shadow: 0 0.8rem 3rem rgba(0, 0, 0, 0.3);
+}
+
+.focus-carousel__item--active .focus-carousel__image-wrap {
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.5);
+}
+
+.focus-carousel__image-wrap img,
+.focus-carousel__image-wrap .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.focus-carousel__item-info {
+  text-align: center;
+  margin-top: 1.6rem;
+  opacity: 0;
+  transform: translateY(0.8rem);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.focus-carousel__item--active .focus-carousel__item-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.focus-carousel__item-name {
+  font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  margin: 0 0 0.4rem;
+  color: rgb(var(--color-foreground));
+}
+
+.focus-carousel__item-price {
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.7);
+  margin: 0 0 1.2rem;
+}
+
+.focus-carousel__item-cta {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: rgb(var(--color-button-text));
+  background: rgb(var(--color-button));
+  padding: 0.8rem 2.4rem;
+  border-radius: 10rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.focus-carousel__item-cta:hover {
+  opacity: 0.85;
+}
+
+/* Dots */
+.focus-carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 3rem;
+}
+
+.focus-carousel__dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: rgba(var(--color-foreground), 0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s ease;
+}
+
+.focus-carousel__dot--active {
+  background: rgb(var(--color-button));
+  width: 2.4rem;
+  border-radius: 10rem;
+}
+
+/* Nav buttons */
+.focus-carousel__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.focus-carousel__nav:hover {
+  background: rgb(var(--color-button));
+  color: rgb(var(--color-button-text));
+  border-color: rgb(var(--color-button));
+}
+
+.focus-carousel__nav--prev { left: 0; }
+.focus-carousel__nav--next { right: 0; }
+
+/* Scroll-reveal */
+.focus-carousel .scroll-trigger {
+  opacity: 0;
+  transform: translateY(3rem);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.focus-carousel .scroll-trigger:not(.scroll-trigger--offscreen) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media screen and (max-width: 749px) {
+  .focus-carousel__item--side {
+    width: 11rem;
+  }
+
+  .focus-carousel__item--active {
+    width: 17rem;
+  }
+
+  .focus-carousel__track-wrapper {
+    padding: 0 4rem;
+  }
+
+  .focus-carousel__nav {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+}

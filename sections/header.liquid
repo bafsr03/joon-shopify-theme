@@ -70,6 +70,134 @@
       padding-top: 0.5rem;
     }
   }
+
+  /* Hide on large screens */
+  @media screen and (min-width: 990px) {
+    .large-up-hide { display: none !important; }
+  }
+
+  /* Fix icons area spacing */
+  .header__icons {
+    gap: 0.4rem;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  /* Inline search bar — desktop */
+  .header__search-inline {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid rgba(var(--color-foreground), 0.25);
+    border-radius: 10rem;
+    padding: 0.5rem 0.8rem 0.5rem 1.4rem;
+    gap: 0.6rem;
+    transition: border-color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .header__search-inline:focus-within {
+    border-color: rgba(var(--color-foreground), 0.6);
+  }
+
+  .header__search-inline-input {
+    background: transparent;
+    border: none;
+    color: rgb(var(--color-foreground));
+    font-size: 1.35rem;
+    outline: none;
+    width: 10rem;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .header__search-inline-input::placeholder {
+    color: rgba(var(--color-foreground), 0.45);
+  }
+
+  .header__search-inline-btn {
+    background: none;
+    border: none;
+    padding: 0.2rem;
+    cursor: pointer;
+    color: rgba(var(--color-foreground), 0.65);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+  }
+
+  .header__search-inline-btn:hover {
+    color: rgb(var(--color-foreground));
+  }
+
+  .header__search-inline-btn .svg-wrapper svg {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  /* Account link — text only, no icon */
+  .header__icon--account-text {
+    width: auto !important;
+    height: auto !important;
+    padding: 0.4rem 0.6rem !important;
+    flex-shrink: 0;
+  }
+
+  .header__account-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    text-align: left;
+  }
+
+  .header__account-text-main {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: rgb(var(--color-foreground));
+    white-space: nowrap;
+  }
+
+  .header__account-text-sub {
+    font-size: 1.1rem;
+    color: rgba(var(--color-foreground), 0.55);
+    white-space: nowrap;
+  }
+
+  /* Cart icon overrides */
+  .header__icon--cart .icon-cart-inline {
+    width: 2.2rem;
+    height: 2.2rem;
+    stroke: currentColor;
+    fill: none;
+  }
+
+  /* CTA pill button inside nav */
+  .header__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 2rem;
+    background: #32402C;
+    color: #ffffff;
+    border-radius: 10rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: transform 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+    line-height: 1;
+    margin-left: 1.2rem;
+    height: 3.6rem; /* Fixed height for consistent alignment */
+    align-self: center;
+  }
+
+  .header__cta-btn:hover {
+    background: #333333;
+    transform: translateY(-1px);
+  }
 </style>
 
 {%- style -%}
@@ -80,6 +208,26 @@
   .section-header {
     position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .header-wrapper {
+    background: linear-gradient(180deg, #050D06 82%) !important;
+    position: relative;
+    /* Multi-layered downward shadow for depth */
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.45);
+    z-index: 10;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .header-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%);
+    pointer-events: none;
   }
 
   @media screen and (min-width: 750px) {
@@ -232,33 +380,53 @@
           </localization-form>
         {%- endif -%}
       </div>
-      {% render 'header-search', input_id: 'Search-In-Modal' %}
+
+      {%- comment -%} Inline pill search — desktop only {%- endcomment -%}
+      <form
+        action="{{ routes.search_url }}"
+        method="get"
+        class="header__search-inline small-hide medium-hide"
+        role="search"
+      >
+        <input
+          type="search"
+          name="q"
+          placeholder="{{ 'general.search.search' | t }}"
+          value="{{ search.terms | escape }}"
+          class="header__search-inline-input"
+          aria-label="{{ 'general.search.search' | t }}"
+          autocomplete="off"
+        >
+        <input type="hidden" name="options[prefix]" value="last">
+        <button
+          type="submit"
+          class="header__search-inline-btn"
+          aria-label="{{ 'general.search.search' | t }}"
+        >
+          <span class="svg-wrapper">{{- 'icon-search.svg' | inline_asset_content -}}</span>
+        </button>
+      </form>
+
+      {%- comment -%} Modal search icon — mobile/tablet only {%- endcomment -%}
+      <div class="large-up-hide">
+        {% render 'header-search', input_id: 'Search-In-Modal' %}
+      </div>
 
       {%- if shop.customer_accounts_enabled -%}
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+          class="header__icon header__icon--account header__icon--account-text link focus-inset small-hide medium-hide"
           rel="nofollow"
         >
-          {%- if section.settings.enable_customer_avatar -%}
-            <account-icon>
-              {%- if customer and customer.has_avatar? -%}
-                {{ customer | avatar }}
+          <span class="header__account-text">
+            <span class="header__account-text-main">
+              {%- if customer -%}
+                {{ customer.first_name | default: 'Account' }}
               {%- else -%}
-                <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+                {{ 'customer.log_in' | t | default: 'Sign in' }}
               {%- endif -%}
-            </account-icon>
-          {%- else -%}
-            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-          {%- endif -%}
-          <span class="visually-hidden">
-            {%- liquid
-              if customer
-                echo 'customer.account_fallback' | t
-              else
-                echo 'customer.log_in' | t
-              endif
-            -%}
+            </span>
+            <span class="header__account-text-sub">{{ section.settings.account_subtext | default: 'to earn rewards' }}</span>
           </span>
         </a>
       {%- endif -%}
@@ -271,11 +439,11 @@
       {%- endfor -%}
 
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
-          {% if cart == empty %}
-            <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>
-          {% else %}
-            <span class="svg-wrapper">{{'icon-cart.svg' | inline_asset_content }}</span>
-          {% endif %}
+        <svg class="icon-cart-inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="9" cy="21" r="1.2"></circle>
+          <circle cx="20" cy="21" r="1.2"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
         <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
         {%- if cart != empty -%}
           <div class="cart-count-bubble">
@@ -450,7 +618,7 @@
 {
   "name": "t:sections.header.name",
   "class": "section-header",
-  "max_blocks": 3,
+  "max_blocks": 7,
   "settings": [
     {
       "type": "select",
@@ -498,6 +666,58 @@
       "id": "menu",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "header",
+      "content": "CTA button"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_label",
+      "label": "Button label",
+      "default": "Shop All"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Wholesale partner panel (mega menu)"
+    },
+    {
+      "type": "text",
+      "id": "wholesale_title",
+      "label": "Panel title",
+      "default": "Become a Wholesale Partner"
+    },
+    {
+      "type": "textarea",
+      "id": "wholesale_description",
+      "label": "Panel description",
+      "default": "Apply for exclusive B2B pricing, bulk discounts, and dedicated support."
+    },
+    {
+      "type": "url",
+      "id": "wholesale_link",
+      "label": "Panel link"
+    },
+    {
+      "type": "text",
+      "id": "wholesale_cta",
+      "label": "CTA button label",
+      "default": "Apply Now"
+    },
+    {
+      "type": "header",
+      "content": "Account icon"
+    },
+    {
+      "type": "text",
+      "id": "account_subtext",
+      "label": "Account sub-text",
+      "default": "to earn rewards"
     },
     {
       "type": "select",
@@ -632,6 +852,41 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "promo_card",
+      "name": "Mega menu promo card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (1:1)"
+        },
+        {
+          "type": "text",
+          "id": "title_line1",
+          "label": "Title — line 1",
+          "default": "SHOP"
+        },
+        {
+          "type": "text",
+          "id": "title_line2",
+          "label": "Title — line 2 (accent colour)",
+          "default": "THCA"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Accent colour",
+          "default": "#f5cf8a"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
     }
   ]
 }

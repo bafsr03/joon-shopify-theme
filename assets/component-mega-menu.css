@@ -1,19 +1,27 @@
+/* ============================================================
+   Mega Menu — component-mega-menu.css
+   Dark, rich-layout with promo card grid
+   ============================================================ */
+
 .mega-menu {
   position: static;
 }
 
 .mega-menu__content {
-  background-color: rgb(var(--color-background));
+  background: #1e1e1e;
   border-left: 0;
   border-radius: 0;
   border-right: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   left: 0;
   overflow-y: auto;
-  padding-bottom: 3rem;
-  padding-top: 3rem;
+  padding: 3.2rem 0 3.6rem;
   position: absolute;
   right: 0;
   top: 100%;
+  /* Override color-scheme variables with dark values */
+  --color-foreground: 255, 255, 255;
+  --color-background: 30, 30, 30;
 }
 
 .shopify-section-header-sticky .mega-menu__content {
@@ -21,12 +29,13 @@
 }
 
 .header-wrapper--border-bottom .mega-menu__content {
-  border-top: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .js .mega-menu__content {
   opacity: 0;
-  transform: translateY(-1.5rem);
+  transform: translateY(-0.8rem);
+  transition: opacity 0.2s ease, transform 0.22s ease;
 }
 
 .mega-menu[open] .mega-menu__content {
@@ -34,26 +43,193 @@
   transform: translateY(0);
 }
 
+/* ---- Inner layout ------------------------------------------ */
+.mega-menu__inner {
+  display: grid;
+  grid-template-columns: 1fr 29rem;
+  gap: 4rem;
+  align-items: start;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+/* ---- Link columns area — 4 column panel grid ------------------- */
+.mega-menu__links-area {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  gap: 1.2rem;
+  align-items: stretch;
+}
+
+/* Each column is a dark rounded card panel */
+.mega-menu__column {
+  background: #2a2a2a;
+  border-radius: 1.2rem;
+  padding: 2rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 14rem;
+}
+
+.mega-menu__col-heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  margin-bottom: 1.2rem;
+  display: block;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mega-menu__col-heading:hover {
+  color: rgb(var(--color-button));
+}
+
+.mega-menu__col-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Testimonial partner panel */
+.mega-menu__testimonial-panel {
+  background: #2a2a2a;
+  border-radius: 1.2rem;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 18rem;
+}
+
+.testimonial-stars {
+  color: #5bc0de;
+  font-size: 1.8rem;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.2rem;
+}
+
+.testimonial-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 1.6rem;
+  line-height: 1.3;
+}
+
+.testimonial-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.testimonial-arrow {
+  background: #5bc0de;
+  border: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.testimonial-arrow svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.testimonial-text {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.author-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #5bc0de;
+}
+
+.author-status {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---- Individual links ------------------------------------- */
+.mega-menu__link {
+  color: rgba(255, 255, 255, 0.6);
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1.35;
+  padding: 0.5rem 0;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  word-wrap: break-word;
+}
+
+.mega-menu__link--level-2 {
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+}
+
+.mega-menu__link:hover,
+.mega-menu__link--active {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.mega-menu__link--active:hover {
+  text-decoration-thickness: 0.2rem;
+}
+
+.mega-menu .mega-menu__list--condensed {
+  display: block;
+}
+
+.mega-menu__list--condensed .mega-menu__link {
+  font-weight: normal;
+}
+
+/* ---- Legacy flat list (no rich layout) ------------------- */
 .mega-menu__list {
   display: grid;
   gap: 1.8rem 4rem;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   list-style: none;
-}
-
-.mega-menu__link {
-  color: rgba(var(--color-foreground), 0.75);
-  display: block;
-  line-height: calc(1 + 0.3 / var(--font-body-scale));
-  padding-bottom: 0.6rem;
-  padding-top: 0.6rem;
-  text-decoration: none;
-  transition: text-decoration var(--duration-short) ease;
-  word-wrap: break-word;
-}
-
-.mega-menu__link--level-2 {
-  font-weight: bold;
+  margin: 0;
+  padding: 0;
 }
 
 .header--top-center .mega-menu__list {
@@ -68,20 +244,62 @@
   padding-right: 2.4rem;
 }
 
-.mega-menu__link:hover,
-.mega-menu__link--active {
-  color: rgb(var(--color-foreground));
-  text-decoration: underline;
+/* ---- Promo card grid (right column) ---------------------- */
+.mega-menu__promo-area {
+  flex-shrink: 0;
+  align-self: start;
 }
 
-.mega-menu__link--active:hover {
-  text-decoration-thickness: 0.2rem;
+.mega-menu__promo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
 }
 
-.mega-menu .mega-menu__list--condensed {
+.mega-menu__promo-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 1.2rem;
+  overflow: hidden;
   display: block;
+  text-decoration: none;
+  background: #2a2a2a;
 }
 
-.mega-menu__list--condensed .mega-menu__link {
-  font-weight: normal;
+.mega-menu__promo-card img,
+.mega-menu__promo-card .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.mega-menu__promo-card:hover img {
+  transform: scale(1.06);
+}
+
+.mega-menu__promo-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 55%);
+}
+
+.mega-menu__promo-card__title {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.mega-menu__promo-card__title em {
+  font-style: normal;
+  display: block;
+  color: var(--promo-accent, rgb(var(--color-button)));
 }

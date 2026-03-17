@@ -1,0 +1,243 @@
+{{ 'component-hero-parallax.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  .hero-parallax--{{ section.id }} .hero-parallax__bg-left {
+    background-color: {{ section.settings.bg_left_color }};
+  }
+  .hero-parallax--{{ section.id }} .hero-parallax__bg-right {
+    background: linear-gradient(135deg, {{ section.settings.bg_right_color_start }} 0%, {{ section.settings.bg_right_color_end }} 100%);
+  }
+{%- endstyle -%}
+
+<div class="hero-parallax hero-parallax--{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="hero-parallax__bg-left" aria-hidden="true"></div>
+  <div class="hero-parallax__bg-right" aria-hidden="true"></div>
+
+  <div class="hero-parallax__inner">
+
+    {%- comment -%} Content side {%- endcomment -%}
+    <div class="hero-parallax__content scroll-trigger animate--slide-in" data-cascade>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="hero-parallax__eyebrow">
+          <span class="hero-parallax__eyebrow-line" aria-hidden="true"></span>
+          {{ section.settings.eyebrow }}
+        </p>
+      {%- endif -%}
+
+      <h1 class="hero-parallax__heading">
+        {%- if section.settings.heading_line1 != blank -%}
+          {{ section.settings.heading_line1 }}
+        {%- endif -%}
+        {%- if section.settings.heading_line2 != blank -%}
+          <em>{{ section.settings.heading_line2 }}</em>
+        {%- endif -%}
+      </h1>
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="hero-parallax__subtext">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+
+      <div class="hero-parallax__ctas">
+        {%- if section.settings.button_label_1 != blank -%}
+          <a
+            href="{{ section.settings.button_link_1 | default: '#' }}"
+            class="button button--primary"
+          >
+            {{ section.settings.button_label_1 }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.button_label_2 != blank -%}
+          <a
+            href="{{ section.settings.button_link_2 | default: '#' }}"
+            class="button button--secondary"
+          >
+            {{ section.settings.button_label_2 }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Floating product placeholders {%- endcomment -%}
+    <div class="hero-parallax__media scroll-trigger animate--slide-in" data-cascade>
+      <div class="hero-parallax__float-item hero-parallax__float-item--1">
+        {%- if section.settings.product_image_1 != blank -%}
+          {{ section.settings.product_image_1 | image_url: width: 440 | image_tag: loading: 'eager', alt: section.settings.product_image_1.alt }}
+        {%- else -%}
+          {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="hero-parallax__float-item hero-parallax__float-item--2">
+        {%- if section.settings.product_image_2 != blank -%}
+          {{ section.settings.product_image_2 | image_url: width: 280 | image_tag: loading: 'lazy', alt: section.settings.product_image_2.alt }}
+        {%- else -%}
+          {{ 'product-3' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="hero-parallax__float-item hero-parallax__float-item--3">
+        {%- if section.settings.product_image_3 != blank -%}
+          {{ section.settings.product_image_3 | image_url: width: 240 | image_tag: loading: 'lazy', alt: section.settings.product_image_3.alt }}
+        {%- else -%}
+          {{ 'product-4' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="hero-parallax__float-item hero-parallax__float-item--4">
+        {%- if section.settings.product_image_4 != blank -%}
+          {{ section.settings.product_image_4 | image_url: width: 200 | image_tag: loading: 'lazy', alt: section.settings.product_image_4.alt }}
+        {%- else -%}
+          {{ 'product-5' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="hero-parallax__cloud" aria-hidden="true"></div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Parallax",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Austin's Premier Wholesaler"
+    },
+    {
+      "type": "textarea",
+      "id": "heading_line1",
+      "label": "Heading — line 1",
+      "default": "#1 Online"
+    },
+    {
+      "type": "textarea",
+      "id": "heading_line2",
+      "label": "Heading — line 2 (accent colour)",
+      "default": "Distributor"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Exclusive pricing · Outstanding service · Industry expertise"
+    },
+    {
+      "type": "text",
+      "id": "button_label_1",
+      "label": "Button 1 label",
+      "default": "Shop All"
+    },
+    {
+      "type": "url",
+      "id": "button_link_1",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button 2 label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Background colours"
+    },
+    {
+      "type": "color",
+      "id": "bg_left_color",
+      "label": "Left panel colour",
+      "default": "#0e1012"
+    },
+    {
+      "type": "color",
+      "id": "bg_right_color_start",
+      "label": "Right panel gradient start",
+      "default": "#1a1f2e"
+    },
+    {
+      "type": "color",
+      "id": "bg_right_color_end",
+      "label": "Right panel gradient end",
+      "default": "#0a2240"
+    },
+    {
+      "type": "header",
+      "content": "Floating product images"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image_1",
+      "label": "Product image 1 (16:9 — main)"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image_2",
+      "label": "Product image 2 (1:1 — top right)"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image_3",
+      "label": "Product image 3 (16:9 — bottom left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image_4",
+      "label": "Product image 4 (1:1 — accent)"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Parallax"
+    }
+  ]
+}
+{% endschema %}

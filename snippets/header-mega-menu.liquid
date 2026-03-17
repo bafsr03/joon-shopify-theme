@@ -1,72 +1,185 @@
 {% comment %}
-  Renders a megamenu for the header.
-
-  Usage:
-  {% render 'header-mega-menu' %}
+  Renders a rich dark mega menu with link columns + promo card grid.
+  Usage: {% render 'header-mega-menu' %}
 {% endcomment %}
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
+      {%- liquid
+        assign link_title = link.title
+        if link_title == 'Catalog' or link_title == 'Products' or link_title == 'All Products'
+          assign link_title = 'Shop'
+        elsif link_title == 'About' or link_title == 'Our Story'
+          assign link_title = 'Learn More'
+        endif
+      -%}
       <li>
-        {%- if link.links != blank -%}
+        {%- if link.links != blank or link_title == 'Shop' or link_title == 'Learn More' -%}
           <header-menu>
             <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
               <summary
                 id="HeaderMenu-{{ link.handle }}"
                 class="header__menu-item list-menu__item link focus-inset"
               >
-                <span
-                  {%- if link.child_active %}
-                    class="header__active-menu-item"
-                  {% endif %}
-                >
-                  {{- link.title | escape -}}
+                <span{%- if link.child_active %} class="header__active-menu-item"{% endif %}>
+                  {{- link_title | escape -}}
                 </span>
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </summary>
+
               <div
                 id="MegaMenu-Content-{{ forloop.index }}"
-                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+                class="mega-menu__content motion-reduce global-settings-popup"
                 tabindex="-1"
               >
-                <ul
-                  class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
-                  role="list"
-                >
-                  {%- for childlink in link.links -%}
-                    <li>
-                      <a
-                        id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
-                        href="{{ childlink.url }}"
-                        class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
-                        {% if childlink.current %}
-                          aria-current="page"
-                        {% endif %}
-                      >
-                        {{ childlink.title | escape }}
-                      </a>
-                      {%- if childlink.links != blank -%}
-                        <ul class="list-unstyled" role="list">
-                          {%- for grandchildlink in childlink.links -%}
-                            <li>
-                              <a
-                                id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                href="{{ grandchildlink.url }}"
-                                class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
-                                {% if grandchildlink.current %}
-                                  aria-current="page"
-                                {% endif %}
-                              >
-                                {{ grandchildlink.title | escape }}
-                              </a>
-                            </li>
-                          {%- endfor -%}
+                <div class="mega-menu__inner">
+
+                  {%- comment -%} Left: Link columns area {%- endcomment -%}
+                  <div class="mega-menu__links-area">
+                    {%- if link.links != blank -%}
+                      {%- for childlink in link.links limit: 3 -%}
+                        <div class="mega-menu__column">
+                          <a
+                            href="{{ childlink.url }}"
+                            class="mega-menu__col-heading{% if childlink.current %} mega-menu__link--active{% endif %}"
+                            {% if childlink.current %}aria-current="page"{% endif %}
+                          >
+                            {{- childlink.title | escape -}}
+                          </a>
+                          {%- if childlink.links != blank -%}
+                            <ul class="mega-menu__col-links" role="list">
+                              {%- for grandchildlink in childlink.links -%}
+                                <li>
+                                  <a
+                                    href="{{ grandchildlink.url }}"
+                                    class="mega-menu__link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
+                                    {% if grandchildlink.current %}aria-current="page"{% endif %}
+                                  >
+                                    {{- grandchildlink.title | escape -}}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </div>
+                      {%- endfor -%}
+                    {%- elsif link_title == 'Shop' -%}
+                      {%- comment -%} Fallback columns for Shop if no child links {%- endcomment -%}
+                      <div class="mega-menu__column">
+                        <span class="mega-menu__col-heading">Shop THCA</span>
+                        <ul class="mega-menu__col-links" role="list">
+                          <li><a href="/collections/all" class="mega-menu__link">THCA Flower</a></li>
+                          <li><a href="/collections/all" class="mega-menu__link">THCA Smalls</a></li>
+                          <li><a href="/collections/all" class="mega-menu__link">THCA Seeds</a></li>
                         </ul>
+                      </div>
+                      <div class="mega-menu__column">
+                        <span class="mega-menu__col-heading">Product Type</span>
+                        <ul class="mega-menu__col-links" role="list">
+                          <li><a href="/collections/all" class="mega-menu__link">Gummies & Edibles</a></li>
+                          <li><a href="/collections/all" class="mega-menu__link">Merch & Accessories</a></li>
+                        </ul>
+                      </div>
+                      <div class="mega-menu__column">
+                        <span class="mega-menu__col-heading">Other Brands</span>
+                        <ul class="mega-menu__col-links" role="list">
+                          <li><a href="/collections/all" class="mega-menu__link">Only Gas</a></li>
+                          <li><a href="/collections/all" class="mega-menu__link">Hella Slumped</a></li>
+                        </ul>
+                      </div>
+                    {%- else -%}
+                       <div class="mega-menu__column">
+                        <span class="mega-menu__col-heading">About Us</span>
+                        <ul class="mega-menu__col-links" role="list">
+                          <li><a href="/pages/about" class="mega-menu__link">Our Story</a></li>
+                          <li><a href="/pages/contact" class="mega-menu__link">Contact</a></li>
+                        </ul>
+                      </div>
+                    {%- endif -%}
+
+                    {%- comment -%} 4th panel: Wholesale or Testimonial {%- endcomment -%}
+                    {%- if link_title == 'Shop' -%}
+                      <div class="mega-menu__testimonial-panel">
+                        <div class="testimonial-stars">
+                          ★★★★★
+                        </div>
+                        <p class="testimonial-heading">Decent shipping time and excellent</p>
+                        <div class="testimonial-content">
+                          <button class="testimonial-arrow testimonial-arrow--left">
+                            <svg viewBox="0 0 100 100"><path d="M60 20 L30 50 L60 80" fill="none" stroke="currentColor" stroke-width="8"/></svg>
+                          </button>
+                          <div class="testimonial-text">
+                            "Got Here Super Fast & Excellent Quality Products That Cannot Be Beat"
+                          </div>
+                          <button class="testimonial-arrow testimonial-arrow--right">
+                            <svg viewBox="0 0 100 100"><path d="M40 20 L70 50 L40 80" fill="none" stroke="currentColor" stroke-width="8"/></svg>
+                          </button>
+                        </div>
+                        <div class="testimonial-author">
+                          <div class="author-info">
+                            <span class="author-name">Mark I.</span>
+                            <span class="author-status">Verified Buyer</span>
+                          </div>
+                        </div>
+                      </div>
+                    {%- else -%}
+                      {%- if section.settings.wholesale_title != blank -%}
+                        <a
+                          href="{{ section.settings.wholesale_link | default: '#' }}"
+                          class="mega-menu__wholesale-panel"
+                        >
+                          <div>
+                            <p class="mega-menu__wholesale-title">{{ section.settings.wholesale_title }}</p>
+                            {%- if section.settings.wholesale_description != blank -%}
+                              <p class="mega-menu__wholesale-desc">{{ section.settings.wholesale_description }}</p>
+                            {%- endif -%}
+                          </div>
+                          {%- if section.settings.wholesale_cta != blank -%}
+                            <span class="mega-menu__wholesale-cta">{{ section.settings.wholesale_cta }}</span>
+                          {%- endif -%}
+                        </a>
                       {%- endif -%}
-                    </li>
-                  {%- endfor -%}
-                </ul>
+                    {%- endif -%}
+                  </div>
+
+                  {%- comment -%} Right: Promo cards {%- endcomment -%}
+                  {%- assign promo_blocks = section.blocks | where: 'type', 'promo_card' -%}
+                  {%- if promo_blocks.size > 0 -%}
+                    <div class="mega-menu__promo-area">
+                      <div class="mega-menu__promo-grid">
+                        {%- for block in promo_blocks limit: 4 -%}
+                          <a
+                            href="{{ block.settings.link | default: '#' }}"
+                            class="mega-menu__promo-card"
+                            style="--promo-accent: {{ block.settings.accent_color }};"
+                            {{ block.shopify_attributes }}
+                          >
+                            {%- if block.settings.image != blank -%}
+                              {{ block.settings.image | image_url: width: 300 | image_tag:
+                                  loading: 'lazy',
+                                  alt: block.settings.image.alt
+                              }}
+                            {%- else -%}
+                              {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                              {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                            {%- endif -%}
+                            <div class="mega-menu__promo-card__overlay"></div>
+                            {%- if block.settings.title_line1 != blank or block.settings.title_line2 != blank -%}
+                              <span class="mega-menu__promo-card__title">
+                                {{- block.settings.title_line1 -}}
+                                {%- if block.settings.title_line2 != blank -%}
+                                  <em>{{- block.settings.title_line2 -}}</em>
+                                {%- endif -%}
+                              </span>
+                            {%- endif -%}
+                          </a>
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                </div>
               </div>
             </details>
           </header-menu>
@@ -75,20 +188,25 @@
             id="HeaderMenu-{{ link.handle }}"
             href="{{ link.url }}"
             class="header__menu-item list-menu__item link link--text focus-inset"
-            {% if link.current %}
-              aria-current="page"
-            {% endif %}
+            {% if link.current %}aria-current="page"{% endif %}
           >
-            <span
-              {%- if link.current %}
-                class="header__active-menu-item"
-              {% endif %}
-            >
-              {{- link.title | escape -}}
+            <span{%- if link.current %} class="header__active-menu-item"{% endif %}>
+              {{- link_title | escape -}}
             </span>
           </a>
         {%- endif -%}
       </li>
     {%- endfor -%}
+
+    {%- if section.settings.cta_button_label != blank -%}
+      <li>
+        <a
+          href="{{ section.settings.cta_button_link | default: '#' }}"
+          class="header__cta-btn"
+        >
+          {{- section.settings.cta_button_label -}}
+        </a>
+      </li>
+    {%- endif -%}
   </ul>
 </nav>

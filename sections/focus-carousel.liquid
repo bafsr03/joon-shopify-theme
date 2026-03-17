@@ -1,0 +1,247 @@
+{{ 'component-focus-carousel.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign collection = collections[section.settings.collection]
+  assign items_count = section.settings.items_to_show
+  if collection != blank and collection.products.size > 0
+    assign product_list = collection.products | limit: items_count
+    assign use_placeholders = false
+  else
+    assign use_placeholders = true
+  endif
+  assign active_index = items_count | divided_by: 2
+-%}
+
+<div class="focus-carousel color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+
+    <div class="focus-carousel__header scroll-trigger animate--slide-in">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="focus-carousel__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="focus-carousel__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+    </div>
+
+    <focus-carousel-component
+      class="focus-carousel__track-wrapper scroll-trigger animate--slide-in"
+      data-active="{{ active_index }}"
+    >
+      <button
+        class="focus-carousel__nav focus-carousel__nav--prev"
+        aria-label="{{ 'general.focus_carousel.prev' | t | default: 'Previous slide' }}"
+        type="button"
+      >
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M8 1L3 6L8 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <ul class="focus-carousel__track" role="list">
+        {%- unless use_placeholders -%}
+          {%- for product in product_list -%}
+            <li
+              class="focus-carousel__item{% if forloop.index0 == active_index %} focus-carousel__item--active{% else %} focus-carousel__item--side{% endif %}"
+              data-index="{{ forloop.index0 }}"
+              role="listitem"
+            >
+              <div class="focus-carousel__image-wrap">
+                {%- if product.featured_image != blank -%}
+                  {{ product.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: product.featured_image.alt }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="focus-carousel__item-info">
+                <h3 class="focus-carousel__item-name">{{ product.title }}</h3>
+                <p class="focus-carousel__item-price">{{ product.price | money }}</p>
+                <a href="{{ product.url }}" class="focus-carousel__item-cta">
+                  {{ 'general.focus_carousel.add_to_cart' | t | default: 'Add to Cart' }}
+                </a>
+              </div>
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..items_count) -%}
+            {%- assign zero_index = forloop.index0 -%}
+            <li
+              class="focus-carousel__item{% if zero_index == active_index %} focus-carousel__item--active{% else %} focus-carousel__item--side{% endif %}"
+              data-index="{{ zero_index }}"
+              role="listitem"
+            >
+              <div class="focus-carousel__image-wrap">
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="focus-carousel__item-info">
+                <h3 class="focus-carousel__item-name">{{ 'general.focus_carousel.sample_product' | t | default: 'Sample Product' }}</h3>
+                <p class="focus-carousel__item-price">$00.00</p>
+                <a href="#" class="focus-carousel__item-cta">
+                  {{ 'general.focus_carousel.add_to_cart' | t | default: 'Add to Cart' }}
+                </a>
+              </div>
+            </li>
+          {%- endfor -%}
+        {%- endunless -%}
+      </ul>
+
+      <button
+        class="focus-carousel__nav focus-carousel__nav--next"
+        aria-label="{{ 'general.focus_carousel.next' | t | default: 'Next slide' }}"
+        type="button"
+      >
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M4 1L9 6L4 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="focus-carousel__dots" role="tablist" aria-label="{{ 'general.focus_carousel.nav_label' | t | default: 'Carousel navigation' }}">
+        {%- unless use_placeholders -%}
+          {%- for product in product_list -%}
+            <button
+              class="focus-carousel__dot{% if forloop.index0 == active_index %} focus-carousel__dot--active{% endif %}"
+              data-index="{{ forloop.index0 }}"
+              aria-label="{{ 'general.focus_carousel.slide_number' | t: number: forloop.index | default: 'Slide' }}"
+              role="tab"
+              type="button"
+            ></button>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..items_count) -%}
+            <button
+              class="focus-carousel__dot{% if forloop.index0 == active_index %} focus-carousel__dot--active{% endif %}"
+              data-index="{{ forloop.index0 }}"
+              role="tab"
+              type="button"
+            ></button>
+          {%- endfor -%}
+        {%- endunless -%}
+      </div>
+    </focus-carousel-component>
+
+  </div>
+</div>
+
+<script>
+  if (!customElements.get('focus-carousel-component')) {
+    class FocusCarouselComponent extends HTMLElement {
+      connectedCallback() {
+        this.items = Array.from(this.querySelectorAll('.focus-carousel__item'));
+        this.dots  = Array.from(this.querySelectorAll('.focus-carousel__dot'));
+        this.prevBtn = this.querySelector('.focus-carousel__nav--prev');
+        this.nextBtn = this.querySelector('.focus-carousel__nav--next');
+
+        if (this.items.length === 0) return;
+
+        this.activeIndex = parseInt(this.dataset.active, 10) || Math.floor(this.items.length / 2);
+        this.updateCarousel();
+
+        this.prevBtn?.addEventListener('click', () => this.navigate(-1));
+        this.nextBtn?.addEventListener('click', () => this.navigate(1));
+        this.dots.forEach((dot, i) => dot.addEventListener('click', () => this.goTo(i)));
+        this.items.forEach((item, i) => item.addEventListener('click', () => this.goTo(i)));
+      }
+
+      navigate(direction) {
+        this.activeIndex = (this.activeIndex + direction + this.items.length) % this.items.length;
+        this.updateCarousel();
+      }
+
+      goTo(index) {
+        this.activeIndex = index;
+        this.updateCarousel();
+      }
+
+      updateCarousel() {
+        this.items.forEach((item, i) => {
+          item.classList.toggle('focus-carousel__item--active', i === this.activeIndex);
+          item.classList.toggle('focus-carousel__item--side', i !== this.activeIndex);
+        });
+        this.dots.forEach((dot, i) => {
+          dot.classList.toggle('focus-carousel__dot--active', i === this.activeIndex);
+          dot.setAttribute('aria-selected', i === this.activeIndex ? 'true' : 'false');
+        });
+      }
+    }
+
+    customElements.define('focus-carousel-component', FocusCarouselComponent);
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Focus Carousel",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "SELLING FAST"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Shop these popular picks"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "items_to_show",
+      "min": 3,
+      "max": 9,
+      "step": 2,
+      "label": "Number of items (odd numbers keep a clear centre)",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Focus Carousel"
+    }
+  ]
+}
+{% endschema %}
