@@ -186,10 +186,14 @@
         
         // Start precisely in the middle set of clones
         this.activeIndex = this.n + initialOriginalIndex;
-        this._currentTx = 0;
         this.isAnimating = false;
 
-        this.updateCarousel();
+        // Force an immediate layout update without any transitions
+        this.track.classList.add('focus-carousel__track--no-transition');
+        this.updateCarouselClasses();
+        this.centerTrack(false);
+        this.track.offsetHeight; // force reflow
+        this.track.classList.remove('focus-carousel__track--no-transition');
 
         this.prevBtn?.addEventListener('click', () => {
           if (this.isAnimating) return;
@@ -263,23 +267,29 @@
         this.track.classList.remove('focus-carousel__track--no-transition');
       }
 
-      centerTrack(isTransitioning = true) {
+      centerTrack(animate = true) {
         if (!this.track || !this.wrapper) return;
         
-        const wrapperRect = this.wrapper.getBoundingClientRect();
-        const activeItem  = this.items[this.activeIndex];
+        const activeItem = this.items[this.activeIndex];
         if (!activeItem) return;
 
-        const itemRect   = activeItem.getBoundingClientRect();
-        const itemCenter = itemRect.left + itemRect.width / 2;
-        const wrapCenter = wrapperRect.left + wrapperRect.width / 2;
-        const delta      = wrapCenter - itemCenter;
-
-        this._currentTx += delta;
-        this.track.style.transform = `translateX(${this._currentTx}px)`;
+        const wrapperWidth = this.wrapper.offsetWidth;
+        const itemWidth = activeItem.offsetWidth;
+        const itemLeft = activeItem.offsetLeft;
         
-        if (isTransitioning) {
-           this.isAnimating = true;
+        const targetTx = (wrapperWidth / 2) - (itemLeft + itemWidth / 2);
+
+        if (!animate) {
+          this.track.classList.add('focus-carousel__track--no-transition');
+        } else {
+          this.isAnimating = true;
+        }
+
+        this.track.style.transform = `translateX(${targetTx}px)`;
+
+        if (!animate) {
+          this.track.offsetHeight; // force reflow
+          this.track.classList.remove('focus-carousel__track--no-transition');
         }
       }
       
@@ -317,14 +327,8 @@
       }
 
       updateCarousel() {
-        // Reset transform first so measurements are accurate when we rely on bounding box math
-        this.track.style.transform = `translateX(${this._currentTx || 0}px)`;
         this.updateCarouselClasses();
-
-        // Double rAF: wait for browser to apply scale classes before measuring centers
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => this.centerTrack(true));
-        });
+        this.centerTrack(true);
       }
     }
 

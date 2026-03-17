@@ -82,7 +82,7 @@
 .focus-carousel__track {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   list-style: none;
   margin: 0;
   padding: 0;
