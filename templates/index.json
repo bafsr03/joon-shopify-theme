@@ -5,7 +5,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "eyebrow": "Austin's Premier Wholesaler",
-        "heading_line1": "#1 Online",
+        "heading_line1": "Leading online",
         "heading_line2": "Distributor",
         "subtext": "Exclusive pricing · Outstanding service · Industry expertise",
         "button_label_1": "Shop All",
@@ -22,7 +22,7 @@
     "product_grid_tilted": {
       "type": "product-grid-tilted",
       "settings": {
-        "color_scheme": "scheme-4",
+        "color_scheme": "scheme-2",
         "eyebrow": "STOCK UP ON YOUR SUPPLY",
         "title": "Proven Best Sellers",
         "collection": "frontpage",
@@ -108,7 +108,7 @@
       "settings": {
         "color_scheme": "scheme-5",
         "overlay_opacity": 50,
-        "heading": "Big Bulk Discounts!",
+        "heading": "Big Bulk Discounts",
         "subtext": "HCA Flower Wholesale and More. Big buys mean Big Discounts. Apply to our Wholesale Delivery program for major savings!",
         "button_label_1": "Apply Now & Save",
         "button_link_1": "",

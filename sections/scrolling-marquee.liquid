@@ -42,7 +42,7 @@
               {%- if section.settings.text != blank -%}
                 {{ section.settings.text }}
               {%- else -%}
-                {{ 'general.scrolling_marquee.default_text' | t | default: 'BY MERCHANTS + FOR MERCHANTS' }}
+                {{ 'general.scrolling_marquee.default_text' | t | default: 'BY MERCHANTS  FOR MERCHANTS' }}
               {%- endif -%}
             </span>
             <span class="scrolling-marquee__separator" aria-hidden="true">✦</span>
@@ -55,7 +55,7 @@
     {%- if section.settings.text != blank -%}
       {{ section.settings.text }}
     {%- else -%}
-      {{ 'general.scrolling_marquee.default_text' | t | default: 'BY MERCHANTS + FOR MERCHANTS' }}
+      {{ 'general.scrolling_marquee.default_text' | t | default: 'BY MERCHANTS  FOR MERCHANTS' }}
     {%- endif -%}
   </span>
 </div>
@@ -88,7 +88,7 @@
       "type": "text",
       "id": "text",
       "label": "Marquee text",
-      "default": "BY MERCHANTS + FOR MERCHANTS"
+      "default": "BY MERCHANTS  FOR MERCHANTS"
     },
     {
       "type": "range",

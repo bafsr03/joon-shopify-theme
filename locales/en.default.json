@@ -55,6 +55,10 @@
       "next_slide": "Slide right",
       "previous_slide": "Slide left",
       "name": "Slider"
+    },
+    "product_grid_tilted": {
+      "shop_now": "Shop now",
+      "product_title": "Sample Product"
     }
   },
   "newsletter": {
