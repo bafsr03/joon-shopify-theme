@@ -1,218 +1,293 @@
 /* ============================================================
-   Focus Carousel — component-focus-carousel.css
+   Focus Carousel — Shopify Supply "Selling Fast" style
    ============================================================ */
 
+/* ── Section shell ─────────────────────────────────────────── */
 .focus-carousel {
+  background: #0a0a0a;
+  overflow: hidden;
   padding-top: 6rem;
   padding-bottom: 6rem;
-  overflow: hidden;
 }
 
+/* ── Header ─────────────────────────────────────────────────── */
 .focus-carousel__header {
-  text-align: center;
-  margin-bottom: 5rem;
+  text-align: left;
+  margin-bottom: 4rem;
+  padding: 0 0.4rem;
 }
 
 .focus-carousel__eyebrow {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(var(--color-foreground), 0.5);
+  color: rgba(255, 255, 255, 0.55);
   margin: 0 0 0.8rem;
 }
 
 .focus-carousel__title {
   font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
-  font-size: clamp(3rem, 5vw, 5rem);
-  line-height: 1;
-  text-transform: uppercase;
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  line-height: 1.1;
   margin: 0;
-  color: rgb(var(--color-foreground));
+  color: #ffffff;
 }
 
-/* Track */
+/* ── Stage ───────────────────────────────────────────────────── */
+.focus-carousel__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ── Track wrapper (holds glows + track) ─────────────────────── */
 .focus-carousel__track-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 5rem;
+  width: 100%;
+  overflow: hidden;
+  padding: 5rem 0 4rem;
 }
 
+/* Edge glows — signature shopify.supply vignette */
+.focus-carousel__glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 22%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.focus-carousel__glow--left {
+  left: 0;
+  background: radial-gradient(
+    ellipse at left center,
+    rgba(30, 80, 220, 0.18) 0%,
+    transparent 80%
+  );
+}
+
+.focus-carousel__glow--right {
+  right: 0;
+  background: radial-gradient(
+    ellipse at right center,
+    rgba(30, 80, 220, 0.18) 0%,
+    transparent 80%
+  );
+}
+
+/* ── Track ───────────────────────────────────────────────────── */
 .focus-carousel__track {
   display: flex;
   align-items: center;
-  gap: 3rem;
   justify-content: center;
-  padding: 4rem 0;
   list-style: none;
   margin: 0;
+  padding: 0;
+  gap: 0;
+  /* JS-driven translateX for active-center scrolling */
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
-/* Items */
+.focus-carousel__track--no-transition {
+  transition: none !important;
+}
+
+/* ── Items ───────────────────────────────────────────────────── */
 .focus-carousel__item {
-  flex: 0 0 auto;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Fixed slot: each item always occupies the same layout width.
+     Scale is purely visual — active vs side items don't shift layout. */
+  flex: 0 0 28rem;
+  width: 28rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  transition:
+    transform    0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity      0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    filter       0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.focus-carousel__item--side {
-  width: 16rem;
-  opacity: 0.45;
+.focus-carousel__item--near {
   transform: scale(0.75);
+  opacity: 0.65;
+  filter: grayscale(15%);
+  cursor: pointer;
+  z-index: 1;
+}
+
+.focus-carousel__item--far {
+  transform: scale(0.5);
+  opacity: 0.3;
   filter: grayscale(30%);
+  cursor: pointer;
+  z-index: 0;
+}
+
+.focus-carousel__item--farthest {
+  transform: scale(0.35);
+  opacity: 0.1;
+  filter: grayscale(50%);
+  cursor: pointer;
+  z-index: -1;
+}
+
+.focus-carousel__item--hidden {
+  transform: scale(0.25);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -2;
 }
 
 .focus-carousel__item--active {
-  width: 22rem;
+  transform: scale(1.1);
   opacity: 1;
-  transform: scale(1);
   filter: none;
   z-index: 2;
+  cursor: default;
 }
 
-/* Blob aura */
-.focus-carousel__item--active::before {
-  content: '';
-  position: absolute;
-  inset: -25% -20%;
-  z-index: -1;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(var(--color-button), 0.5) 0%,
-    rgba(var(--color-button), 0.15) 50%,
-    transparent 72%
-  );
-  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
-  animation: blobPulse 5s ease-in-out infinite alternate;
-  filter: blur(1.8rem);
-}
-
-@keyframes blobPulse {
-  0%   { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; transform: scale(1)    rotate(0deg);  }
-  33%  { border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%; transform: scale(1.05) rotate(3deg);  }
-  66%  { border-radius: 70% 30% 50% 50% / 40% 70% 30% 60%; transform: scale(0.97) rotate(-2deg); }
-  100% { border-radius: 50% 50% 40% 60% / 30% 50% 70% 50%; transform: scale(1.03) rotate(1deg);  }
-}
-
+/* ── Image wrap ──────────────────────────────────────────────── */
 .focus-carousel__image-wrap {
-  border-radius: 50%;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  background: rgba(var(--color-foreground), 0.06);
-  box-shadow: 0 0.8rem 3rem rgba(0, 0, 0, 0.3);
-}
-
-.focus-carousel__item--active .focus-carousel__image-wrap {
-  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.5);
+  width: 28rem;
+  height: 24rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .focus-carousel__image-wrap img,
 .focus-carousel__image-wrap .placeholder-svg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   display: block;
+  /* Subtle drop shadow to lift off the black bg */
+  filter: drop-shadow(0 1.2rem 3.5rem rgba(0, 0, 0, 0.7));
 }
 
-.focus-carousel__item-info {
-  text-align: center;
+/* ── Controls row ────────────────────────────────────────────── */
+.focus-carousel__controls {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+.focus-carousel__nav {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.2s ease,
+    background   0.2s ease,
+    color        0.2s ease;
+  flex-shrink: 0;
+}
+
+.focus-carousel__nav:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+/* ── Dots ────────────────────────────────────────────────────── */
+.focus-carousel__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
   margin-top: 1.6rem;
-  opacity: 0;
-  transform: translateY(0.8rem);
-  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.focus-carousel__item--active .focus-carousel__item-info {
+.focus-carousel__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.focus-carousel__dot:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.2);
+}
+
+.focus-carousel__dot--active {
+  background: #ffffff;
+  transform: scale(1.3);
+}
+
+/* ── Info panel ──────────────────────────────────────────────── */
+.focus-carousel__info-panel {
+  position: relative;
+  height: 7rem; /* fixed height so layout doesn't jump */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.focus-carousel__info {
+  position: absolute;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(0.6rem);
+  transition:
+    opacity   0.35s ease,
+    transform 0.35s ease;
+  pointer-events: none;
+}
+
+.focus-carousel__info--active {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 .focus-carousel__item-name {
   font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
   font-size: 2rem;
-  margin: 0 0 0.4rem;
-  color: rgb(var(--color-foreground));
-}
-
-.focus-carousel__item-price {
-  font-size: 1.4rem;
-  color: rgba(var(--color-foreground), 0.7);
-  margin: 0 0 1.2rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0 0 0.6rem;
+  letter-spacing: 0.01em;
 }
 
 .focus-carousel__item-cta {
-  display: inline-block;
   font-size: 1.3rem;
-  font-weight: 700;
-  color: rgb(var(--color-button-text));
-  background: rgb(var(--color-button));
-  padding: 0.8rem 2.4rem;
-  border-radius: 10rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
 }
 
 .focus-carousel__item-cta:hover {
-  opacity: 0.85;
+  color: #ffffff;
 }
 
-/* Dots */
-.focus-carousel__dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.8rem;
-  margin-top: 3rem;
-}
-
-.focus-carousel__dot {
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 50%;
-  background: rgba(var(--color-foreground), 0.2);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: all 0.25s ease;
-}
-
-.focus-carousel__dot--active {
-  background: rgb(var(--color-button));
-  width: 2.4rem;
-  border-radius: 10rem;
-}
-
-/* Nav buttons */
-.focus-carousel__nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 4.4rem;
-  height: 4.4rem;
-  border-radius: 50%;
-  border: 1px solid rgba(var(--color-foreground), 0.2);
-  background: rgb(var(--color-background));
-  color: rgb(var(--color-foreground));
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.focus-carousel__nav:hover {
-  background: rgb(var(--color-button));
-  color: rgb(var(--color-button-text));
-  border-color: rgb(var(--color-button));
-}
-
-.focus-carousel__nav--prev { left: 0; }
-.focus-carousel__nav--next { right: 0; }
-
-/* Scroll-reveal */
+/* ── Scroll-reveal ───────────────────────────────────────────── */
 .focus-carousel .scroll-trigger {
   opacity: 0;
   transform: translateY(3rem);
@@ -224,21 +299,23 @@
   transform: translateY(0);
 }
 
+/* ── Responsive ──────────────────────────────────────────────── */
 @media screen and (max-width: 749px) {
+  .focus-carousel__image-wrap {
+    width: 20rem;
+    height: 18rem;
+  }
+
   .focus-carousel__item--side {
-    width: 11rem;
+    transform: scale(0.45);
   }
 
-  .focus-carousel__item--active {
-    width: 17rem;
+  .focus-carousel__glow {
+    width: 18%;
   }
 
-  .focus-carousel__track-wrapper {
-    padding: 0 4rem;
-  }
-
-  .focus-carousel__nav {
-    width: 3.6rem;
-    height: 3.6rem;
+  .focus-carousel__path-dots {
+    gap: 0.6rem;
+    padding: 0 1rem;
   }
 }

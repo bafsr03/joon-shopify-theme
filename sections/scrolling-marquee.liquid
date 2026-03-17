@@ -7,11 +7,24 @@
 
 {%- style -%}
   .scrolling-marquee--{{ section.id }} {
-    background-color: {{ section.settings.background_color }};
+    {% if section.settings.use_gradient %}
+      background: linear-gradient(90deg, #050D06, #182619, #32402C);
+      color: #ffffff;
+    {% else %}
+      background-color: {{ section.settings.background_color }};
+    {% endif %}
     --marquee-speed: {{ speed }}s;
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
   }
+  {% if section.settings.use_gradient %}
+    .scrolling-marquee--{{ section.id }} .scrolling-marquee__text {
+      color: #ffffff;
+    }
+    .scrolling-marquee--{{ section.id }} .scrolling-marquee__separator {
+      color: #ffffff;
+    }
+  {% endif %}
 {%- endstyle -%}
 
 <div
@@ -58,6 +71,12 @@
       "id": "color_scheme",
       "label": "Color scheme",
       "default": "scheme-3"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_gradient",
+      "label": "Use vibrant gradient background",
+      "default": true
     },
     {
       "type": "color",

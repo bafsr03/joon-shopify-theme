@@ -1,10 +1,11 @@
 /* ============================================================
-   Product Grid Tilted — component-product-grid-tilted.css
+   Proven Best Sellers — component-product-grid-tilted.css
    ============================================================ */
 
 .product-grid-tilted {
   padding-top: 6rem;
   padding-bottom: 6rem;
+  overflow: hidden; /* Prevent horizontal scrollbar on the whole page */
 }
 
 .product-grid-tilted__header {
@@ -26,68 +27,84 @@
 }
 
 .product-grid-tilted__title {
-  font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
+  font-family: var(--font-heading-family);
   font-size: clamp(3.2rem, 5vw, 5.6rem);
   line-height: 1;
-  text-transform: uppercase;
+  text-transform: none; /* Removed uppercase */
   margin: 0;
   color: rgb(var(--color-foreground));
 }
 
-.product-grid-tilted__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2.4rem;
+/* Scroll Container */
+.product-grid-tilted__scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
+  cursor: grab;
 }
 
+.product-grid-tilted__scroll-container:active {
+  cursor: grabbing;
+}
+
+.product-grid-tilted__scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Track */
+.product-grid-tilted__track {
+  display: flex;
+  align-items: center;
+  padding: 1.6rem var(--page-width-margin, 3.2rem);
+  gap: 3.2rem;
+  min-width: max-content;
+}
+
+/* Individual Card */
 .product-grid-tilted__card {
-  position: relative;
-  transform: rotate(var(--card-rotation, -2deg));
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.35s ease;
-  transform-origin: center bottom;
-}
-
-.product-grid-tilted__card:hover {
-  transform: rotate(0deg) scale(1.06) translateY(-0.8rem) !important;
-  z-index: 2;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .product-grid-tilted__card-inner {
-  border-radius: 1.2rem;
-  overflow: hidden;
-  background: rgb(var(--color-background));
-  border: 1px solid rgba(var(--color-foreground), 0.08);
-  box-shadow: 0 0.4rem 1.6rem rgba(0, 0, 0, 0.15);
-  transition: box-shadow 0.35s ease;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  align-items: start;
 }
 
-.product-grid-tilted__card:hover .product-grid-tilted__card-inner {
-  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.35);
-}
-
+/* Image */
 .product-grid-tilted__image-wrap {
-  position: relative;
-  aspect-ratio: 1 / 1;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
   overflow: hidden;
-  background: rgba(var(--color-foreground), 0.04);
 }
 
-.product-grid-tilted__image-wrap img,
-.product-grid-tilted__image-wrap .placeholder-svg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.product-grid-tilted__img {
+  max-width: 310px;
+  height: auto;
   display: block;
-  transition: transform 0.5s ease;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.product-grid-tilted__card:hover .product-grid-tilted__image-wrap img {
-  transform: scale(1.07);
+.product-grid-tilted__img:hover {
+  opacity: 0.9;
 }
 
+/* Info Section (Bottom Left) */
 .product-grid-tilted__info {
-  padding: 1.6rem;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  margin-top: 1.6rem;
+  text-align: left;
+  font-family: var(--font-body-family);
 }
 
 .product-grid-tilted__vendor {
@@ -99,60 +116,96 @@
 }
 
 .product-grid-tilted__name {
-  font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
   font-size: 1.8rem;
   line-height: 1.2;
-  margin: 0 0 0.8rem;
+  margin: 0;
   color: rgb(var(--color-foreground));
 }
 
 .product-grid-tilted__price {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: rgb(var(--color-button));
-  margin: 0 0 1.2rem;
+  font-size: 2rem;
+  margin: 0 0 0.8rem;
+  color: rgb(var(--color-foreground));
 }
 
+/* CTA Link */
 .product-grid-tilted__cta {
-  display: inline-block;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  color: rgb(var(--color-button-text));
-  background: rgb(var(--color-button));
-  padding: 0.8rem 1.6rem;
-  border-radius: 0.6rem;
+  display: block;
+  font-size: 1.4rem;
+  color: #6fc992 !important;
+  text-decoration: underline;
+  text-align: right;
   transition: opacity 0.2s ease;
 }
 
 .product-grid-tilted__cta:hover {
-  opacity: 0.85;
+  opacity: 0.8;
+}
+
+/* Side vertical Label (Right Edge) */
+.product-grid-tilted__side-label {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  width: 4rem;
+  overflow: hidden;
+  padding-top: 1.2rem;
+  padding-right: 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1.6rem 0.8rem;
+}
+
+.product-grid-tilted__side-text {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  text-align: right;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: rgb(var(--color-foreground));
+}
+
+.product-grid-tilted__side-icon {
+  display: inline-block;
+  width: 15px;
+  height: auto;
+  transform: rotate(-90deg);
+  color: rgb(var(--color-foreground));
 }
 
 /* Scroll-reveal */
 .product-grid-tilted .scroll-trigger {
   opacity: 0;
-  transform: translateY(4rem) rotate(var(--card-rotation, -2deg));
+  transform: translateY(4rem);
   transition: opacity 0.6s ease,
               transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .product-grid-tilted .scroll-trigger:not(.scroll-trigger--offscreen) {
   opacity: 1;
-  transform: translateY(0) rotate(var(--card-rotation, -2deg));
+  transform: translateY(0);
 }
 
-/* Responsive */
+/* Responsive Overrides */
 @media screen and (max-width: 989px) {
-  .product-grid-tilted__grid {
-    grid-template-columns: repeat(2, 1fr);
+  .product-grid-tilted__track {
+    padding: 1.6rem 2rem;
   }
 }
 
 @media screen and (max-width: 749px) {
-  .product-grid-tilted__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.6rem;
+  .product-grid-tilted__img {
+    max-width: 250px;
+  }
+  .product-grid-tilted__track {
+    padding: 1.6rem 1.6rem;
+    gap: 2rem;
+  }
+  .product-grid-tilted__title {
+    font-size: 3.2rem;
   }
 }

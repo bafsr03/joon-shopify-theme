@@ -9,7 +9,6 @@
 
 <div class="product-grid-tilted color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="page-width">
-
     <div class="product-grid-tilted__header scroll-trigger animate--slide-in">
       <div>
         {%- if section.settings.eyebrow != blank -%}
@@ -25,8 +24,10 @@
         </a>
       {%- endif -%}
     </div>
+  </div>
 
-    <div class="product-grid-tilted__grid">
+  <div class="product-grid-tilted__scroll-container scroll-trigger animate--slide-in">
+    <div class="product-grid-tilted__track">
       {%- liquid
         assign collection = collections[section.settings.collection]
         assign products_to_show = section.settings.products_to_show
@@ -40,72 +41,85 @@
 
       {%- unless use_placeholders -%}
         {%- for product in product_list -%}
-          {%- assign r_raw = forloop.index | modulo: 2 -%}
-          {%- if r_raw == 1 -%}
-            {%- assign card_rotation = '-2deg' -%}
-          {%- else -%}
-            {%- assign card_rotation = '2deg' -%}
-          {%- endif -%}
-          <div
-            class="product-grid-tilted__card scroll-trigger animate--slide-in"
-            style="--card-rotation: {{ card_rotation }}; --animation-order: {{ forloop.index }};"
-          >
+          <div class="product-grid-tilted__card">
             <div class="product-grid-tilted__card-inner">
               <div class="product-grid-tilted__image-wrap">
-                {%- if product.featured_image != blank -%}
-                  {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.featured_image.alt }}
-                {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                {%- endif -%}
+                <a draggable="false" href="{{ product.url }}">
+                  {%- if product.featured_image != blank -%}
+                    {{ product.featured_image | image_url: width: 620 | image_tag: loading: 'lazy', alt: product.featured_image.alt, class: 'product-grid-tilted__img' }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg product-grid-tilted__img' }}
+                  {%- endif -%}
+                </a>
               </div>
               <div class="product-grid-tilted__info">
                 {%- if section.settings.show_vendor and product.vendor != blank -%}
                   <p class="product-grid-tilted__vendor">{{ product.vendor }}</p>
                 {%- endif -%}
-                <h3 class="product-grid-tilted__name">{{ product.title }}</h3>
+                <p class="product-grid-tilted__name">{{ product.title }}</p>
                 <p class="product-grid-tilted__price">{{ product.price | money }}</p>
                 <a href="{{ product.url }}" class="product-grid-tilted__cta">
                   {{ 'general.product_grid_tilted.shop_now' | t | default: 'Shop now' }}
                 </a>
+              </div>
+              <div class="product-grid-tilted__side-label">
+                <span class="product-grid-tilted__side-text">
+                  <span aria-hidden="true">
+                    <svg class="product-grid-tilted__side-icon" viewBox="0 0 40 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M39.0486 35.9574V16.3398L22.7588 35.9574H39.0486Z" fill="currentColor"/>
+                      <path d="M0.211426 35.9571H13.9943L39.0479 5.79891V0.350586H25.0774L0.211426 30.2916V35.9571Z" fill="currentColor"/>
+                      <path d="M16.324 0.350586H0.211426V19.7457L16.324 0.350586Z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                  {%- if product.metafields.custom.side_label_text != blank -%}
+                    {{ product.metafields.custom.side_label_text }}
+                  {%- else -%}
+                    {{ section.settings.side_label_text | default: 'Breathable, moisture-wicking material' }}
+                  {%- endif -%}
+                </span>
               </div>
             </div>
           </div>
         {%- endfor -%}
       {%- else -%}
         {%- for i in (1..products_to_show) -%}
-          {%- assign r_raw = i | modulo: 2 -%}
-          {%- if r_raw == 1 -%}
-            {%- assign card_rotation = '-2deg' -%}
-          {%- else -%}
-            {%- assign card_rotation = '2deg' -%}
-          {%- endif -%}
-          <div
-            class="product-grid-tilted__card scroll-trigger animate--slide-in"
-            style="--card-rotation: {{ card_rotation }}; --animation-order: {{ i }};"
-          >
+          <div class="product-grid-tilted__card">
             <div class="product-grid-tilted__card-inner">
               <div class="product-grid-tilted__image-wrap">
-                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                <a draggable="false" href="#">
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg product-grid-tilted__img' }}
+                </a>
               </div>
               <div class="product-grid-tilted__info">
-                <h3 class="product-grid-tilted__name">{{ 'general.product_grid_tilted.product_title' | t | default: 'Sample Product' }}</h3>
+                <p class="product-grid-tilted__name">{{ 'general.product_grid_tilted.product_title' | t | default: 'Sample Product' }}</p>
                 <p class="product-grid-tilted__price">$00.00</p>
                 <a href="#" class="product-grid-tilted__cta">
                   {{ 'general.product_grid_tilted.shop_now' | t | default: 'Shop now' }}
                 </a>
+              </div>
+              <div class="product-grid-tilted__side-label">
+                <span class="product-grid-tilted__side-text">
+                  <span aria-hidden="true">
+                    <svg class="product-grid-tilted__side-icon" viewBox="0 0 40 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M39.0486 35.9574V16.3398L22.7588 35.9574H39.0486Z" fill="currentColor"/>
+                      <path d="M0.211426 35.9571H13.9943L39.0479 5.79891V0.350586H25.0774L0.211426 30.2916V35.9571Z" fill="currentColor"/>
+                      <path d="M16.324 0.350586H0.211426V19.7457L16.324 0.350586Z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                  {{ section.settings.side_label_text | default: 'Breathable, moisture-wicking material' }}
+                </span>
               </div>
             </div>
           </div>
         {%- endfor -%}
       {%- endunless -%}
     </div>
-
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Product Grid Tilted",
+  "name": "Proven Best Sellers",
   "tag": "section",
   "class": "section",
   "settings": [
@@ -113,19 +127,25 @@
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color scheme",
-      "default": "scheme-2"
+      "default": "scheme-4"
     },
     {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow text",
-      "default": "EXPLORE APPAREL"
+      "default": "STOCK UP ON YOUR SUPPLY"
     },
     {
       "type": "text",
       "id": "title",
       "label": "Section title",
-      "default": "Performance Pack"
+      "default": "Proven Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "side_label_text",
+      "label": "Side label text",
+      "default": "Breathable, moisture-wicking material"
     },
     {
       "type": "collection",
@@ -139,7 +159,7 @@
       "max": 12,
       "step": 1,
       "label": "Products to show",
-      "default": 4
+      "default": 8
     },
     {
       "type": "checkbox",
@@ -185,7 +205,7 @@
   ],
   "presets": [
     {
-      "name": "Product Grid Tilted"
+      "name": "Proven Best Sellers"
     }
   ]
 }
