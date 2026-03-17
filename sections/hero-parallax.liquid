@@ -5,17 +5,21 @@
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
   }
-  .hero-parallax--{{ section.id }} .hero-parallax__bg-left {
-    background-color: {{ section.settings.bg_left_color }};
-  }
-  .hero-parallax--{{ section.id }} .hero-parallax__bg-right {
-    background: linear-gradient(135deg, {{ section.settings.bg_right_color_start }} 0%, {{ section.settings.bg_right_color_end }} 100%);
+  .hero-parallax--{{ section.id }} {
+    background: {{ section.settings.background_color | default: '#3bb2e2' }};
   }
 {%- endstyle -%}
 
 <div class="hero-parallax hero-parallax--{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-  <div class="hero-parallax__bg-left" aria-hidden="true"></div>
-  <div class="hero-parallax__bg-right" aria-hidden="true"></div>
+  <div class="hero-parallax__bg-layer" aria-hidden="true">
+    {%- if section.settings.background_image != blank -%}
+      {%- assign bg_image_class = 'hero-parallax__bg-image' -%}
+      {%- if section.settings.flip_hand -%}
+        {%- assign bg_image_class = bg_image_class | append: ' hero-parallax__bg-image--flipped' -%}
+      {%- endif -%}
+      {{ section.settings.background_image | image_url: width: 2800 | image_tag: class: bg_image_class, loading: 'eager' }}
+    {%- endif -%}
+  </div>
 
   <div class="hero-parallax__inner">
 
@@ -165,25 +169,24 @@
     },
     {
       "type": "header",
-      "content": "Background colours"
+      "content": "Background"
     },
     {
       "type": "color",
-      "id": "bg_left_color",
-      "label": "Left panel colour",
-      "default": "#0e1012"
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#3bb2e2"
     },
     {
-      "type": "color",
-      "id": "bg_right_color_start",
-      "label": "Right panel gradient start",
-      "default": "#1a1f2e"
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image (e.g. Hand at bottom)"
     },
     {
-      "type": "color",
-      "id": "bg_right_color_end",
-      "label": "Right panel gradient end",
-      "default": "#0a2240"
+      "type": "checkbox",
+      "id": "flip_hand",
+      "label": "Flip background image horizontally",
+      "default": true
     },
     {
       "type": "header",

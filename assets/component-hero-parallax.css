@@ -10,22 +10,25 @@
   align-items: center;
 }
 
-.hero-parallax__bg-left,
-.hero-parallax__bg-right {
+.hero-parallax__bg-layer {
   position: absolute;
   top: 0;
-  bottom: 0;
-  width: 50%;
-}
-
-.hero-parallax__bg-left {
   left: 0;
-  background-color: #0e1012;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 
-.hero-parallax__bg-right {
-  right: 0;
-  background: linear-gradient(135deg, #1a1f2e 0%, #0a2240 100%);
+.hero-parallax__bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom center;
+}
+
+.hero-parallax__bg-image--flipped {
+  transform: scaleX(-1);
 }
 
 .hero-parallax__inner {
@@ -105,12 +108,9 @@
   min-height: 50rem;
 }
 
-/* Floating product placeholders */
+/* Floating product placeholders (transparent PNG friendly) */
 .hero-parallax__float-item {
   position: absolute;
-  border-radius: 1.6rem;
-  overflow: hidden;
-  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.5);
   will-change: transform;
   animation: heroFloat linear infinite;
 }
@@ -161,7 +161,7 @@
 .hero-parallax__float-item .placeholder-svg {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
@@ -241,13 +241,6 @@
 
 /* Responsive */
 @media screen and (max-width: 749px) {
-  .hero-parallax__bg-right {
-    display: none;
-  }
-
-  .hero-parallax__bg-left {
-    width: 100%;
-  }
 
   .hero-parallax__inner {
     grid-template-columns: 1fr;
