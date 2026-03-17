@@ -13,7 +13,6 @@
   "sections": {
     "newsletter": {
       "type": "footer-newsletter",
-      "disabled": true,
       "settings": {
         "color_scheme": "scheme-4",
         "heading": "Want more Supply?",
@@ -24,7 +23,6 @@
     },
     "marquee": {
       "type": "scrolling-marquee",
-      "disabled": true,
       "settings": {
         "color_scheme": "scheme-3",
         "use_gradient": true,
@@ -38,7 +36,6 @@
     },
     "footer": {
       "type": "footer",
-      "disabled": true,
       "settings": {
         "color_scheme": "scheme-4",
         "padding_top": 0,
