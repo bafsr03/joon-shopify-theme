@@ -7,12 +7,6 @@
   }
 {%- endstyle -%}
 
-{%- liquid
-  assign blocks = section.blocks
-  assign items_count = blocks.size
-  assign active_index = items_count | divided_by: 2
--%}
-
 <div class="focus-carousel color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="page-width">
 
@@ -25,316 +19,39 @@
       {%- endif -%}
     </div>
 
-    <focus-carousel-component
-      class="focus-carousel__stage scroll-trigger animate--slide-in"
-      data-active="{{ active_index }}"
-    >
-
-      {{- '<!-- Track area -->' -}}
+    <div class="focus-carousel__stage scroll-trigger animate--slide-in">
       <div class="focus-carousel__track-wrapper">
-        {{- '<!-- Edge glows -->' -}}
-        <div class="focus-carousel__glow focus-carousel__glow--left" aria-hidden="true"></div>
-        <div class="focus-carousel__glow focus-carousel__glow--right" aria-hidden="true"></div>
-
-        <ul class="focus-carousel__track" role="list">
-          {%- assign n_items = blocks.size -%}
-          {%- if n_items == 0 -%}{%- assign n_items = 5 -%}{%- endif -%}
-          {%- assign active_start = n_items | plus: active_index -%}
-
-          {%- for clone in (1..3) -%}
-            {%- if blocks.size > 0 -%}
-              {%- for block in blocks -%}
-                {%- assign abs_i = forloop.parentloop.index0 | times: n_items | plus: forloop.index0 -%}
-                {%- assign b_dist = abs_i | minus: active_start | abs -%}
-                {%- if b_dist == 0 -%}{%- assign b_cls = 'focus-carousel__item--active' -%}
-                {%- elsif b_dist == 1 -%}{%- assign b_cls = 'focus-carousel__item--near' -%}
-                {%- elsif b_dist == 2 -%}{%- assign b_cls = 'focus-carousel__item--far' -%}
-                {%- elsif b_dist == 3 -%}{%- assign b_cls = 'focus-carousel__item--farthest' -%}
-                {%- else -%}{%- assign b_cls = 'focus-carousel__item--hidden' -%}{%- endif -%}
-                
-                <li
-                  class="focus-carousel__item {{ b_cls }}"
-                  data-original-index="{{ forloop.index0 }}"
-                  role="listitem"
-                  {{ block.shopify_attributes }}
-                >
+        <div class="focus-carousel__track">
+          {%- if section.blocks.size > 0 -%}
+            {%- comment -%} Double loop for seamless marquee {%- endcomment -%}
+            {%- for i in (1..2) -%}
+              {%- for block in section.blocks -%}
+                <div class="focus-carousel__item" {{ block.shopify_attributes }}>
                   <div class="focus-carousel__image-wrap">
                     {%- if block.settings.image != blank -%}
-                      {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.title }}
+                      {{ block.settings.image | image_url: width: 400 | image_tag: loading: 'lazy', alt: block.settings.title }}
                     {%- else -%}
-                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
                     {%- endif -%}
                   </div>
-                </li>
+                </div>
               {%- endfor -%}
-            {%- else -%}
-              {%- for i in (1..5) -%}
-                {%- assign z = forloop.index0 -%}
-                {%- assign abs_i = forloop.parentloop.index0 | times: n_items | plus: z -%}
-                {%- assign z_dist = abs_i | minus: active_start | abs -%}
-                {%- if z_dist == 0 -%}{%- assign z_cls = 'focus-carousel__item--active' -%}
-                {%- elsif z_dist == 1 -%}{%- assign z_cls = 'focus-carousel__item--near' -%}
-                {%- elsif z_dist == 2 -%}{%- assign z_cls = 'focus-carousel__item--far' -%}
-                {%- elsif z_dist == 3 -%}{%- assign z_cls = 'focus-carousel__item--farthest' -%}
-                {%- else -%}{%- assign z_cls = 'focus-carousel__item--hidden' -%}{%- endif -%}
-                <li class="focus-carousel__item {{ z_cls }}" data-original-index="{{ z }}" role="listitem">
-                  <div class="focus-carousel__image-wrap">
-                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                  </div>
-                </li>
-              {%- endfor -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..15) -%}
+              <div class="focus-carousel__item">
+                <div class="focus-carousel__image-wrap">
+                  {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
       </div>
-
-      {{- '<!-- Controls row -->' -}}
-      <div class="focus-carousel__controls">
-        <button
-          class="focus-carousel__nav focus-carousel__nav--prev"
-          aria-label="{{ 'general.focus_carousel.prev' | t | default: 'Previous slide' }}"
-          type="button"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-
-        <button
-          class="focus-carousel__nav focus-carousel__nav--next"
-          aria-label="{{ 'general.focus_carousel.next' | t | default: 'Next slide' }}"
-          type="button"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-
-      {{- '<!-- Pagination dots -->' -}}
-      <div class="focus-carousel__dots" role="tablist" aria-label="Brand navigation">
-        {%- if blocks.size > 0 -%}
-          {%- for block in blocks -%}
-            <button
-              class="focus-carousel__dot{% if forloop.index0 == active_index %} focus-carousel__dot--active{% endif %}"
-              data-dot-index="{{ forloop.index0 }}"
-              aria-label="{{ block.settings.title | default: forloop.index }}"
-              role="tab"
-              type="button"
-            ></button>
-          {%- endfor -%}
-        {%- else -%}
-          {%- for i in (1..5) -%}
-            <button
-              class="focus-carousel__dot{% if forloop.index0 == active_index %} focus-carousel__dot--active{% endif %}"
-              data-dot-index="{{ forloop.index0 }}"
-              role="tab"
-              type="button"
-            ></button>
-          {%- endfor -%}
-        {%- endif -%}
-      </div>
-
-      {{- '<!-- Info panel — only active item shown via JS -->' -}}
-      <div class="focus-carousel__info-panel">
-        {%- if blocks.size > 0 -%}
-          {%- for block in blocks -%}
-            <div
-              class="focus-carousel__info{% if forloop.index0 == active_index %} focus-carousel__info--active{% endif %}"
-              data-info-index="{{ forloop.index0 }}"
-            >
-              {%- if block.settings.title != blank -%}
-                <h3 class="focus-carousel__item-name">{{ block.settings.title }}</h3>
-              {%- endif -%}
-              {%- if block.settings.link != blank -%}
-                <a href="{{ block.settings.link }}" class="focus-carousel__item-cta">
-                  {{ 'general.focus_carousel.shop_brand' | t | default: 'Shop Brand' }} &rarr;
-                </a>
-              {%- endif -%}
-            </div>
-          {%- endfor -%}
-        {%- else -%}
-          <div class="focus-carousel__info focus-carousel__info--active">
-            <h3 class="focus-carousel__item-name">Brand Name</h3>
-          </div>
-        {%- endif -%}
-      </div>
-
-    </focus-carousel-component>
+    </div>
 
   </div>
 </div>
-
-<script>
-  if (!customElements.get('focus-carousel-component')) {
-    class FocusCarouselComponent extends HTMLElement {
-      connectedCallback() {
-        this.track      = this.querySelector('.focus-carousel__track');
-        this.wrapper    = this.querySelector('.focus-carousel__track-wrapper');
-        this.items      = Array.from(this.querySelectorAll('.focus-carousel__item'));
-        this.dots       = Array.from(this.querySelectorAll('.focus-carousel__dot'));
-        this.infoPanels = Array.from(this.querySelectorAll('.focus-carousel__info'));
-        this.prevBtn    = this.querySelector('.focus-carousel__nav--prev');
-        this.nextBtn    = this.querySelector('.focus-carousel__nav--next');
-
-        if (this.items.length === 0) return;
-
-        this.n = this.dots.length;
-        if (this.n === 0) return;
-
-        const initialOriginalIndex = parseInt(this.dataset.active, 10) || Math.floor(this.n / 2);
-        
-        // Start precisely in the middle set of clones
-        this.activeIndex = this.n + initialOriginalIndex;
-        this.isAnimating = false;
-
-        // Force an immediate layout update without any transitions
-        this.track.classList.add('focus-carousel__track--no-transition');
-        this.updateCarouselClasses();
-        this.centerTrack(false);
-        this.track.offsetHeight; // force reflow
-        this.track.classList.remove('focus-carousel__track--no-transition');
-
-        this.prevBtn?.addEventListener('click', () => {
-          if (this.isAnimating) return;
-          this.navigate(-1);
-        });
-        
-        this.nextBtn?.addEventListener('click', () => {
-          if (this.isAnimating) return;
-          this.navigate(1);
-        });
-
-        // Click a visible side item to jump to it
-        this.items.forEach((item, index) => {
-          item.addEventListener('click', () => {
-            if (this.isAnimating) return;
-            if (index !== this.activeIndex) {
-              this.activeIndex = index;
-              this.updateCarousel();
-            }
-          });
-        });
-
-        // Dot click maps back into current physical block relative to activeIndex
-        this.dots.forEach((dot, orgIndex) => {
-          dot.addEventListener('click', () => {
-            if (this.isAnimating) return;
-            const currentOrgIndex = this.activeIndex % this.n;
-            const dir = orgIndex - currentOrgIndex;
-            this.navigate(dir);
-          });
-        });
-
-        // The "infinite" seamless teleport listener
-        this.track.addEventListener('transitionend', (e) => {
-          // Only catch the main transform transition on the track itself
-          if (e.target !== this.track || e.propertyName !== 'transform') return;
-          
-          this.isAnimating = false;
-          
-          // Reached the first clone set? Hop to middle clone set.
-          if (this.activeIndex < this.n) {
-            this.silentTeleport(this.activeIndex + this.n);
-          } 
-          // Reached the last clone set? Hop to middle clone set.
-          else if (this.activeIndex >= this.n * 2) {
-            this.silentTeleport(this.activeIndex - this.n);
-          }
-        });
-
-        // Keep centered on resize
-        const ro = new ResizeObserver(() => this.centerTrack(false));
-        ro.observe(this.wrapper);
-      }
-
-      navigate(direction) {
-        this.activeIndex += direction;
-        this.updateCarousel();
-      }
-
-      silentTeleport(newTargetIndex) {
-        this.track.classList.add('focus-carousel__track--no-transition');
-        this.activeIndex = newTargetIndex;
-        
-        // Hard update without transitions
-        this.updateCarouselClasses();
-        this.centerTrack(false);
-
-        // Force browser to acknowledge the DOM changes before re-enabling transition
-        this.track.offsetHeight;
-        
-        this.track.classList.remove('focus-carousel__track--no-transition');
-      }
-
-      centerTrack(animate = true) {
-        if (!this.track || !this.wrapper) return;
-        
-        const activeItem = this.items[this.activeIndex];
-        if (!activeItem) return;
-
-        const wrapperWidth = this.wrapper.offsetWidth;
-        const itemWidth = activeItem.offsetWidth;
-        const itemLeft = activeItem.offsetLeft;
-        
-        const targetTx = (wrapperWidth / 2) - (itemLeft + itemWidth / 2);
-
-        if (!animate) {
-          this.track.classList.add('focus-carousel__track--no-transition');
-        } else {
-          this.isAnimating = true;
-        }
-
-        this.track.style.transform = `translateX(${targetTx}px)`;
-
-        if (!animate) {
-          this.track.offsetHeight; // force reflow
-          this.track.classList.remove('focus-carousel__track--no-transition');
-        }
-      }
-      
-      updateCarouselClasses() {
-        this.items.forEach((item, i) => {
-          const dist = Math.abs(i - this.activeIndex);
-
-          item.classList.remove(
-            'focus-carousel__item--active',
-            'focus-carousel__item--near',
-            'focus-carousel__item--far',
-            'focus-carousel__item--farthest',
-            'focus-carousel__item--hidden'
-          );
-
-          if (dist === 0)      item.classList.add('focus-carousel__item--active');
-          else if (dist === 1) item.classList.add('focus-carousel__item--near');
-          else if (dist === 2) item.classList.add('focus-carousel__item--far');
-          else if (dist === 3) item.classList.add('focus-carousel__item--farthest');
-          else                 item.classList.add('focus-carousel__item--hidden');
-        });
-
-        const activeOriginalIndex = this.activeIndex % this.n;
-
-        // Sync dots
-        this.dots.forEach((dot, i) => {
-          dot.classList.toggle('focus-carousel__dot--active', i === activeOriginalIndex);
-          dot.setAttribute('aria-selected', i === activeOriginalIndex ? 'true' : 'false');
-        });
-
-        // Sync info panels
-        this.infoPanels.forEach((panel, i) => {
-          panel.classList.toggle('focus-carousel__info--active', i === activeOriginalIndex);
-        });
-      }
-
-      updateCarousel() {
-        this.updateCarouselClasses();
-        this.centerTrack(true);
-      }
-    }
-
-    customElements.define('focus-carousel-component', FocusCarouselComponent);
-  }
-</script>
 
 {% schema %}
 {
@@ -352,13 +69,13 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow text",
-      "default": "BEST SELLERS"
+      "default": "TRUSTED BY"
     },
     {
       "type": "text",
       "id": "title",
       "label": "Section title",
-      "default": "Shop Top Brands"
+      "default": "Enterprise-grade infrastructure trusted by 600K+ customers running AI inference."
     },
     {
       "type": "header",
@@ -372,7 +89,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 60
+      "default": 80
     },
     {
       "type": "range",
@@ -382,7 +99,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 60
+      "default": 80
     }
   ],
   "blocks": [
@@ -412,6 +129,9 @@
     {
       "name": "Focus Carousel",
       "blocks": [
+        { "type": "brand" },
+        { "type": "brand" },
+        { "type": "brand" },
         { "type": "brand" },
         { "type": "brand" },
         { "type": "brand" },

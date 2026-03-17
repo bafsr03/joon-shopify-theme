@@ -1,321 +1,158 @@
 /* ============================================================
-   Focus Carousel — Shopify Supply "Selling Fast" style
+   Brand Carousel — DigitalOcean Style Marquee
    ============================================================ */
 
-/* ── Section shell ─────────────────────────────────────────── */
+:root {
+  --brand-marquee-bg: #F2F2F2;
+  --brand-marquee-speed: 40s;
+}
+
 .focus-carousel {
-  background: #0a0a0a;
+  position: relative;
+  background: var(--brand-marquee-bg);
   overflow: hidden;
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  color: #1a1a1a;
 }
 
 /* ── Header ─────────────────────────────────────────────────── */
 .focus-carousel__header {
-  text-align: left;
-  margin-bottom: 4rem;
-  padding: 0 0.4rem;
+  text-align: center;
+  max-width: 80rem;
+  margin: 0 auto 5rem;
+  padding: 0 2rem;
+  z-index: 2;
 }
 
 .focus-carousel__eyebrow {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-  margin: 0 0 0.8rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 1.5rem;
 }
 
 .focus-carousel__title {
-  font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
-  font-size: clamp(2.4rem, 4vw, 4rem);
-  line-height: 1.1;
-  margin: 0;
-  color: #ffffff;
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  line-height: 1.3;
+  font-weight: 600;
+  margin: 0 auto;
+  color: #1a1a1a;
+  max-width: 70rem;
 }
 
-/* ── Stage ───────────────────────────────────────────────────── */
+/* ── Marquee Stage ────────────────────────────────────────────── */
 .focus-carousel__stage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-/* ── Track wrapper (holds glows + track) ─────────────────────── */
-.focus-carousel__track-wrapper {
   position: relative;
   width: 100%;
+  padding: 2rem 0;
+  /* Edge fade effect */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 15%,
+    black 85%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 15%,
+    black 85%,
+    transparent
+  );
+}
+
+.focus-carousel__track-wrapper {
   overflow: hidden;
-  padding: 5rem 0 4rem;
+  white-space: nowrap;
+  display: flex;
 }
 
-/* Edge glows — signature shopify.supply vignette */
-.focus-carousel__glow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 22%;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.focus-carousel__glow--left {
-  left: 0;
-  background: radial-gradient(
-    ellipse at left center,
-    rgba(30, 80, 220, 0.18) 0%,
-    transparent 80%
-  );
-}
-
-.focus-carousel__glow--right {
-  right: 0;
-  background: radial-gradient(
-    ellipse at right center,
-    rgba(30, 80, 220, 0.18) 0%,
-    transparent 80%
-  );
-}
-
-/* ── Track ───────────────────────────────────────────────────── */
 .focus-carousel__track {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  list-style: none;
-  margin: 0;
+  gap: 8rem;
   padding: 0;
-  gap: 0;
-  /* JS-driven translateX for active-center scrolling */
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-.focus-carousel__track--no-transition {
-  transition: none !important;
-}
-
-/* ── Items ───────────────────────────────────────────────────── */
-.focus-carousel__item {
-  /* Fixed slot: each item always occupies the same layout width.
-     Scale is purely visual — active vs side items don't shift layout. */
-  flex: 0 0 28rem;
-  width: 28rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 0;
   list-style: none;
-  transition:
-    transform    0.55s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity      0.55s cubic-bezier(0.4, 0, 0.2, 1),
-    filter       0.55s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.focus-carousel__item--near {
-  transform: scale(0.75);
-  opacity: 0.65;
-  filter: grayscale(15%);
-  cursor: pointer;
-  z-index: 1;
-}
-
-.focus-carousel__item--far {
-  transform: scale(0.5);
-  opacity: 0.3;
-  filter: grayscale(30%);
-  cursor: pointer;
-  z-index: 0;
-}
-
-.focus-carousel__item--farthest {
-  transform: scale(0.35);
-  opacity: 0.1;
-  filter: grayscale(50%);
-  cursor: pointer;
-  z-index: -1;
-}
-
-.focus-carousel__item--hidden {
-  transform: scale(0.25);
-  opacity: 0;
-  pointer-events: none;
-  z-index: -2;
-}
-
-.focus-carousel__item--active {
-  transform: scale(1.1);
-  opacity: 1;
-  filter: none;
-  z-index: 2;
-  cursor: default;
-}
-
-/* ── Image wrap ──────────────────────────────────────────────── */
-.focus-carousel__image-wrap {
-  width: 28rem;
-  height: 24rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.focus-carousel__image-wrap img,
-.focus-carousel__image-wrap .placeholder-svg {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  /* Subtle drop shadow to lift off the black bg */
-  filter: drop-shadow(0 1.2rem 3.5rem rgba(0, 0, 0, 0.7));
-}
-
-/* ── Controls row ────────────────────────────────────────────── */
-.focus-carousel__controls {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-top: 0.8rem;
-}
-
-.focus-carousel__nav {
-  width: 4.8rem;
-  height: 4.8rem;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: rgba(255, 255, 255, 0.75);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    border-color 0.2s ease,
-    background   0.2s ease,
-    color        0.2s ease;
+  animation: marquee var(--brand-marquee-speed) linear infinite;
   flex-shrink: 0;
 }
 
-.focus-carousel__nav:hover {
-  border-color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.14);
-  color: #ffffff;
+/* Pause animation on hover for accessibility/interactivity */
+.focus-carousel__stage:hover .focus-carousel__track {
+  animation-play-state: paused;
 }
 
-/* ── Dots ────────────────────────────────────────────────────── */
-.focus-carousel__dots {
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.focus-carousel__item {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
-  margin-top: 1.6rem;
+  padding: 0 1rem;
 }
 
-.focus-carousel__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.focus-carousel__dot:hover {
-  background: rgba(255, 255, 255, 0.6);
-  transform: scale(1.2);
-}
-
-.focus-carousel__dot--active {
-  background: #ffffff;
-  transform: scale(1.3);
-}
-
-/* ── Info panel ──────────────────────────────────────────────── */
-.focus-carousel__info-panel {
-  position: relative;
-  height: 7rem; /* fixed height so layout doesn't jump */
-  width: 100%;
+.focus-carousel__image-wrap {
+  height: 4.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
 }
 
-.focus-carousel__info {
-  position: absolute;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(0.6rem);
-  transition:
-    opacity   0.35s ease,
-    transform 0.35s ease;
-  pointer-events: none;
+.focus-carousel__image-wrap img,
+.focus-carousel__image-wrap svg {
+  height: 100%;
+  width: auto;
+  max-width: 18rem;
+  object-fit: contain;
+  /* Original colors - filter removed */
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.focus-carousel__info--active {
+.focus-carousel__image-wrap:hover img,
+.focus-carousel__image-wrap:hover svg {
   opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  transform: scale(1.05);
 }
 
-.focus-carousel__item-name {
-  font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
-  font-size: 2rem;
-  font-weight: 500;
-  color: #ffffff;
-  margin: 0 0 0.6rem;
-  letter-spacing: 0.01em;
-}
-
-.focus-carousel__item-cta {
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  transition: color 0.2s ease;
-}
-
-.focus-carousel__item-cta:hover {
-  color: #ffffff;
-}
-
-/* ── Scroll-reveal ───────────────────────────────────────────── */
-.focus-carousel .scroll-trigger {
-  opacity: 0;
-  transform: translateY(3rem);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.focus-carousel .scroll-trigger:not(.scroll-trigger--offscreen) {
-  opacity: 1;
-  transform: translateY(0);
+/* Hide navigation/pagination elements as it's an automatic marquee */
+.focus-carousel__controls,
+.focus-carousel__dots,
+.focus-carousel__info-panel,
+.focus-carousel__glow {
+  display: none !important;
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media screen and (max-width: 749px) {
+  .focus-carousel {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .focus-carousel__track {
+    gap: 5rem;
+    animation-duration: 25s; /* Slightly faster for mobile feel */
+  }
+
   .focus-carousel__image-wrap {
-    width: 20rem;
-    height: 18rem;
+    height: 3.2rem;
   }
-
-  .focus-carousel__item--side {
-    transform: scale(0.45);
-  }
-
-  .focus-carousel__glow {
-    width: 18%;
-  }
-
-  .focus-carousel__path-dots {
-    gap: 0.6rem;
-    padding: 0 1rem;
+  
+  .focus-carousel__title {
+    font-size: 1.8rem;
   }
 }
