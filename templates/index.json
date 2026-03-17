@@ -31,11 +31,27 @@
     "focus_carousel": {
       "type": "focus-carousel",
       "blocks": {
+        "brand_k9AcqM": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/formula420.png",
+            "title": "Formula 420",
+            "link": ""
+          }
+        },
+        "brand_p3p6pJ": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/gravlab.png",
+            "title": "Grav",
+            "link": ""
+          }
+        },
         "brand_E6Ffkc": {
           "type": "brand",
           "settings": {
             "image": "shopify://shop_images/Raw.png",
-            "title": "R",
+            "title": "Raw",
             "link": ""
           }
         },
@@ -129,6 +145,8 @@
         }
       },
       "block_order": [
+        "brand_k9AcqM",
+        "brand_p3p6pJ",
         "brand_E6Ffkc",
         "brand_b8qYqi",
         "brand_LrqPMT",
