@@ -42,6 +42,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
+  justify-content: end; /* Shift content towards right */
 }
 
 .hero-parallax__content {
@@ -116,10 +117,11 @@
 }
 
 .hero-parallax__float-item--1 {
-  width: 22rem;
-  height: calc(22rem * 9 / 16);
+  width: 45rem; 
+  height: auto;
+  aspect-ratio: 16 / 9;
   top: 50%;
-  left: 50%;
+  left: 60%; /* Shifted from 50% to 60% to move main item right */
   transform: translate(-50%, -50%);
   z-index: 3;
   animation-duration: 6s;
@@ -127,18 +129,19 @@
 }
 
 .hero-parallax__float-item--2 {
-  width: 14rem;
-  height: 14rem;
+  width: 32rem; 
+  height: 32rem;
   top: 10%;
-  right: 5%;
+  right: -15%; /* Shifted from -5% to -15% to move even further right */
   z-index: 2;
   animation-duration: 8s;
   animation-delay: -2s;
 }
 
 .hero-parallax__float-item--3 {
-  width: 12rem;
-  height: calc(12rem * 9 / 16);
+  width: 26rem; /* Increased from 18rem */
+  height: auto;
+  aspect-ratio: 16 / 9;
   bottom: 15%;
   left: 0%;
   z-index: 2;
@@ -147,14 +150,13 @@
 }
 
 .hero-parallax__float-item--4 {
-  width: 10rem;
-  height: 10rem;
+  width: 22rem; 
+  height: 22rem;
   top: 5%;
   left: 10%;
   z-index: 1;
   animation-duration: 9s;
   animation-delay: -1s;
-  opacity: 0.7;
 }
 
 .hero-parallax__float-item img,
@@ -241,23 +243,36 @@
 
 /* Responsive */
 @media screen and (max-width: 749px) {
-
   .hero-parallax__inner {
     grid-template-columns: 1fr;
-    padding: 6rem 2rem 10rem;
-    gap: 4rem;
+    padding: 2rem 2rem 10rem; /* Reduced top padding to move items up */
+    gap: 2rem;
   }
 
   .hero-parallax__media {
-    min-height: 30rem;
+    min-height: 40rem;
+    margin-top: -5rem; /* Further nudge items up */
   }
 
   .hero-parallax__float-item--1 {
-    width: 18rem;
+    width: 28rem;
   }
 
-  .hero-parallax__float-item--3,
-  .hero-parallax__float-item--4 {
-    display: none;
+  /* Showing right image (Item 2) and bottom left image (Item 3) on mobile */
+  .hero-parallax__float-item--2 {
+    display: block;
+    width: 20rem;
+    height: 20rem;
+    top: 0;
+    right: 2%;
+  }
+
+  .hero-parallax__float-item--3 {
+    display: block;
+    width: 22rem;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    bottom: 5%;
+    left: 2%;
   }
 }
