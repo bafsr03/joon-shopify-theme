@@ -2,8 +2,8 @@
   position: initial;
 }
 
-.js menu-drawer > details > summary::before,
-.js menu-drawer > details[open]:not(.menu-opening) > summary::before {
+.js menu-drawer>details>summary::before,
+.js menu-drawer>details[open]:not(.menu-opening)>summary::before {
   content: '';
   position: absolute;
   cursor: default;
@@ -19,7 +19,7 @@
   transition: opacity 0s, visibility 0s;
 }
 
-menu-drawer > details[open] > summary::before {
+menu-drawer>details[open]>summary::before {
   visibility: visible;
   opacity: 1;
   transition: opacity var(--duration-default) ease, visibility var(--duration-default) ease;
@@ -36,10 +36,7 @@ menu-drawer > details[open] > summary::before {
   padding: 0;
   background-color: rgb(var(--color-background));
   overflow-x: hidden;
-  filter: drop-shadow(
-    var(--drawer-shadow-horizontal-offset) var(--drawer-shadow-vertical-offset) var(--drawer-shadow-blur-radius)
-      rgba(var(--color-shadow), var(--drawer-shadow-opacity))
-  );
+  filter: drop-shadow(var(--drawer-shadow-horizontal-offset) var(--drawer-shadow-vertical-offset) var(--drawer-shadow-blur-radius) rgba(var(--color-shadow), var(--drawer-shadow-opacity)));
 }
 
 .js .menu-drawer {
@@ -47,19 +44,20 @@ menu-drawer > details[open] > summary::before {
   height: calc(var(--viewport-height, 100vh) - (var(--header-bottom-position, 100%)));
 }
 
-.js details[open] > .menu-drawer,
-.js details[open] > .menu-drawer__submenu {
+.js details[open]>.menu-drawer,
+.js details[open]>.menu-drawer__submenu {
   transition: transform var(--duration-default) ease, visibility var(--duration-default) ease;
 }
 
-.js details[open].menu-opening > .menu-drawer,
-details[open].menu-opening > .menu-drawer__submenu {
+.js details[open].menu-opening>.menu-drawer,
+details[open].menu-opening>.menu-drawer__submenu {
   transform: translateX(0);
   visibility: visible;
 }
 
 .js .menu-drawer__navigation .submenu-open {
-  visibility: hidden; /* hide menus from screen readers when hidden by submenu */
+  visibility: hidden;
+  /* hide menus from screen readers when hidden by submenu */
 }
 
 @media screen and (min-width: 750px) {
@@ -125,7 +123,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   display: none;
 }
 
-.menu-drawer__menu-item > .svg-wrapper {
+.menu-drawer__menu-item>.svg-wrapper {
   width: 15px;
   position: absolute;
   right: 3rem;
@@ -205,7 +203,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   margin: 0;
 }
 
-.menu-drawer__account account-icon > .svg-wrapper {
+.menu-drawer__account account-icon>.svg-wrapper {
   height: 2rem;
   width: 2rem;
   margin-right: 1rem;
@@ -217,7 +215,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   margin-left: -0.45rem;
 }
 
-.menu-drawer__account:hover account-icon > .svg-wrapper {
+.menu-drawer__account:hover account-icon>.svg-wrapper {
   transform: scale(1.07);
 }
 
@@ -239,5 +237,192 @@ details[open].menu-opening > .menu-drawer__submenu {
     transform: none !important;
     filter: none !important;
     transition: none !important;
+  }
+}
+
+/* ── JOON: Custom Mobile Drawer & Header Button Updates ─────────────────── */
+
+.mobile-toggle-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 4rem;
+  background: #32402C;
+  color: #ffffff;
+  border-radius: 10rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+  line-height: 1;
+  height: 3.6rem;
+  border: none;
+}
+
+.header__icon--menu,
+.header__icon--menu:hover,
+.header__icon--menu .mobile-toggle-wrapper {
+  text-decoration: none !important;
+}
+
+/* When the menu is open, invert the SHOP button colors slightly to match hover state */
+details[open]>.header__icon--menu .mobile-toggle-wrapper {
+  background: #333333;
+}
+
+/* Floating X pill button for the drawer */
+.drawer__close-pill {
+  position: absolute;
+  top: calc(100% + 1.5rem);
+  left: min(85%, 400px);
+  margin-left: 4.5rem;
+  /* moved further to the right */
+  width: 5rem;
+  height: 3.6rem;
+  border-radius: 10rem;
+  /* matching the standard pill shape */
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.js details[open].menu-opening>.drawer__close-pill {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer__close-pill .svg-wrapper {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: #ffffff;
+}
+
+.drawer__close-pill:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@media screen and (max-width: 989px) {
+
+  /* Drawer width & style */
+  .menu-drawer {
+    width: 85% !important;
+    max-width: 400px;
+    background-color: #0f0f0f !important;
+    border: none !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    filter: none !important;
+  }
+
+  /* Submenus should stay within the drawer */
+  .js .menu-drawer__submenu {
+    background-color: #0f0f0f !important;
+  }
+
+
+  .menu-drawer__navigation-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* only this container hides scrolling */
+  }
+
+  .menu-drawer__navigation {
+    padding: 2rem 0;
+  }
+
+  /* Nav Links styling (Image 2) */
+  .menu-drawer__menu-item {
+    padding: 1.6rem 3.2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #ffffff !important;
+    border-bottom: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .menu-drawer__menu-item:hover,
+  .menu-drawer__menu-item:focus {
+    background-color: transparent !important;
+    color: #32402C !important;
+  }
+
+  /* Submenu close button */
+  .menu-drawer__close-button {
+    color: #ffffff !important;
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .menu-drawer__close-button:hover,
+  .menu-drawer__close-button:focus {
+    color: #32402C !important;
+    background: transparent !important;
+  }
+
+  /* Right Arrow Circle */
+  .menu-drawer summary.menu-drawer__menu-item .svg-wrapper,
+  .menu-drawer summary.menu-drawer__menu-item>.svg-wrapper {
+    right: 3.2rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: static;
+    transform: none;
+    flex-shrink: 0;
+    color: #ffffff;
+  }
+
+  /* Replace caret with right arrow for submenus */
+  .menu-drawer summary.menu-drawer__menu-item .icon-caret {
+    display: none !important;
+    /* Hide standard caret */
+  }
+
+  /* Show only the arrow (first svg wrapper usually) if both exist */
+  .menu-drawer summary.menu-drawer__menu-item>.svg-wrapper:nth-child(2) {
+    display: flex !important;
+  }
+
+  .menu-drawer summary.menu-drawer__menu-item:hover .svg-wrapper {
+    background: rgba(50, 64, 44, 0.15);
+    border-color: #32402C;
+    color: #32402C;
+  }
+
+  /* Utility links (account, social) */
+  .menu-drawer__utility-links {
+    background-color: #1a1a1a !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .menu-drawer__account,
+  .list-social__link {
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+
+  .menu-drawer__account:hover,
+  .list-social__link:hover {
+    color: #32402C !important;
+  }
+
+  /* Backdrop overlay dimming */
+  menu-drawer>details[open]>summary::before {
+    background: rgba(0, 0, 0, 0.6);
   }
 }

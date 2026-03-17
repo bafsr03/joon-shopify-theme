@@ -1,6 +1,7 @@
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'collection-all-custom.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
@@ -36,6 +37,7 @@
   }
 {%- endstyle -%}
 
+<div class="cah-grid-wrapper">
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
@@ -97,24 +99,104 @@
       </facet-filters-form>
     {%- endif -%}
 
+    <div class="cah-custom-filters page-width">
+      <!-- Categories Row -->
+      <div class="cah-scroll-row">
+        <a href="{{ collection.url }}" class="cah-category-item active">
+          <div class="cah-category-circle" style="background: radial-gradient(circle, rgba(255,204,102,1) 0%, rgba(253,183,59,1) 100%);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="white" opacity="0.8"/>
+            </svg>
+          </div>
+          <span class="cah-category-label">All Products</span>
+        </a>
+        <a href="{{ collection.url }}?filter.p.product_type=Gummies" class="cah-category-item">
+          <div class="cah-category-circle" style="background: #2a2a2a;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="4"/></svg>
+          </div>
+          <span class="cah-category-label">Gummies</span>
+        </a>
+        <a href="{{ collection.url }}?filter.p.product_type=Flower" class="cah-category-item">
+          <div class="cah-category-circle" style="background: #2a2a2a;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 10C12 10 15 5 18 8C21 11 15 15 12 18C9 15 3 11 6 8C9 5 12 10 12 10Z"/></svg>
+          </div>
+          <span class="cah-category-label">Flower</span>
+        </a>
+        <a href="{{ collection.url }}?filter.p.product_type=Edibles" class="cah-category-item">
+          <div class="cah-category-circle" style="background: #2a2a2a;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>
+          </div>
+          <span class="cah-category-label">Edibles</span>
+        </a>
+        <a href="{{ collection.url }}?filter.p.product_type=Beverages" class="cah-category-item">
+          <div class="cah-category-circle" style="background: #2a2a2a;">
+             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M8 2V6M16 2V6M5 9V20C5 21.1 5.9 22 7 22H17C18.1 22 19 21.1 19 20V9C19 7.9 18.1 7 17 7H7C5.9 7 5 7.9 5 9Z"/></svg>
+          </div>
+          <span class="cah-category-label">Beverages</span>
+        </a>
+        <a href="{{ collection.url }}?filter.p.product_type=Concentrates" class="cah-category-item">
+          <div class="cah-category-circle" style="background: #2a2a2a;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 22h20L12 2z"/></svg>
+          </div>
+          <span class="cah-category-label">Concentrates</span>
+        </a>
+        <a href="{{ collection.url }}?filter.p.product_type=Vapes" class="cah-category-item">
+          <div class="cah-category-circle" style="background: #2a2a2a;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="10" y="2" width="4" height="20" rx="2"/></svg>
+          </div>
+          <span class="cah-category-label">Vapes</span>
+        </a>
+        <a href="{{ collection.url }}?filter.p.product_type=Pre-Rolls" class="cah-category-item">
+          <div class="cah-category-circle" style="background: #2a2a2a;">
+             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 4L3 20M17 3l4 4"/></svg>
+          </div>
+          <span class="cah-category-label">Pre-Rolls</span>
+        </a>
+        <a href="{{ collection.url }}?filter.p.product_type=Merch" class="cah-category-item">
+          <div class="cah-category-circle" style="background: #2a2a2a;">
+             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20.38 3.46L16 2a8.59 8.59 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+          </div>
+          <span class="cah-category-label">Merch</span>
+        </a>
+      </div>
+
+      <!-- Mood Pill Row -->
+      <div class="cah-mood-row">
+        <a href="{{ collection.url }}" class="cah-mood-pill active">All</a>
+        <a href="{{ collection.url }}?filter.t.mood=Better+Sleep" class="cah-mood-pill">Better Sleep</a>
+        <a href="{{ collection.url }}?filter.t.mood=Relief+From+Aches" class="cah-mood-pill">Relief From Aches</a>
+        <a href="{{ collection.url }}?filter.t.mood=Chill+Out" class="cah-mood-pill">Chill Out</a>
+        <a href="{{ collection.url }}?filter.t.mood=Get+Energized+%26+Focused" class="cah-mood-pill">Get Energized & Focused</a>
+        <a href="{{ collection.url }}?filter.t.mood=Feel+Happy" class="cah-mood-pill">Feel Happy</a>
+        <a href="{{ collection.url }}?filter.t.mood=Better+Sex" class="cah-mood-pill">Better Sex</a>
+      </div>
+
+      <button class="cah-filters-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); document.getElementById('cah-facets').classList.toggle('is-open');">
+        Filters
+        <svg fill="none" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
     <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}">
       {{ 'component-facets.css' | asset_url | stylesheet_tag }}
       <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
-        <aside
-          aria-labelledby="verticalTitle"
-          class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
-          id="main-collection-filters"
-          data-id="{{ section.id }}"
-        >
-          {% render 'facets',
-            results: collection,
-            enable_filtering: section.settings.enable_filtering,
-            enable_sorting: section.settings.enable_sorting,
-            filter_type: section.settings.filter_type,
-            paginate: paginate
-          %}
-        </aside>
+        <div id="cah-facets" class="cah-facets-wrapper">
+          <aside
+            aria-labelledby="verticalTitle"
+            class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+            id="main-collection-filters"
+            data-id="{{ section.id }}"
+          >
+            {% render 'facets',
+              results: collection,
+              enable_filtering: section.settings.enable_filtering,
+              enable_sorting: section.settings.enable_sorting,
+              filter_type: section.settings.filter_type,
+              paginate: paginate
+            %}
+          </aside>
+        </div>
       {%- endif -%}
 
       <div
@@ -194,6 +276,7 @@
     {{ 'mask-arch.svg' | inline_asset_content }}
   {%- endif -%}
 </div>
+</div>{{- '<!-- /.cah-grid-wrapper -->' -}}
 
 {% schema %}
 {

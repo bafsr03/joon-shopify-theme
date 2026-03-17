@@ -1,0 +1,716 @@
+/*
+ * ============================================================
+ *  JOON — Collections / All  — Custom Dark Redesign
+ * ============================================================
+ *  Color palette (mirrors front-page):
+ *    Background  : #0f0f0f  / #141414
+ *    Card bg     : #1a1a1a  / #1e1e1e
+ *    Green accent: #32402C
+ *    Cyan accent : #3bb2e2
+ *    Text        : #ffffff  / rgba(255,255,255,0.75)
+ * ============================================================
+ */
+
+/* ── KEYFRAMES ─────────────────────────────────────────────── */
+
+@keyframes cah-fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cah-gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes cah-pulse {
+
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.35;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes cah-cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cah-glowPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 18px 2px rgba(34, 197, 94, 0.18);
+  }
+}
+
+/* ── PAGE BODY (force dark when on collection) ─────────────── */
+
+body.collection-page-all,
+.collection-page-all body {
+  background-color: #fafafa;
+}
+
+/* ── COLLECTION HERO BANNER ────────────────────────────────── */
+
+.collection-hero.cah-hero {
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #0a0a0a 0%, #0f1a12 50%, #0a1520 100%);
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+/* Animated gradient orbs — purely decorative background layer */
+.cah-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 15% 50%, rgba(34, 197, 94, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 70% at 80% 40%, rgba(59, 178, 226, 0.10) 0%, transparent 70%);
+  animation: cah-gradientShift 8s ease infinite;
+  background-size: 200% 200%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floating dot particles */
+.cah-hero::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.18) 0%, transparent 70%);
+  animation: cah-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cah-hero .collection-hero__inner {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 0;
+  width: 100%;
+}
+
+.cah-hero .collection-hero__text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+/* Eyebrow badge */
+.cah-hero .cah-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 99px;
+  padding: 0.4rem 1.2rem;
+  animation: cah-fadeSlideUp 0.6s ease both;
+  animation-delay: 0.1s;
+}
+
+.cah-hero .cah-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+/* Main title */
+.cah-hero .collection-hero__title {
+  margin: 0;
+  font-size: clamp(3.6rem, 7vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #22c55e 50%, #3bb2e2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: cah-fadeSlideUp 0.7s ease both, cah-gradientShift 6s ease infinite;
+  animation-delay: 0.2s, 0.9s;
+}
+
+/* Description */
+.cah-hero .collection-hero__description {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.5rem;
+  max-width: 50rem;
+  line-height: 1.6;
+  animation: cah-fadeSlideUp 0.8s ease both;
+  animation-delay: 0.35s;
+}
+
+/* Decorative side accent line */
+.cah-hero-accent-line {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, #22c55e, transparent);
+  opacity: 0.5;
+}
+
+/* ── PRODUCT GRID WRAPPER ──────────────────────────────────── */
+
+.cah-grid-wrapper {
+  background: #fafafa;
+  min-height: 60vh;
+}
+
+/* ── FACETS / FILTERS ──────────────────────────────────────── */
+
+.cah-grid-wrapper .facets-container,
+.cah-grid-wrapper facet-filters-form,
+.cah-grid-wrapper .facets {
+  background: transparent;
+}
+
+/* Filter bar */
+.cah-grid-wrapper .facets__summary,
+.cah-grid-wrapper .facets-vertical .facets__summary {
+  color: #111111;
+}
+
+/* Active filter pills */
+.cah-grid-wrapper .active-facets__button {
+  background: rgba(50, 64, 44, 0.15) !important;
+  border-color: rgba(50, 64, 44, 0.5) !important;
+  color: #32402C !important;
+  border-radius: 99px;
+}
+
+.cah-grid-wrapper .active-facets__button:hover {
+  background: rgba(50, 64, 44, 0.28) !important;
+}
+
+/* Filter button */
+.cah-grid-wrapper .facets__toggle,
+.cah-grid-wrapper button.facets__summary {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  color: #111111;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.cah-grid-wrapper .facets__toggle:hover,
+.cah-grid-wrapper button.facets__summary:hover {
+  background: rgba(50, 64, 44, 0.1);
+  border-color: rgba(50, 64, 44, 0.4);
+}
+
+/* Sort & filter labels */
+.cah-grid-wrapper .facet-filters__label,
+.cah-grid-wrapper .facet-filters__sort .caption-large,
+.cah-grid-wrapper .facets__heading,
+.cah-grid-wrapper .facets__header h2,
+.cah-grid-wrapper .product-count__text {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Sort select */
+.cah-grid-wrapper .facet-filters__sort .select__select,
+.cah-grid-wrapper select.facet-filters__sort {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #111111;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+}
+
+/* Horizontal facet bar background */
+.cah-grid-wrapper .facets-horizontal {
+  background: #fafafa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px 12px 0 0;
+  padding: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* ── PRODUCT GRID ITEMS ────────────────────────────────────── */
+
+/* Staggered card entrance animation */
+.cah-grid-wrapper .grid__item {
+  animation: cah-cardIn 0.5s ease both;
+}
+
+.cah-grid-wrapper .grid__item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.cah-grid-wrapper .grid__item:nth-child(2) {
+  animation-delay: 0.10s;
+}
+
+.cah-grid-wrapper .grid__item:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.cah-grid-wrapper .grid__item:nth-child(4) {
+  animation-delay: 0.20s;
+}
+
+.cah-grid-wrapper .grid__item:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.cah-grid-wrapper .grid__item:nth-child(6) {
+  animation-delay: 0.30s;
+}
+
+.cah-grid-wrapper .grid__item:nth-child(7) {
+  animation-delay: 0.35s;
+}
+
+.cah-grid-wrapper .grid__item:nth-child(8) {
+  animation-delay: 0.40s;
+}
+
+.cah-grid-wrapper .grid__item:nth-child(n+9) {
+  animation-delay: 0.45s;
+}
+
+/* Card container */
+.cah-grid-wrapper .card-wrapper,
+.cah-grid-wrapper .card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+  animation: cah-glowPulse 4s ease-in-out infinite;
+}
+
+.cah-grid-wrapper .card-wrapper:hover,
+.cah-grid-wrapper .card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(50, 64, 44, 0.45);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(50, 64, 44, 0.12);
+  animation: none;
+}
+
+/* Card image zoom on hover */
+.cah-grid-wrapper .card__media img,
+.cah-grid-wrapper .card__media .media img {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cah-grid-wrapper .card-wrapper:hover .card__media img,
+.cah-grid-wrapper .card-wrapper:hover .card__media .media img {
+  transform: scale(1.06);
+}
+
+/* Card content area */
+.cah-grid-wrapper .card>.card__content,
+.cah-grid-wrapper .card>.card__content .card__information {
+  padding: 1.2rem 1.4rem 1.4rem;
+  background: #ffffff;
+}
+
+.cah-grid-wrapper .card__inner .card__content {
+  background: transparent;
+}
+
+/* Product title */
+.cah-grid-wrapper .card__heading,
+.cah-grid-wrapper .card__heading a,
+.cah-grid-wrapper .card__heading .link {
+  color: #111111 !important;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.cah-grid-wrapper .card__heading a:hover {
+  color: #32402C !important;
+  text-decoration: none;
+}
+
+/* Vendor / subtitle */
+.cah-grid-wrapper .card__vendor,
+.cah-grid-wrapper .caption {
+  color: rgba(0, 0, 0, 0.55) !important;
+  font-size: 1.1rem;
+}
+
+/* Price */
+.cah-grid-wrapper .price,
+.cah-grid-wrapper .price__regular,
+.cah-grid-wrapper .price-item,
+.cah-grid-wrapper .price-item--regular {
+  color: #111111 !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.cah-grid-wrapper .price-item--sale {
+  color: #32402C !important;
+}
+
+.cah-grid-wrapper .price-item--original {
+  color: rgba(0, 0, 0, 0.45) !important;
+  text-decoration: line-through;
+}
+
+/* Sale badge */
+.cah-grid-wrapper .badge,
+.cah-grid-wrapper .card__badge .badge {
+  background: rgba(50, 64, 44, 0.2);
+  color: #32402C;
+  border: 1px solid rgba(50, 64, 44, 0.4);
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* ── ADD TO CART / QUICK-ADD BUTTON ────────────────────────── */
+
+.cah-grid-wrapper .quick-add__submit,
+.cah-grid-wrapper .card__add-button,
+.cah-grid-wrapper button[name="add"],
+.cah-grid-wrapper .product-form__submit,
+.cah-grid-wrapper input[type="submit"] {
+  background: #32402C !important;
+  color: #000000 !important;
+  border: none !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  font-size: 1.3rem !important;
+  letter-spacing: 0.03em !important;
+  padding: 0.9rem 1.6rem !important;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease !important;
+}
+
+.cah-grid-wrapper .quick-add__submit:hover,
+.cah-grid-wrapper .card__add-button:hover,
+.cah-grid-wrapper button[name="add"]:hover,
+.cah-grid-wrapper .product-form__submit:hover {
+  background: #16a34a !important;
+  box-shadow: 0 4px 16px rgba(50, 64, 44, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Quantity + bulk add row */
+.cah-grid-wrapper .quantity-popover__info {
+  background: #1e1e1e;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── EMPTY STATE ───────────────────────────────────────────── */
+
+.cah-grid-wrapper .collection--empty .title-wrapper {
+  text-align: center;
+}
+
+.cah-grid-wrapper .collection--empty .title {
+  color: #111111;
+  font-size: 2.4rem;
+}
+
+.cah-grid-wrapper .collection--empty .link {
+  color: #32402C;
+}
+
+/* ── PAGINATION ────────────────────────────────────────────── */
+
+.cah-grid-wrapper .pagination__item a,
+.cah-grid-wrapper .pagination__item button {
+  color: #111111;
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.cah-grid-wrapper .pagination__item a:hover,
+.cah-grid-wrapper .pagination__item button:hover,
+.cah-grid-wrapper .pagination__item--current a {
+  background: rgba(50, 64, 44, 0.15);
+  border-color: rgba(50, 64, 44, 0.4);
+  color: #32402C;
+}
+
+/* ── MOBILE RESPONSIVE ─────────────────────────────────────── */
+
+@media screen and (max-width: 749px) {
+  .cah-hero .collection-hero__text-wrapper {
+    align-items: center;
+    text-align: center;
+  }
+
+  .cah-hero .collection-hero__title {
+    font-size: clamp(3rem, 10vw, 5rem);
+    text-align: center;
+  }
+
+  .cah-hero .collection-hero__description {
+    text-align: center;
+  }
+
+  .cah-hero .collection-hero__inner {
+    padding: 3.5rem 0;
+  }
+
+  .cah-grid-wrapper .card>.card__content,
+  .cah-grid-wrapper .card>.card__content .card__information {
+    padding: 1rem 1.2rem 1.2rem;
+  }
+
+  .cah-grid-wrapper .product-count,
+  .cah-grid-wrapper .product-count-vertical {
+    text-align: center;
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+/* ── CUSTOM FILTER SECTION (MOODS / CATEGORIES) ────────────── */
+
+.cah-custom-filters {
+  padding: 1rem 1rem 0 1rem;
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .cah-custom-filters {
+    padding: 2rem 5rem 0 5rem;
+  }
+}
+
+.cah-custom-filters__eyebrow {
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.cah-custom-filters__title {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+/* Category Circles Scrollable Row */
+.cah-scroll-row {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding-bottom: 1.5rem;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cah-scroll-row::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
+}
+
+.cah-category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.cah-category-item:hover {
+  transform: translateY(-4px);
+}
+
+.cah-category-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cah-category-item.active .cah-category-circle {
+  border-color: #32402C;
+  border-width: 2px;
+  box-shadow: 0 0 15px rgba(50, 64, 44, 0.4);
+}
+
+.cah-category-item:hover .cah-category-circle {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cah-category-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.cah-category-item:hover .cah-category-circle img {
+  transform: scale(1.1);
+}
+
+.cah-category-label {
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Mood Pills Scrollable Row */
+.cah-mood-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 1rem;
+}
+
+.cah-mood-row::-webkit-scrollbar {
+  display: none;
+}
+
+.cah-mood-pill {
+  padding: 0.8rem 1.6rem;
+  border-radius: 8px;
+  background: #ffffff;
+  color: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 1.3rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.cah-mood-pill:hover {
+  color: #000;
+  border-color: rgba(0, 0, 0, 0.3);
+  background: #fafafa;
+}
+
+.cah-mood-pill.active {
+  background: rgba(50, 64, 44, 0.15);
+  color: #16a34a;
+  border-color: rgba(50, 64, 44, 0.5);
+}
+
+/* Filters Toggle Button */
+.cah-filters-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  color: #000;
+  font-size: 1.4rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.cah-filters-toggle:hover {
+  color: #32402C;
+}
+
+.cah-filters-toggle svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease;
+}
+
+.cah-filters-toggle[aria-expanded="true"] svg {
+  transform: rotate(45deg);
+}
+
+/* Hide standard facets by default if toggled */
+.cah-facets-wrapper {
+  display: none;
+  animation: cah-fadeSlideUp 0.3s ease both;
+}
+
+.cah-facets-wrapper.is-open {
+  display: block;
+}

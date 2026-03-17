@@ -1,23 +1,25 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+{{ 'collection-all-custom.css' | asset_url | stylesheet_tag }}
 
-{%- style -%}
-  @media screen and (max-width: 749px) {
-    .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{settings.media_shadow_vertical_offset | at_least: 0}}px + 2rem);
-    }
-  }
-{%- endstyle -%}
+<div class="collection-hero cah-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %}">
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
-  <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+  {%- comment -%}Decorative side accent line{%- endcomment -%}
+  <div class="cah-hero-accent-line" aria-hidden="true"></div>
+
+  <div class="collection-hero__inner page-width">
     <div class="collection-hero__text-wrapper">
+
+      {%- comment -%}Eyebrow badge{%- endcomment -%}
+      <p class="cah-eyebrow">Shop All Products</p>
+
+      {%- comment -%}Main animated title{%- endcomment -%}
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
         {{- collection.title | escape -}}
       </h1>
 
-      {%- if section.settings.show_collection_description -%}
+      {%- if section.settings.show_collection_description and collection.description != blank -%}
         <div class="collection-hero__description rte">{{ collection.description }}</div>
       {%- endif -%}
     </div>

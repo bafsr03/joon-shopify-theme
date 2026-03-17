@@ -11,11 +11,17 @@
       class="header__icon header__icon--menu header__icon--summary link focus-inset"
       aria-label="{{ 'sections.header.menu' | t }}"
     >
-      <span>
-        {{- 'icon-hamburger.svg' | inline_asset_content -}}
-        {{- 'icon-close.svg' | inline_asset_content -}}
+      <span class="mobile-toggle-wrapper">
+        <span class="mobile-menu-toggle-text">SHOP</span>
       </span>
     </summary>
+    
+    <button type="button" class="drawer__close-pill" onclick="document.querySelector('#Details-menu-drawer-container summary').click()" aria-label="Close menu">
+      <span class="svg-wrapper">
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </span>
+    </button>
+
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
       <div class="menu-drawer__inner-container">
         <div class="menu-drawer__navigation-container">

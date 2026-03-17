@@ -178,3 +178,34 @@
   max-width: 60px;
   height: auto;
 }
+
+/* ── iOS / Mobile bottom-bar fix ──────────────────────────────
+   Eliminates the white/light bar that appears below the footer
+   on Safari mobile. The footer bottom padding uses
+   safe-area-inset-bottom so the footer's black background shows
+   behind the browser's translucent bottom bar, making it appear
+   transparent (like Image 3 — blending into the dark content).
+──────────────────────────────────────────────────────────────── */
+
+/* Ensure the html/body background matches the footer's dark bg */
+html,
+body {
+  background-color: #000000;
+}
+
+/* Footer gets extra padding at the very bottom to fill the safe area */
+.footer {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* The bottom-most row of the footer fills behind the iOS status/URL bar */
+.footer__bottom {
+  padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Make the powered-by row subtler so the logo blends behind the link row */
+.footer__powered span,
+.footer__powered svg path {
+  opacity: 0.7;
+}
+
