@@ -1,16 +1,17 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
+    "promo-banner": {
+      "type": "promo-banner",
+      "settings": {
+        "heading": "Promo Banner Box",
+        "subtext_1": "<p>Subscribe now and get wholesale pricing</strong>.</p>",
+        "subtext_2": "<p>Ready to find your new favorite products?</p>",
+        "background_color": "#1a472a",
+        "text_color": "#ffffff"
+      }
+    },
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {
@@ -52,6 +53,7 @@
   },
   "order": [
     "announcement-bar",
-    "header"
+    "header",
+    "promo-banner"
   ]
 }
