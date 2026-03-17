@@ -31,6 +31,22 @@
     "focus_carousel": {
       "type": "focus-carousel",
       "blocks": {
+        "brand_b8qYqi": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ooze.png",
+            "title": "Ooze",
+            "link": ""
+          }
+        },
+        "brand_LrqPMT": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/LostMary.png",
+            "title": "Lost Mary",
+            "link": ""
+          }
+        },
         "brand_qaUBff": {
           "type": "brand",
           "settings": {
@@ -105,6 +121,8 @@
         }
       },
       "block_order": [
+        "brand_b8qYqi",
+        "brand_LrqPMT",
         "brand_qaUBff",
         "brand_AwXDxQ",
         "brand_4KmgEE",
