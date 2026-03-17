@@ -11,6 +11,7 @@
   "sections": {
     "hero_parallax": {
       "type": "hero-parallax",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "eyebrow": "Austin's Premier Wholesaler",
