@@ -22,6 +22,7 @@
         "button_label_2": "Learn More",
         "button_link_2": "",
         "background_color": "#3bb2e2",
+        "background_image": "shopify://shop_images/parallax-background.png",
         "flip_hand": true,
         "product_image_1": "shopify://shop_images/RedDrops.png",
         "product_image_2": "shopify://shop_images/GreenDrops.png",
