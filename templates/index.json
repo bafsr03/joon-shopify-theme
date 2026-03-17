@@ -28,32 +28,25 @@
         "padding_bottom": 0
       }
     },
-    "product_grid_tilted": {
-      "type": "product-grid-tilted",
-      "settings": {
-        "color_scheme": "scheme-2",
-        "eyebrow": "STOCK UP ON YOUR SUPPLY",
-        "title": "Proven Best Sellers",
-        "collection": "frontpage",
-        "products_to_show": 8,
-        "show_vendor": false,
-        "button_label": "View All",
-        "button_link": "shopify://collections/all",
-        "side_label_text": "Breathable, moisture-wicking material",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
     "focus_carousel": {
       "type": "focus-carousel",
-      "settings": {
-        "color_scheme": "scheme-1",
-        "eyebrow": "BEST SELLERS",
-        "title": "Shop Top Brands",
-        "padding_top": 60,
-        "padding_bottom": 60
-      },
       "blocks": {
+        "brand_AwXDxQ": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/logo.webp",
+            "title": "Lookah",
+            "link": ""
+          }
+        },
+        "brand_4KmgEE": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/torch.png",
+            "title": "Torch",
+            "link": ""
+          }
+        },
         "brand1": {
           "type": "brand",
           "settings": {
@@ -104,13 +97,38 @@
         }
       },
       "block_order": [
+        "brand_AwXDxQ",
+        "brand_4KmgEE",
         "brand1",
         "brand2",
         "brand3",
         "brand4",
         "brand5",
         "brand6"
-      ]
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "BEST SELLERS",
+        "title": "Shop Top Brands",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "product_grid_tilted": {
+      "type": "product-grid-tilted",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "eyebrow": "STOCK UP ON YOUR SUPPLY",
+        "title": "Proven Best Sellers",
+        "side_label_text": "Breathable, moisture-wicking material",
+        "collection": "frontpage",
+        "products_to_show": 8,
+        "show_vendor": false,
+        "button_label": "View All",
+        "button_link": "shopify://collections/all",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     },
     "background_video_banner": {
       "type": "background-video-banner",
