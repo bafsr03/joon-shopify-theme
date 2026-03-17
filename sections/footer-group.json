@@ -13,7 +13,6 @@
   "sections": {
     "newsletter": {
       "type": "footer-newsletter",
-      "disabled": true,
       "settings": {
         "color_scheme": "scheme-4",
         "heading": "Want more Supply?",
