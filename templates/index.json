@@ -24,6 +24,10 @@
         "bg_left_color": "#0e1012",
         "bg_right_color_start": "#1a1f2e",
         "bg_right_color_end": "#0a2240",
+        "product_image_1": "shopify://shop_images/RedDrops.png",
+        "product_image_2": "shopify://shop_images/GreenDrops.png",
+        "product_image_3": "shopify://shop_images/oragendrops.png",
+        "product_image_4": "shopify://shop_images/yellowdrops.png",
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -31,19 +35,19 @@
     "focus_carousel": {
       "type": "focus-carousel",
       "blocks": {
-        "brand_k9AcqM": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/formula420.png",
-            "title": "Formula 420",
-            "link": ""
-          }
-        },
         "brand_p3p6pJ": {
           "type": "brand",
           "settings": {
             "image": "shopify://shop_images/gravlab.png",
             "title": "Grav",
+            "link": ""
+          }
+        },
+        "brand_k9AcqM": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/formula420.png",
+            "title": "Formula 420",
             "link": ""
           }
         },
@@ -87,11 +91,11 @@
             "link": ""
           }
         },
-        "brand_LrqPMT": {
+        "brand1": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/LostMary.png",
-            "title": "Lost Mary",
+            "image": "shopify://shop_images/drops.jpg",
+            "title": "Drops",
             "link": ""
           }
         },
@@ -103,11 +107,11 @@
             "link": ""
           }
         },
-        "brand_qaUBff": {
+        "brand_4KmgEE": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/geekbar.png",
-            "title": "Geek Bar",
+            "image": "shopify://shop_images/torch.png",
+            "title": "Torch",
             "link": ""
           }
         },
@@ -119,6 +123,14 @@
             "link": ""
           }
         },
+        "brand_qaUBff": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/geekbar.png",
+            "title": "Geek Bar",
+            "link": ""
+          }
+        },
         "brand_AwXDxQ": {
           "type": "brand",
           "settings": {
@@ -127,38 +139,30 @@
             "link": ""
           }
         },
-        "brand_4KmgEE": {
+        "brand_LrqPMT": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/torch.png",
-            "title": "Torch",
-            "link": ""
-          }
-        },
-        "brand1": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/drops.jpg",
-            "title": "Drops",
+            "image": "shopify://shop_images/LostMary.png",
+            "title": "Lost Mary",
             "link": ""
           }
         }
       },
       "block_order": [
-        "brand_k9AcqM",
         "brand_p3p6pJ",
+        "brand_k9AcqM",
         "brand6",
         "brand_E6Ffkc",
         "brand5",
         "brand_b8qYqi",
         "brand4",
-        "brand_LrqPMT",
+        "brand1",
         "brand3",
-        "brand_qaUBff",
-        "brand2",
-        "brand_AwXDxQ",
         "brand_4KmgEE",
-        "brand1"
+        "brand2",
+        "brand_qaUBff",
+        "brand_AwXDxQ",
+        "brand_LrqPMT"
       ],
       "settings": {
         "color_scheme": "scheme-1",
