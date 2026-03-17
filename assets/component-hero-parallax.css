@@ -278,31 +278,35 @@
     /* Changed to positive margin to move items lower */
   }
 
+  /*main red */
   .hero-parallax__float-item--1 {
     width: 52rem;
   }
 
+  /*top right green */
   /* Showing right image (Item 2) and bottom left image (Item 3) on mobile */
   .hero-parallax__float-item--2 {
     display: block;
-    width: 32rem;
+    width: 42rem;
     /* Increased as requested */
     height: 32rem;
     top: -15%;
-    right: -10%;
+    right: -25%;
   }
 
+  /*bottom left orange */
   .hero-parallax__float-item--3 {
     display: block;
     width: 38rem;
-    /* Increased as requested */
     height: auto;
     aspect-ratio: 16 / 9;
     bottom: -10%;
-    left: -15%;
+    left: -10%;
   }
 
+  /*top right yellow */
   .hero-parallax__float-item--4 {
-    width: 32rem;
+    width: 30rem;
+    left: -2%;
   }
 }
