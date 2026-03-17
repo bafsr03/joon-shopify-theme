@@ -79,9 +79,10 @@
 
 /* ── PAGE BODY (force dark when on collection) ─────────────── */
 
-body.collection-page-all,
-.collection-page-all body {
-  background-color: #fafafa;
+html,
+body.template-collection,
+body.collection-page-all {
+  background-color: #0a0a0a;
 }
 
 /* ── COLLECTION HERO BANNER ────────────────────────────────── */
@@ -359,14 +360,26 @@ body.collection-page-all,
 }
 
 /* Card content area */
-.cah-grid-wrapper .card>.card__content,
-.cah-grid-wrapper .card>.card__content .card__information {
-  padding: 1.2rem 1.4rem 1.4rem;
+.cah-grid-wrapper .card__content {
+  flex-grow: 1;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important; /* Pushes info to the bottom */
+  padding: 1.5rem !important;
   background: #ffffff;
 }
 
+.cah-grid-wrapper .card__information {
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 0 !important;
+}
+
 .cah-grid-wrapper .card__inner .card__content {
-  background: transparent;
+  display: none !important;
 }
 
 /* Product title */
@@ -380,7 +393,7 @@ body.collection-page-all,
   text-decoration: none;
   text-align: center;
   display: block;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.6rem 0 !important;
 }
 
 .cah-grid-wrapper .card__heading a:hover {
@@ -404,7 +417,7 @@ body.collection-page-all,
   font-size: 1.6rem;
   text-align: center;
   display: block;
-  margin-bottom: 1.2rem;
+  margin: 0 0 1.2rem 0 !important;
 }
 
 .cah-grid-wrapper .price-item--sale {
