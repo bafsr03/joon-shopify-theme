@@ -13,15 +13,22 @@
   "sections": {
     "newsletter": {
       "type": "footer-newsletter",
+      "disabled": true,
       "settings": {
-        "color_scheme": "scheme-4"
+        "color_scheme": "scheme-4",
+        "heading": "Want more Supply?",
+        "subtext": "Join our community and save 15% off your next order.",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "marquee": {
       "type": "scrolling-marquee",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-3",
         "use_gradient": true,
+        "background_color": "#22c55e",
         "text": "Federally compliant ✦ Free shipping available ✦ Discreet delivery",
         "repeat_count": 5,
         "speed": 40,
@@ -31,6 +38,7 @@
     },
     "footer": {
       "type": "footer",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-4",
         "padding_top": 0,

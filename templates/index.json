@@ -163,7 +163,6 @@
         "brand_AwXDxQ",
         "brand_LrqPMT"
       ],
-      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "eyebrow": "BEST SELLERS",
@@ -174,6 +173,7 @@
     },
     "product_grid_tilted": {
       "type": "product-grid-tilted",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-2",
         "eyebrow": "STOCK UP ON YOUR SUPPLY",
@@ -190,6 +190,7 @@
     },
     "background_video_banner": {
       "type": "background-video-banner",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-5",
         "overlay_opacity": 50,
@@ -218,6 +219,7 @@
       "block_order": [
         "text"
       ],
+      "disabled": true,
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
