@@ -6,8 +6,11 @@
   position: relative;
   min-height: 70vh;
   overflow: hidden;
+  overflow-x: hidden; /* Strict horizontal containment */
   display: flex;
   align-items: center;
+  width: 100%;
+  margin: 0;
 }
 
 .hero-parallax__bg-layer {
@@ -18,6 +21,8 @@
   bottom: 0;
   z-index: 1;
   pointer-events: none;
+  width: 100.2%; /* Slightly wider to cover subpixel rounding gaps on mobile */
+  margin-left: -0.1%;
 }
 
 .hero-parallax__bg-image {
@@ -264,6 +269,12 @@
 
 /* Responsive */
 @media screen and (max-width: 749px) {
+  .hero-parallax {
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    overflow-x: hidden;
+  }
   .hero-parallax__inner {
     grid-template-columns: 1fr;
     padding: 4rem 2rem 12rem;
