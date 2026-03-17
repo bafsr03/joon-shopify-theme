@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "Footer group",
   "type": "footer",
@@ -5,9 +14,9 @@
     "newsletter": {
       "type": "footer-newsletter",
       "settings": {
-        "color_scheme": "scheme-4",
-        "heading": "Want more Supply?",
-        "subtext": "Join our community and save 15% off your next order.",
+        "color_scheme": "scheme-2",
+        "heading": "Get discounts every week",
+        "subtext": "",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -17,7 +26,7 @@
       "settings": {
         "color_scheme": "scheme-3",
         "use_gradient": true,
-        "background_color": "#32402C",
+        "background_color": "#22c55e",
         "text": "Federally compliant ✦ Free shipping available ✦ Discreet delivery",
         "repeat_count": 5,
         "speed": 40,
