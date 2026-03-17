@@ -31,6 +31,14 @@
     "focus_carousel": {
       "type": "focus-carousel",
       "blocks": {
+        "brand_E6Ffkc": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/Raw.png",
+            "title": "R",
+            "link": ""
+          }
+        },
         "brand_b8qYqi": {
           "type": "brand",
           "settings": {
@@ -121,6 +129,7 @@
         }
       },
       "block_order": [
+        "brand_E6Ffkc",
         "brand_b8qYqi",
         "brand_LrqPMT",
         "brand_qaUBff",
