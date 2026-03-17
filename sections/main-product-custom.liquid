@@ -2,8 +2,8 @@
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    background-color: #111111; /* Dark theme */
-    color: #ffffff;
+    background-color: #fafafa; /* Light theme matching collections/all */
+    color: #111111;
   }
 
   @media screen and (min-width: 750px) {
@@ -47,10 +47,10 @@
     width: 80px;
     height: 80px;
     border-radius: 8px;
-    background-color: #222;
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.1);
     overflow: hidden;
     cursor: pointer;
-    border: 2px solid transparent;
     transition: border-color 0.3s ease;
     flex-shrink: 0;
   }
@@ -70,8 +70,9 @@
     gap: 20px;
   }
   .custom-main-image {
-    background-color: #1a1a1a;
+    background-color: #ffffff;
     border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.1);
     overflow: hidden;
     position: relative;
     padding-bottom: 75%; /* 4:3 aspect ratio */
@@ -96,18 +97,18 @@
     margin: 0;
     line-height: 1.1;
     font-family: var(--font-heading-family);
-    color: #f4f4f4; /* Different font color */
+    color: #111111; /* Dark title */
   }
   
   .custom-product-price {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #008a00; /* Price in green */
+    color: #32402C; /* Price in green */
   }
 
   .custom-product-shipping {
     font-size: 0.85rem;
-    color: #888888;
+    color: #666666;
     margin-top: -10px;
   }
 
@@ -115,7 +116,7 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #aaaaaa;
+    color: #888888;
   }
 
   /* Selectors */
@@ -127,7 +128,7 @@
   .custom-selector-label {
     font-weight: bold;
     font-size: 0.9rem;
-    color: #ffffff;
+    color: #111111;
   }
   .custom-selector-options {
     display: flex;
@@ -136,9 +137,9 @@
   }
   .custom-option {
     padding: 10px 16px;
-    border: 1px solid #444;
-    background-color: transparent;
-    color: #ddd;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    color: #333;
     cursor: pointer;
     text-align: center;
     border-radius: 4px;
@@ -146,11 +147,11 @@
     transition: all 0.3s ease;
   }
   .custom-option:hover {
-    border-color: #666;
+    border-color: #32402C;
   }
   .custom-option.selected {
-    border-color: #008a00;
-    background-color: #008a00;
+    border-color: #32402C;
+    background-color: #32402C;
     color: white;
   }
 
@@ -163,12 +164,13 @@
   .custom-quantity-selector label {
     font-weight: bold;
     font-size: 0.9rem;
-    color: #ffffff;
+    color: #111111;
   }
   .quantity-input-wrapper {
     display: inline-flex;
     align-items: center;
-    border: 1px solid #444;
+    border: 1px solid #ddd;
+    background: #ffffff;
     border-radius: 6px;
     width: 120px;
     height: 44px;
@@ -176,7 +178,7 @@
   .qty-btn {
     background: transparent;
     border: none;
-    color: #fff;
+    color: #111;
     font-size: 1.2rem;
     width: 35px;
     height: 100%;
@@ -186,12 +188,12 @@
     justify-content: center;
   }
   .qty-btn:hover {
-    color: #008a00;
+    color: #32402C;
   }
   .qty-input {
     background: transparent;
     border: none;
-    color: #fff;
+    color: #111;
     width: 50px;
     text-align: center;
     font-size: 1rem;
@@ -214,8 +216,8 @@
     width: 100%;
     padding: 16px;
     background-color: transparent;
-    border: 2px solid #008a00;
-    color: #008a00;
+    border: 2px solid #32402C;
+    color: #32402C;
     font-weight: bold;
     font-size: 1.1rem;
     border-radius: 8px;
@@ -224,13 +226,13 @@
     transition: all 0.3s ease;
   }
   .custom-add-to-cart:hover {
-    background-color: rgba(0, 138, 0, 0.1);
+    background-color: rgba(50, 64, 44, 0.1);
   }
   .custom-buy-it-now {
     width: 100%;
     padding: 16px;
-    background-color: #008a00;
-    border: 2px solid #008a00;
+    background-color: #32402C;
+    border: 2px solid #32402C;
     color: #ffffff;
     font-weight: bold;
     font-size: 1.1rem;
@@ -240,22 +242,22 @@
     transition: all 0.3s ease;
   }
   .custom-buy-it-now:hover {
-    background-color: #006e00;
-    border-color: #006e00;
+    background-color: #16a34a;
+    border-color: #16a34a;
   }
 
   /* Description */
   .custom-product-description {
     font-size: 1rem;
     line-height: 1.6;
-    color: #cccccc;
+    color: #444444;
     margin-top: 10px;
-    border-top: 1px solid #333;
+    border-top: 1px solid #ddd;
     padding-top: 20px;
   }
 {%- endstyle -%}
 
-<div class="section-{{ section.id }}-padding bg-dark">
+<div class="section-{{ section.id }}-padding">
   <div class="custom-product-container">
     
     <!-- Thumbnails -->

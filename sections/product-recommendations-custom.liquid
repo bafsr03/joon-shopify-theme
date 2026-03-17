@@ -2,8 +2,8 @@
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    background-color: #111111; /* Dark theme */
-    color: #ffffff;
+    background-color: #fafafa; /* Light theme matching collections/all */
+    color: #111111;
   }
 
   @media screen and (min-width: 750px) {
@@ -69,10 +69,10 @@
   }
 
   /* Specific glowing gradients based on blocks/types. We'll add some random-ish colors based on index */
-  .related-custom-card:nth-child(4n+1) .related-image-wrapper { background: radial-gradient(circle at center, rgba(120, 160, 40, 0.4) 0%, #222 80%); } /* Green glow */
-  .related-custom-card:nth-child(4n+2) .related-image-wrapper { background: radial-gradient(circle at center, rgba(180, 40, 60, 0.4) 0%, #222 80%); } /* Red glow */
-  .related-custom-card:nth-child(4n+3) .related-image-wrapper { background: radial-gradient(circle at center, rgba(180, 80, 40, 0.4) 0%, #222 80%); } /* Orange glow */
-  .related-custom-card:nth-child(4n+4) .related-image-wrapper { background: radial-gradient(circle at center, rgba(100, 40, 180, 0.4) 0%, #222 80%); } /* Purple glow */
+  .related-custom-card:nth-child(4n+1) .related-image-wrapper { background: radial-gradient(circle at center, rgba(120, 160, 40, 0.2) 0%, #f4f4f4 80%); } /* Green */
+  .related-custom-card:nth-child(4n+2) .related-image-wrapper { background: radial-gradient(circle at center, rgba(180, 40, 60, 0.2) 0%, #f4f4f4 80%); } /* Red */
+  .related-custom-card:nth-child(4n+3) .related-image-wrapper { background: radial-gradient(circle at center, rgba(180, 80, 40, 0.2) 0%, #f4f4f4 80%); } /* Orange */
+  .related-custom-card:nth-child(4n+4) .related-image-wrapper { background: radial-gradient(circle at center, rgba(100, 40, 180, 0.2) 0%, #f4f4f4 80%); } /* Purple */
 
   .related-image-wrapper img {
     position: absolute;
@@ -110,7 +110,7 @@
     font-weight: bold;
     margin: 0;
     line-height: 1.3;
-    color: #fff;
+    color: #111111;
     text-decoration: none;
   }
   .related-product-title:hover {
@@ -122,17 +122,17 @@
     justify-content: space-between;
     align-items: center;
     font-size: 0.85rem;
-    color: #ccc;
+    color: #666;
   }
 
   .related-product-price {
     font-size: 0.9rem;
-    color: #aaa;
+    color: #444;
     margin-bottom: 12px;
   }
 
   .related-add-to-cart {
-    background-color: #008a00; /* Green accent */
+    background-color: #32402C; /* Green accent */
     color: #ffffff;
     border: none;
     padding: 12px;
@@ -144,7 +144,7 @@
     margin-top: auto;
   }
   .related-add-to-cart:hover {
-    background-color: #006e00;
+    background-color: #16a34a;
   }
 
   /* Slider Navigation Arrow */
@@ -154,23 +154,23 @@
     top: 40%;
     width: 40px;
     height: 40px;
-    background-color: rgba(255,255,255,0.2);
-    border: 2px solid #ccc;
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 2;
-    color: #fff;
+    color: #111;
   }
   .related-slider-arrow:hover {
-    background-color: rgba(255,255,255,0.4);
+    background-color: #f4f4f4;
   }
 
 {%- endstyle -%}
 
-<div class="section-{{ section.id }}-padding bg-dark">
+<div class="section-{{ section.id }}-padding">
   <div class="related-custom-container">
     
     <h2 class="related-custom-title">{{ section.settings.heading }}</h2>

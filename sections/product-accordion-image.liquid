@@ -2,8 +2,8 @@
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    background-color: #111111; /* Consistent dark theme */
-    color: #ffffff;
+    background-color: #fafafa; /* Consistent light theme */
+    color: #111111;
   }
 
   @media screen and (min-width: 750px) {
@@ -56,11 +56,11 @@
   }
 
   .accordion-item {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #ddd;
     padding: 16px 0;
   }
   .accordion-item:first-child {
-    border-top: 1px solid #333;
+    border-top: 1px solid #ddd;
   }
 
   .accordion-header {
@@ -72,16 +72,16 @@
     font-size: 0.9rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #ccc;
+    color: #444;
     transition: color 0.3s ease;
   }
   .accordion-header:hover {
-    color: #008a00;
+    color: #32402C;
   }
   
   .accordion-icon {
     font-size: 1.2rem;
-    color: #ccc;
+    color: #444;
     transition: transform 0.3s ease;
   }
 
@@ -90,16 +90,16 @@
     overflow: hidden;
     transition: max-height 0.3s ease;
     font-size: 0.9rem;
-    color: #999;
+    color: #666;
     line-height: 1.5;
   }
 
   .accordion-item.active .accordion-icon {
     transform: rotate(45deg); /* + turns into x */
-    color: #008a00;
+    color: #32402C;
   }
   .accordion-item.active .accordion-header {
-    color: #ffffff;
+    color: #111111;
   }
   .accordion-item.active .accordion-body {
     max-height: 200px; /* Arbitrary large height to allow content */
@@ -122,7 +122,7 @@
   }
 {%- endstyle -%}
 
-<div class="section-{{ section.id }}-padding bg-dark">
+<div class="section-{{ section.id }}-padding">
   <div class="accordion-image-container">
     
     <!-- Left: Accordion content -->
@@ -152,7 +152,7 @@
         <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.image.alt | escape }}" loading="lazy">
       {% else %}
         <!-- Mock image block for illustration if no image is selected -->
-        <div style="width: 100%; aspect-ratio: 1/1; background-color: #008a00; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.5rem; border-radius:12px;">Image Placeholder</div>
+        <div style="width: 100%; aspect-ratio: 1/1; background-color: #32402C; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.5rem; border-radius:12px;">Image Placeholder</div>
       {% endif %}
     </div>
 
