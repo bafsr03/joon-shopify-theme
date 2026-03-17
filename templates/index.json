@@ -13,9 +13,9 @@
       "type": "hero-parallax",
       "settings": {
         "color_scheme": "scheme-1",
-        "eyebrow": "Austin's Premier Wholesaler",
+        "eyebrow": "Austin's Premier",
         "heading_line1": "",
-        "heading_line2": "",
+        "heading_line2": "Wholesaler",
         "subtext": "Exclusive pricing · Outstanding service · Industry expertise",
         "button_label_1": "Shop All",
         "button_link_1": "shopify://collections/all",
