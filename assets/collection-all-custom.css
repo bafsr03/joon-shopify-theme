@@ -374,15 +374,17 @@ body.collection-page-all,
 .cah-grid-wrapper .card__heading a,
 .cah-grid-wrapper .card__heading .link {
   color: #111111 !important;
-  font-size: 1.4rem;
-  font-weight: 600;
-  line-height: 1.3;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2;
   text-decoration: none;
+  text-align: center;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 .cah-grid-wrapper .card__heading a:hover {
   color: #32402C !important;
-  text-decoration: none;
 }
 
 /* Vendor / subtitle */
@@ -399,7 +401,10 @@ body.collection-page-all,
 .cah-grid-wrapper .price-item--regular {
   color: #111111 !important;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  text-align: center;
+  display: block;
+  margin-bottom: 1.2rem;
 }
 
 .cah-grid-wrapper .price-item--sale {
@@ -430,16 +435,32 @@ body.collection-page-all,
 .cah-grid-wrapper .product-form__submit,
 .cah-grid-wrapper input[type="submit"] {
   background: #32402C !important;
-  color: #000000 !important;
+  color: #ffffff !important; /* White text for better contrast on dark green */
   border: none !important;
-  border-radius: 999px !important;
+  border-radius: 8px !important;
   font-weight: 700 !important;
   font-size: 1.3rem !important;
-  letter-spacing: 0.03em !important;
-  padding: 0.9rem 1.6rem !important;
+  letter-spacing: 0.05em !important;
+  padding: 1.4rem 1.6rem !important;
   width: 100%;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease !important;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  box-shadow: 0 2px 8px rgba(50, 64, 44, 0.15);
+}
+
+.cah-premium-add-btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+  min-height: 48px;
+}
+
+.cah-premium-add-btn .btn-content {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
 }
 
 .cah-grid-wrapper .quick-add__submit:hover,

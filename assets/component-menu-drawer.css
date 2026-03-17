@@ -278,7 +278,7 @@ details[open]>.header__icon--menu .mobile-toggle-wrapper {
   position: absolute;
   top: calc(100% + 1.5rem);
   left: min(85%, 400px);
-  margin-left: 4.5rem;
+  margin-left: 2rem;
   /* moved further to the right */
   width: 5rem;
   height: 3.6rem;

@@ -396,24 +396,46 @@
               class="quick-add-bulk"
               data-index="{{ card_product.selected_or_first_available_variant.id }}"
             >
-              {% if card_product.selected_or_first_available_variant.available == false %}
-                <button
-                  id="{{ product_form_id }}-submit"
-                  type="submit"
-                  name="add"
-                  class="quick-add__submit button button--full-width button--secondary"
-                  aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
-                  data-sold-out-message="true"
-                  disabled
-                >
-                  <span>{{ 'products.product.sold_out' | t }}</span>
-                  <span class="sold-out-message hidden">
-                    {{ 'products.product.sold_out' | t }}
-                  </span>
-                </button>
-              {% else %}
-                {% render 'quantity-input', variant: card_product.selected_or_first_available_variant, min: 0 %}
-              {% endif %}
+
+                <product-form data-section-id="{{ section.id }}">
+                  {%- form 'product',
+                    card_product,
+                    id: product_form_id,
+                    class: 'form',
+                    novalidate: 'novalidate',
+                    data-type: 'add-to-cart-form'
+                  -%}
+                    <input
+                      type="hidden"
+                      name="id"
+                      value="{{ card_product.selected_or_first_available_variant.id }}"
+                      class="product-variant-id"
+                    >
+                    <button
+                      id="{{ product_form_id }}-submit"
+                      type="submit"
+                      name="add"
+                      class="quick-add__submit button button--full-width button--secondary cah-premium-add-btn"
+                      aria-haspopup="dialog"
+                      aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
+                      aria-live="polite"
+                      data-sold-out-message="true"
+                      {% if card_product.selected_or_first_available_variant.available == false %}
+                        disabled
+                      {% endif %}
+                    >
+                      <span class="btn-content">
+                        {%- if card_product.selected_or_first_available_variant.available -%}
+                          {{ 'products.product.add_to_cart' | t }}
+                        {%- else -%}
+                          {{ 'products.product.sold_out' | t }}
+                        {%- endif -%}
+                      </span>
+                      {%- render 'loading-spinner' -%}
+                    </button>
+                  {%- endform -%}
+                </product-form>
+
             </quick-add-bulk>
           {% else %}
             <div class="quick-add no-js-hidden">
