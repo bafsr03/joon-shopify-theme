@@ -127,8 +127,11 @@
 
   @media screen and (max-width: 749px) {
     .benefits-icons-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .benefit-icon-link:nth-child(n+7) {
+      display: none;
     }
     .benefits-title {
       font-size: 2.5rem;
@@ -136,8 +139,8 @@
   }
 
   .benefit-icon-wrapper {
-    width: 90px;
-    height: 90px;
+    width: 65px;
+    height: 65px;
     background-color: rgba(255, 255, 255, 0.05); /* Subtly translucent on dark BG */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
@@ -152,8 +155,8 @@
 
   @media screen and (min-width: 900px) {
     .benefit-icon-wrapper {
-      width: 110px;
-      height: 110px;
+      width: 90px;
+      height: 90px;
     }
   }
 
@@ -200,11 +203,31 @@
     <!-- Icons area (Right) -->
     <div class="benefits-icons-grid">
       {% for block in section.blocks limit: 8 %}
-        <div class="benefit-icon-wrapper">
-          {% if block.settings.icon_image != blank %}
-            <img src="{{ block.settings.icon_image | image_url: width: 100 }}" alt="{{ block.settings.icon_name }}" loading="lazy">
-          {% else %}
-            <!-- Category Protocol Icon -->
+        {% assign category_name = block.settings.icon_name %}
+        {% if category_name == blank %}
+          {% case forloop.index %}
+            {% when 1 %}{% assign category_name = 'All Products' %}
+            {% when 2 %}{% assign category_name = 'Gummies' %}
+            {% when 3 %}{% assign category_name = 'Flower' %}
+            {% when 4 %}{% assign category_name = 'Edibles' %}
+            {% when 5 %}{% assign category_name = 'Beverages' %}
+            {% when 6 %}{% assign category_name = 'Concentrates' %}
+            {% when 7 %}{% assign category_name = 'Vapes' %}
+            {% else %}{% assign category_name = 'Pre-Rolls' %}
+          {% endcase %}
+        {% endif %}
+
+        {% assign link_url = '/collections/all?filter.p.product_type=' | append: category_name %}
+        {% if category_name == 'All Products' %}
+          {% assign link_url = '/collections/all' %}
+        {% endif %}
+        
+        <a href="{{ link_url }}" class="benefit-icon-link" aria-label="{{ category_name }}" style="text-decoration: none;">
+          <div class="benefit-icon-wrapper">
+            {% if block.settings.icon_image != blank %}
+              <img src="{{ block.settings.icon_image | image_url: width: 100 }}" alt="{{ category_name }}" loading="lazy">
+            {% else %}
+              <!-- Category Protocol Icon -->
             <div style="width: 100%; height: 100%; background-color: transparent; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
               {% case forloop.index %}
                 {% when 1 %}<svg style="width:50%; height:50%; fill:#ffffff;" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -219,15 +242,34 @@
               {% endcase %}
             </div>
           {% endif %}
-        </div>
+          </div>
+        </a>
       {% endfor %}
       
       {% if section.blocks.size == 0 %}
          <!-- Mock icons for empty state -->
          {% for i in (1..8) %}
-            <div class="benefit-icon-wrapper">
-               <div style="width: 100%; height: 100%; background-color: transparent; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                 {% case i %}
+            {% assign category_name = '' %}
+            {% case i %}
+              {% when 1 %}{% assign category_name = 'All Products' %}
+              {% when 2 %}{% assign category_name = 'Gummies' %}
+              {% when 3 %}{% assign category_name = 'Flower' %}
+              {% when 4 %}{% assign category_name = 'Edibles' %}
+              {% when 5 %}{% assign category_name = 'Beverages' %}
+              {% when 6 %}{% assign category_name = 'Concentrates' %}
+              {% when 7 %}{% assign category_name = 'Vapes' %}
+              {% else %}{% assign category_name = 'Pre-Rolls' %}
+            {% endcase %}
+
+            {% assign link_url = '/collections/all?filter.p.product_type=' | append: category_name %}
+            {% if category_name == 'All Products' %}
+              {% assign link_url = '/collections/all' %}
+            {% endif %}
+
+            <a href="{{ link_url }}" class="benefit-icon-link" style="text-decoration: none;">
+              <div class="benefit-icon-wrapper">
+                 <div style="width: 100%; height: 100%; background-color: transparent; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                   {% case i %}
                    {% when 1 %}<svg style="width:50%; height:50%; fill:#ffffff;" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                    {% when 2 %}<svg style="width:50%; height:50%; fill:none; stroke:#ffffff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4" ry="4"/></svg>
                    {% when 3 %}<svg style="width:50%; height:50%; fill:none; stroke:#ffffff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -238,7 +280,8 @@
                    {% when 8 %}<svg style="width:50%; height:50%; fill:none; stroke:#ffffff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;" viewBox="0 0 24 24"><path d="M2.5 21.5L20 4"/><path d="M18 2h4v4"/><path d="M6 6H2V2"/></svg>
                  {% endcase %}
                </div>
-            </div>
+              </div>
+            </a>
          {% endfor %}
       {% endif %}
     </div>
