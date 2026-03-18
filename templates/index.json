@@ -22,6 +22,8 @@
         "button_label_2": "Learn More",
         "button_link_2": "",
         "background_color": "#3bb2e2",
+        "background_color_2": "",
+        "background_gradient_direction": "to bottom",
         "flip_hand": true,
         "product_image_1": "shopify://shop_images/RedDrops.png",
         "product_image_2": "shopify://shop_images/GreenDrops.png",
@@ -191,16 +193,17 @@
       "type": "background-video-banner",
       "settings": {
         "color_scheme": "scheme-5",
+        "fallback_image": "shopify://shop_images/Screenshot_2026-03-17_at_8.10.29_PM.png",
         "overlay_opacity": 50,
         "heading": "Big Bulk Discounts",
-        "subtext": "HCA Flower Wholesale and More. Big buys mean Big Discounts. Apply to our Wholesale Delivery program for major savings!",
+        "subtext": "",
         "button_label_1": "Apply Now & Save",
         "button_link_1": "",
         "button_style_1_secondary": false,
         "button_label_2": "Current Inventory",
         "button_link_2": "shopify://collections/all",
         "button_style_2_secondary": false,
-        "padding_top": 0,
+        "padding_top": 44,
         "padding_bottom": 0
       }
     },

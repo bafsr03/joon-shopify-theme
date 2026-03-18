@@ -1,41 +1,55 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main_product_custom": {
       "type": "main-product-custom",
       "settings": {
-        "eyebrow": "Fragrance Free",
-        "quote_text": "My butt's never felt cleaner. Where have these been all my life?!",
         "padding_top": 36,
         "padding_bottom": 36
       }
     },
-
     "product_benefits_icons": {
       "type": "product-benefits-icons",
       "blocks": {
         "icon_1": {
-          "type": "icon_block"
+          "type": "icon_block",
+          "settings": {}
         },
         "icon_2": {
-          "type": "icon_block"
+          "type": "icon_block",
+          "settings": {}
         },
         "icon_3": {
-          "type": "icon_block"
+          "type": "icon_block",
+          "settings": {}
         },
         "icon_4": {
-          "type": "icon_block"
+          "type": "icon_block",
+          "settings": {}
         },
         "icon_5": {
-          "type": "icon_block"
+          "type": "icon_block",
+          "settings": {}
         },
         "icon_6": {
-          "type": "icon_block"
+          "type": "icon_block",
+          "settings": {}
         },
         "icon_7": {
-          "type": "icon_block"
+          "type": "icon_block",
+          "settings": {}
         },
         "icon_8": {
-          "type": "icon_block"
+          "type": "icon_block",
+          "settings": {}
         }
       },
       "block_order": [
@@ -74,7 +88,6 @@
   },
   "order": [
     "main_product_custom",
-
     "product_benefits_icons",
     "product_grid_tilted"
   ]
