@@ -46,11 +46,9 @@
                     <h4 class="upsell-item__title">{{ upsell_product.title }}</h4>
                     <p class="upsell-item__price">{{ upsell_product.price | money }}</p>
 
-                    <form method="post" action="/cart/add" class="upsell-form" style="width: 100%;">
-                      <input type="hidden" name="id" value="{{ upsell_product.variants.first.id }}">
-                      <input type="hidden" name="quantity" value="1">
-                      <button type="submit" class="button button--secondary upsell-add-btn">Add to cart</button>
-                    </form>
+                    <a href="{{ upsell_product.url }}" class="button button--secondary upsell-add-btn">
+                      View
+                    </a>
                   </div>
                 {%- endfor -%}
               {%- else -%}
@@ -627,16 +625,13 @@
             See cart & checkout
           </button>
           
-          <button
-            type="button"
+          <a
+            href="{{ routes.all_products_collection_url }}"
             class="cart__continue-button button button--secondary"
-            onclick="this.closest('cart-drawer').close()"
-            {% if cart == empty %}
-              disabled
-            {% endif %}
+            style="display: flex; align-items: center; justify-content: center; text-decoration: none;"
           >
             Continue Shopping
-          </button>
+          </a>
         </div>
         <div class="cart__shipping-note">
           <p>Ships within 24 hours</p>
