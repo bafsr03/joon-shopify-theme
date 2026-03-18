@@ -27,6 +27,40 @@
       aria-label="{{ 'sections.cart.title' | t }}"
       tabindex="-1"
     >
+      <div class="cart-drawer__grid">
+        <div class="cart-drawer__aside">
+          <div class="cart-drawer__aside-inner">
+            <h3 class="cart-drawer__aside-title">THE BEST SELLERS</h3>
+            <div class="cart-drawer__upsell-list">
+              {%- assign best_sellers_collection = collections['frontpage'] -%}
+              {%- if best_sellers_collection != blank and best_sellers_collection.products_count > 0 -%}
+                {%- for upsell_product in best_sellers_collection.products limit: 4 -%}
+                  <div class="cart-drawer__upsell-item">
+                    <div class="upsell-item__image-wrapper" style="background:rgba(var(--color-foreground), 0.05);">
+                      {% if upsell_product.featured_image != blank %}
+                        <img src="{{ upsell_product.featured_image | image_url: width: 300 }}" alt="{{ upsell_product.title | escape }}">
+                      {% else %}
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    </div>
+                    <h4 class="upsell-item__title">{{ upsell_product.title }}</h4>
+                    <p class="upsell-item__price">{{ upsell_product.price | money }}</p>
+
+                    <form method="post" action="/cart/add" class="upsell-form" style="width: 100%;">
+                      <input type="hidden" name="id" value="{{ upsell_product.variants.first.id }}">
+                      <input type="hidden" name="quantity" value="1">
+                      <button type="submit" class="button button--secondary upsell-add-btn">Add to cart</button>
+                    </form>
+                  </div>
+                {%- endfor -%}
+              {%- else -%}
+                <p style="color: rgb(var(--color-foreground)); font-size: 1.2rem;">Create a collection with handle <strong>frontpage</strong> to show products here!</p>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-drawer__main">
       {%- if cart == empty -%}
         <div class="drawer__inner-empty">
           <div class="cart-drawer__warnings center{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}">
@@ -62,17 +96,34 @@
         </div>
       {%- endif -%}
       <div class="drawer__header">
-        <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
-        <button
-          class="drawer__close"
-          type="button"
-          onclick="this.closest('cart-drawer').close()"
-          aria-label="{{ 'accessibility.close' | t }}"
-        >
-          <span class="svg-wrapper">
-            {{- 'icon-close.svg' | inline_asset_content -}}
-          </span>
-        </button>
+        <div class="drawer__header-top">
+          <h2 class="drawer__heading">
+            <span class="svg-wrapper" style="color: #00BA4B; margin-right: 8px;">
+              <svg viewBox="0 0 24 24" fill="none" class="icon-checkmark"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Added to Cart
+          </h2>
+          <button
+            class="drawer__close"
+            type="button"
+            onclick="this.closest('cart-drawer').close()"
+            aria-label="{{ 'accessibility.close' | t }}"
+          >
+            <span class="svg-wrapper">
+              {{- 'icon-close.svg' | inline_asset_content -}}
+            </span>
+          </button>
+        </div>
+        {%- if cart != empty -%}
+        <div class="drawer__progress-bar-container">
+          <p class="drawer__progress-text">Congratulations, you unlocked free shipping!</p>
+          <div class="drawer__progress-bar">
+            <div class="drawer__progress-fill" style="width: 100%;">
+               <span class="progress-icon" style="position: absolute; right: -12px; top: -5px; font-size: 16px;">🚚</span>
+            </div>
+          </div>
+        </div>
+        {%- endif -%}
       </div>
       <cart-drawer-items
         {% if cart == empty %}
@@ -565,15 +616,31 @@
           <button
             type="submit"
             id="CartDrawer-Checkout"
-            class="cart__checkout-button button"
+            class="cart__checkout-button button button--primary"
             name="checkout"
             form="CartDrawer-Form"
             {% if cart == empty %}
               disabled
             {% endif %}
           >
-            {{ 'sections.cart.checkout' | t }}
+            See cart & checkout
           </button>
+          
+          <button
+            type="button"
+            class="cart__continue-button button button--secondary"
+            onclick="this.closest('cart-drawer').close()"
+            {% if cart == empty %}
+              disabled
+            {% endif %}
+          >
+            Continue Shopping
+          </button>
+        </div>
+        <div class="cart__shipping-note">
+          <p>Ships within 24 hours</p>
+        </div>
+      </div>
         </div>
       </div>
     </div>
