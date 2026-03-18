@@ -9,43 +9,7 @@
         "padding_bottom": 36
       }
     },
-    "product_accordion_image": {
-      "type": "product-accordion-image",
-      "blocks": {
-        "accordion_1": {
-          "type": "accordion",
-          "settings": {
-            "heading": "CERTIFIED FLUSHABLE",
-            "content": "Our wipes are rigorously tested to ensure they break down safely."
-          }
-        },
-        "accordion_2": {
-          "type": "accordion",
-          "settings": {
-            "heading": "HYPOALLERGENIC & SENSITIVE",
-            "content": "Made with friendly ingredients for sensitive skin."
-          }
-        },
-        "accordion_3": {
-          "type": "accordion",
-          "settings": {
-            "heading": "PLANT BASED INGREDIENTS",
-            "content": "Eco-friendly and sustainable."
-          }
-        }
-      },
-      "block_order": [
-        "accordion_1",
-        "accordion_2",
-        "accordion_3"
-      ],
-      "settings": {
-        "title": "Soft On Buns.\\nStrong On Runs.",
-        "description": "<p>Experience the ultimate clean with our premium materials designed for your comfort.</p>",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
+
     "product_benefits_icons": {
       "type": "product-benefits-icons",
       "blocks": {
@@ -110,7 +74,7 @@
   },
   "order": [
     "main_product_custom",
-    "product_accordion_image",
+
     "product_benefits_icons",
     "product_grid_tilted"
   ]
