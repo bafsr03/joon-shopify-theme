@@ -40,12 +40,25 @@
   .accordion-title {
     font-size: 2.5rem;
     line-height: 1.2;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
     font-family: var(--font-heading-family);
   }
   @media screen and (min-width: 900px) {
     .accordion-title {
+      text-align: left;
+    }
+  }
+
+  .accordion-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  @media screen and (min-width: 900px) {
+    .accordion-description {
       text-align: left;
     }
   }
@@ -130,6 +143,10 @@
       {% if section.settings.title != blank %}
         <h2 class="accordion-title">{{ section.settings.title }}</h2>
       {% endif %}
+      
+      {% if section.settings.description != blank %}
+        <div class="accordion-description">{{ section.settings.description }}</div>
+      {% endif %}
 
       <div class="accordion-list">
         {% for block in section.blocks %}
@@ -184,6 +201,12 @@
       "id": "title",
       "label": "Heading",
       "default": "Soft On Buns.\nStrong On Runs."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Experience the ultimate clean with our premium materials designed for your comfort.</p>"
     },
     {
       "type": "image_picker",
@@ -241,10 +264,7 @@
       "blocks": [
         { "type": "accordion", "settings": { "heading": "CERTIFIED FLUSHABLE" } },
         { "type": "accordion", "settings": { "heading": "HYPOALLERGENIC & SENSITIVE" } },
-        { "type": "accordion", "settings": { "heading": "PLANT BASED INGREDIENTS" } },
-        { "type": "accordion", "settings": { "heading": "RESEALABLE DISPENSER BOX" } },
-        { "type": "accordion", "settings": { "heading": "POO~POURRI GUARANTEE" } },
-        { "type": "accordion", "settings": { "heading": "SIZE GUIDE" } }
+        { "type": "accordion", "settings": { "heading": "PLANT BASED INGREDIENTS" } }
       ]
     }
   ]

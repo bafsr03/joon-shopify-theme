@@ -32,39 +32,16 @@
             "heading": "PLANT BASED INGREDIENTS",
             "content": "Eco-friendly and sustainable."
           }
-        },
-        "accordion_4": {
-          "type": "accordion",
-          "settings": {
-            "heading": "RESEALABLE DISPENSER BOX",
-            "content": "Keeps your wipes fresh and moist."
-          }
-        },
-        "accordion_5": {
-          "type": "accordion",
-          "settings": {
-            "heading": "POO~POURRI GUARANTEE",
-            "content": "Satisfaction guaranteed or your money back."
-          }
-        },
-        "accordion_6": {
-          "type": "accordion",
-          "settings": {
-            "heading": "SIZE GUIDE",
-            "content": "Compact and fits perfectly."
-          }
         }
       },
       "block_order": [
         "accordion_1",
         "accordion_2",
-        "accordion_3",
-        "accordion_4",
-        "accordion_5",
-        "accordion_6"
+        "accordion_3"
       ],
       "settings": {
         "title": "Soft On Buns.\\nStrong On Runs.",
+        "description": "<p>Experience the ultimate clean with our premium materials designed for your comfort.</p>",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -108,7 +85,7 @@
         "icon_8"
       ],
       "settings": {
-        "eyebrow": "PREMIUM QUALITY CANNABIS",
+        "eyebrow": "PREMIUM QUALITY PRODUCTS",
         "heading": "Elevate Your Experience",
         "padding_top": 80,
         "padding_bottom": 80
