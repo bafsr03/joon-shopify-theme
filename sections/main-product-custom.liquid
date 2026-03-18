@@ -1,3 +1,5 @@
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+
 {%- style -%}
   @keyframes product-gradientShift {
     0% { background-position: 0% 50%; }
@@ -5,45 +7,24 @@
     100% { background-position: 0% 50%; }
   }
 
-  @keyframes product-pulse {
-    0%, 100% { opacity: 0.15; transform: scale(1); }
-    50% { opacity: 0.35; transform: scale(1.15); }
-  }
-
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    background-color: #fafafa; /* Light theme matching collections/all */
+    background-color: #fafafa;
     color: #111111;
     position: relative;
     overflow: hidden;
   }
 
-  /* Animated gradient orbs */
   .section-{{ section.id }}-padding::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 80% at 15% 50%, rgba(34, 197, 94, 0.12) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 70% at 80% 40%, rgba(59, 178, 226, 0.10) 0%, transparent 70%);
-    animation: product-gradientShift 8s ease infinite;
+      radial-gradient(ellipse 60% 80% at 15% 50%, rgba(34, 197, 94, 0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 70% at 85% 40%, rgba(59, 178, 226, 0.06) 0%, transparent 70%);
+    animation: product-gradientShift 10s ease infinite;
     background-size: 200% 200%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Floating dot particles */
-  .section-{{ section.id }}-padding::after {
-    content: '';
-    position: absolute;
-    top: 20%;
-    right: 10%;
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(34, 197, 94, 0.18) 0%, transparent 70%);
-    animation: product-pulse 4s ease-in-out infinite;
     pointer-events: none;
     z-index: 0;
   }
@@ -55,374 +36,765 @@
     }
   }
 
-  .custom-product-container {
+  /* ── Layout ── */
+  .cprod-wrapper {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
     position: relative;
     z-index: 1;
   }
 
   @media screen and (min-width: 990px) {
-    .custom-product-container {
-      grid-template-columns: 120px 1.5fr 1fr;
+    .cprod-wrapper {
+      grid-template-columns: 96px 1fr 420px;
+      gap: 40px;
+      align-items: start;
     }
   }
 
-  /* Thumbnails */
-  .custom-product-thumbnails {
+  /* ── Thumbnails ── */
+  .cprod-thumbs {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 10px;
     overflow-x: auto;
+    padding-bottom: 4px;
   }
+
   @media screen and (min-width: 990px) {
-    .custom-product-thumbnails {
+    .cprod-thumbs {
       flex-direction: column;
       overflow-y: auto;
-      max-height: 700px;
+      max-height: 680px;
+      overflow-x: hidden;
+      padding-bottom: 0;
     }
   }
 
-  .custom-thumbnail {
-    width: 80px;
-    height: 80px;
+  .cprod-thumb {
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
     border-radius: 8px;
-    background-color: #ffffff;
-    border: 1px solid rgba(0,0,0,0.1);
     overflow: hidden;
     cursor: pointer;
-    transition: border-color 0.3s ease;
-    flex-shrink: 0;
+    border: 2px solid transparent;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   }
-  .custom-thumbnail:hover, .custom-thumbnail.active {
-    border-color: #008a00; /* Green accent */
-  }
-  .custom-thumbnail img {
+
+  .cprod-thumb:hover { transform: scale(1.04); border-color: #aab5a4; }
+  .cprod-thumb.is-active { border-color: #32402C; }
+
+  .cprod-thumb img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    display: block;
   }
 
-  /* Main Image */
-  .custom-main-image-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .custom-main-image {
-    background-color: #ffffff;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.1);
+  /* ── Main image ── */
+  .cprod-main-img-wrap {
+    border-radius: 14px;
     overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     position: relative;
-    padding-bottom: 75%; /* 4:3 aspect ratio */
+    aspect-ratio: 1 / 1;
   }
-  .custom-main-image img {
+
+  .cprod-main-img-wrap img {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-  }
-  
-  /* Details Panel */
-  .custom-product-details {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .custom-product-title {
-    font-size: 2.8rem;
-    margin: 0;
-    line-height: 1.1;
-    font-family: var(--font-heading-family);
-    color: #111111; /* Dark title */
-  }
-  
-  .custom-product-price {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #32402C; /* Price in green */
+    object-fit: contain;
+    transition: opacity 0.3s ease;
   }
 
-  .custom-product-shipping {
-    font-size: 0.85rem;
-    color: #666666;
+  /* ── Details panel ── */
+  .cprod-details {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .cprod-details {
+      position: sticky;
+      top: 80px;
+    }
+  }
+
+  /* Breadcrumb / type */
+  .cprod-type {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #32402C;
+    font-weight: 600;
+  }
+
+  .cprod-title {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0;
+    color: #111111;
+    font-family: var(--font-heading-family, inherit);
+  }
+
+  /* Price row */
+  .cprod-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .cprod-price {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #32402C;
+  }
+  .cprod-compare-price {
+    font-size: 1.35rem;
+    color: #999;
+    text-decoration: line-through;
+  }
+  .cprod-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #32402C;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .cprod-shipping {
+    font-size: 1.5rem;
+    color: #777;
     margin-top: -10px;
   }
 
-  .custom-product-category {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #888888;
+  /* Divider */
+  .cprod-divider {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 0;
   }
 
-  /* Selectors */
-  .custom-selector-group {
+  /* Variant selectors */
+  .cprod-option-group {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-  }
-  .custom-selector-label {
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: #111111;
-  }
-  .custom-selector-options {
-    display: flex;
-    flex-wrap: wrap;
     gap: 10px;
   }
-  .custom-option {
-    padding: 10px 16px;
-    border: 1px solid #ddd;
-    background-color: #ffffff;
+  .cprod-option-label {
+    font-size: 1rem;
+    font-weight: 600;
     color: #333;
+  }
+  .cprod-option-label span {
+    font-weight: 400;
+    color: #555;
+    margin-left: 6px;
+  }
+  .cprod-option-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cprod-option-btn {
+    padding: 10px 20px;
+    border: 1.5px solid #d1d5db;
+    background: #ffffff;
+    color: #333;
+    border-radius: 6px;
+    font-size: 0.95rem;
     cursor: pointer;
-    text-align: center;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    font-family: inherit;
   }
-  .custom-option:hover {
+  .cprod-option-btn:hover { border-color: #32402C; color: #32402C; }
+  .cprod-option-btn.is-selected {
+    background: #32402C;
     border-color: #32402C;
+    color: #fff;
   }
-  .custom-option.selected {
-    border-color: #32402C;
-    background-color: #32402C;
-    color: white;
+  .cprod-option-btn.is-unavailable {
+    opacity: 0.4;
+    cursor: not-allowed;
+    text-decoration: line-through;
   }
 
   /* Quantity */
-  .custom-quantity-selector {
+  .cprod-qty-row {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  .custom-quantity-selector label {
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: #111111;
+  .cprod-qty-label {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
   }
-  .quantity-input-wrapper {
+  .cprod-qty-control {
     display: inline-flex;
     align-items: center;
-    border: 1px solid #ddd;
-    background: #ffffff;
-    border-radius: 6px;
-    width: 120px;
-    height: 44px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 128px;
+    height: 46px;
+    background: #fff;
   }
-  .qty-btn {
+  .cprod-qty-btn {
     background: transparent;
     border: none;
-    color: #111;
-    font-size: 1.2rem;
-    width: 35px;
+    width: 38px;
     height: 100%;
+    font-size: 1.8rem;
+    color: #444;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: color 0.2s;
   }
-  .qty-btn:hover {
-    color: #32402C;
-  }
-  .qty-input {
-    background: transparent;
+  .cprod-qty-btn:hover { color: #32402C; }
+  .cprod-qty-input {
+    flex: 1;
     border: none;
-    color: #111;
-    width: 50px;
+    background: transparent;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.5rem;
+    color: #111;
     -moz-appearance: textfield;
+    padding: 0;
   }
-  .qty-input::-webkit-outer-spin-button,
-  .qty-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+  .cprod-qty-input::-webkit-outer-spin-button,
+  .cprod-qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
   /* Buttons */
-  .custom-product-buttons {
+  .cprod-buttons {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 10px;
-  }
-  .custom-add-to-cart {
-    width: 100%;
-    padding: 16px;
-    background-color: transparent;
-    border: 2px solid #32402C;
-    color: #32402C;
-    font-weight: bold;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-  }
-  .custom-add-to-cart:hover {
-    background-color: rgba(50, 64, 44, 0.1);
-  }
-  .custom-buy-it-now {
-    width: 100%;
-    padding: 16px;
-    background-color: #32402C;
-    border: 2px solid #32402C;
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-  }
-  .custom-buy-it-now:hover {
-    background-color: #16a34a;
-    border-color: #16a34a;
+    margin-top: 20px;
   }
 
-  /* Description */
-  .custom-product-description {
+  .cprod-atc-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 17px 24px;
+    background: transparent;
+    border: 2px solid #32402C;
+    color: #32402C;
+    font-weight: 700;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+    font-family: inherit;
+  }
+  .cprod-atc-btn:hover:not(:disabled) {
+    background: #32402C;
+    color: #fff;
+  }
+  .cprod-atc-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #ccc;
+    color: #999;
+  }
+  /* Loading spinner — controlled by product-form.js via .hidden class */
+  .cprod-atc-btn .loading__spinner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cprod-atc-btn .loading__spinner.hidden {
+    display: none;
+  }
+  /* When loading: hide the text span (first child) */
+  .cprod-atc-btn.loading > span:first-child {
+    display: none;
+  }
+  .cprod-spinner-svg {
+    animation: cprod-spin 0.7s linear infinite;
+  }
+  @keyframes cprod-spin { to { transform: rotate(360deg); } }
+
+  /* Dynamic checkout (Buy It Now) */
+  .cprod-buy-wrap .shopify-payment-button {
+    margin-top: 0;
+  }
+  .cprod-buy-wrap .shopify-payment-button__button {
+    border-radius: 10px !important;
+    min-height: 50px !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    background: #32402C !important;
+  }
+  .cprod-buy-wrap .shopify-payment-button__button:hover {
+    background: #16a34a !important;
+  }
+
+  /* Error */
+  .cprod-error {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
     font-size: 1rem;
-    line-height: 1.6;
-    color: #444444;
+    color: #b91c1c;
+  }
+  .cprod-error.is-visible { display: flex; }
+
+  /* Description */
+  .cprod-description {
+    font-size: 1.8rem;
+    line-height: 1.7;
+    color: #555;
+    padding-top: 18px;
+    border-top: 1px solid #e5e7eb;
+  }
+  .cprod-description h1, .cprod-description h2, .cprod-description h3 { color: #111; }
+  .cprod-description a { color: #32402C; }
+
+  /* Meta row */
+  .cprod-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1.5rem;
+    color: #666;
     margin-top: 10px;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
+  }
+  .cprod-meta strong { color: #333; }
+
+  /* Trust bar */
+  .cprod-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid #e5e7eb;
+  }
+  .cprod-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    color: #444;
+    font-weight: 500;
+  }
+  .cprod-trust-icon {
+    width: 22px;
+    height: 22px;
+    color: #32402C;
+    flex-shrink: 0;
   }
 {%- endstyle -%}
 
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
 <div class="section-{{ section.id }}-padding">
-  <div class="custom-product-container">
-    
-    <!-- Thumbnails -->
-    <div class="custom-product-thumbnails">
+  <div class="cprod-wrapper">
+
+    <!-- ① Thumbnails -->
+    <div class="cprod-thumbs" id="CprodThumbs-{{ section.id }}">
       {% for media in product.media %}
-        <div class="custom-thumbnail {% if forloop.first %}active{% endif %}">
-          <img src="{{ media.preview_image | image_url: width: 150 }}" alt="{{ media.alt | escape }}" loading="lazy">
+        <div
+          class="cprod-thumb {% if forloop.first %}is-active{% endif %}"
+          data-media-src="{{ media.preview_image | image_url: width: 1000 }}"
+          data-index="{{ forloop.index0 }}"
+          tabindex="0"
+          role="button"
+          aria-label="{{ media.alt | default: product.title | escape }}"
+        >
+          <img
+            src="{{ media.preview_image | image_url: width: 160 }}"
+            alt="{{ media.alt | default: product.title | escape }}"
+            loading="lazy"
+          >
         </div>
       {% endfor %}
       {% if product.media.size == 0 %}
-        <!-- Mock Thumbs -->
-        <div class="custom-thumbnail active"><div style="width:100%;height:100%;background:#333;"></div></div>
-        <div class="custom-thumbnail"><div style="width:100%;height:100%;background:#333;"></div></div>
-        <div class="custom-thumbnail"><div style="width:100%;height:100%;background:#333;"></div></div>
-        <div class="custom-thumbnail"><div style="width:100%;height:100%;background:#333;"></div></div>
+        <div class="cprod-thumb is-active" style="background:#eee"></div>
       {% endif %}
     </div>
 
-    <!-- Main Image -->
-    <div class="custom-main-image-wrapper">
-      <div class="custom-main-image">
-        {% if product.featured_media %}
-          <img src="{{ product.featured_media | image_url: width: 1000 }}" alt="{{ product.title | escape }}" loading="eager">
-        {% else %}
-          <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:#333;display:flex;align-items:center;justify-content:center;">Product Image</div>
-        {% endif %}
-      </div>
+    <!-- ② Main image -->
+    <div class="cprod-main-img-wrap" id="CprodMainImg-{{ section.id }}">
+      {% if product.featured_media %}
+        <img
+          id="CprodMainImgEl-{{ section.id }}"
+          src="{{ product.featured_media | image_url: width: 1000 }}"
+          alt="{{ product.title | escape }}"
+          loading="eager"
+        >
+      {% else %}
+        <div style="position:absolute;inset:0;background:#e5e7eb;display:flex;align-items:center;justify-content:center;color:#999;font-size:1rem;">
+          No image
+        </div>
+      {% endif %}
     </div>
 
-    <!-- Details -->
-    <div class="custom-product-details">
-      <!-- Title -->
-      <h1 class="custom-product-title">{{ product.title | default: 'Premium Product' }}</h1>
-      
+    <!-- ③ Details panel -->
+    <div class="cprod-details">
+
+      {% if product.type != blank %}
+        <div class="cprod-type">{{ product.type }}</div>
+      {% endif %}
+
+      <h1 class="cprod-title">{{ product.title | escape }}</h1>
+
       <!-- Price -->
-      <div class="custom-product-price">
-        {{ product.price | money | default: '$19.99' }}
+      <div class="cprod-price-row">
+        <div class="cprod-price" id="CprodPrice-{{ section.id }}">
+          {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+            {{ product.selected_or_first_available_variant.price | money }}
+          {% else %}
+            {{ product.price_min | money }}{% if product.price_varies %}&ndash;{{ product.price_max | money }}{% endif %}
+          {% endif %}
+        </div>
+        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+          <div class="cprod-compare-price" id="CprodComparePrice-{{ section.id }}">
+            {{ product.selected_or_first_available_variant.compare_at_price | money }}
+          </div>
+          <div class="cprod-badge">Sale</div>
+        {% else %}
+          <div class="cprod-compare-price" id="CprodComparePrice-{{ section.id }}" style="display:none"></div>
+          <div class="cprod-badge" id="CprodSaleBadge-{{ section.id }}" style="display:none">Sale</div>
+        {% endif %}
       </div>
 
-      <!-- Shipping -->
-      <div class="custom-product-shipping">
+      <div class="cprod-shipping">
+        {% if cart.taxes_included %}Taxes included.{% endif %}
         Shipping calculated at checkout.
       </div>
 
-      <!-- Category -->
-      <div class="custom-product-category">
-        {{ product.type | default: 'Product Category' }}
-      </div>
+      <hr class="cprod-divider">
 
-      <!-- Options -->
-      {% unless product.has_only_default_variant %}
-        {% for option in product.options_with_values %}
-          <div class="custom-selector-group">
-            <div class="custom-selector-label">{{ option.name }}</div>
-            <div class="custom-selector-options">
-              {% for value in option.values %}
-                <div class="custom-option {% if forloop.first %}selected{% endif %}">
-                  {{ value }}
+      <!-- Variant form -->
+      <product-form
+        class="product-form"
+        data-section-id="{{ section.id }}"
+        data-hide-errors="false"
+      >
+        <!-- Error message wrapper — exact class names required by product-form.js -->
+        <div class="product-form__error-message-wrapper" role="alert" hidden>
+          <span class="product-form__error-message"></span>
+        </div>
+
+        {%- form 'product',
+          product,
+          id: product_form_id,
+          class: 'form',
+          novalidate: 'novalidate',
+          data-type: 'add-to-cart-form'
+        -%}
+
+          <input
+            type="hidden"
+            name="id"
+            id="CprodVariantId-{{ section.id }}"
+            value="{{ product.selected_or_first_available_variant.id }}"
+            class="product-variant-id"
+          >
+
+          <!-- Variant options -->
+          {% unless product.has_only_default_variant %}
+            {% assign current_variant = product.selected_or_first_available_variant %}
+            {% for option in product.options_with_values %}
+              <div class="cprod-option-group">
+                <div class="cprod-option-label">
+                  {{ option.name }}<span id="CprodOptVal-{{ section.id }}-{{ forloop.index0 }}">{{ option.selected_value }}</span>
                 </div>
-              {% endfor %}
+                <div class="cprod-option-list" data-option-index="{{ forloop.index0 }}">
+                  {% for value in option.values %}
+                    <button
+                      type="button"
+                      class="cprod-option-btn {% if value == option.selected_value %}is-selected{% endif %}"
+                      data-value="{{ value | escape }}"
+                      data-option-index="{{ forloop.parentloop.index0 }}"
+                    >{{ value }}</button>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          {% endunless %}
+
+          <!-- Quantity -->
+          <div class="cprod-qty-row">
+            <div class="cprod-qty-label">Quantity</div>
+            <div class="cprod-qty-control">
+              <button type="button" class="cprod-qty-btn" data-action="minus" aria-label="Decrease quantity">−</button>
+              <input
+                type="number"
+                name="quantity"
+                id="CprodQty-{{ section.id }}"
+                class="cprod-qty-input"
+                value="1"
+                min="1"
+                aria-label="Quantity"
+              >
+              <button type="button" class="cprod-qty-btn" data-action="plus" aria-label="Increase quantity">+</button>
             </div>
           </div>
-        {% endfor %}
-      {% else %}
-         <!-- Mock Selectors based if no variants exist -->
-         <div class="custom-selector-group">
-            <div class="custom-selector-label">Size</div>
-            <div class="custom-selector-options">
-               <div class="custom-option selected">Standard</div>
-               <div class="custom-option">Large</div>
-            </div>
-         </div>
-      {% endunless %}
 
-      <!-- Quantity -->
-      <div class="custom-quantity-selector">
-        <label for="Quantity-{{ section.id }}">Quantity</label>
-        <div class="quantity-input-wrapper">
-          <button type="button" class="qty-btn minus">-</button>
-          <input type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1" class="qty-input">
-          <button type="button" class="qty-btn plus">+</button>
+          <!-- Add to Cart button -->
+          <!-- NOTE: product-form.js does submitButton.querySelector('span') for text,
+               and querySelector('.loading__spinner') for the spinner.
+               The FIRST <span> must be the text, hidden class toggled by JS.
+               The spinner span must have class 'loading__spinner' + 'hidden'. -->
+          <div class="cprod-buttons">
+            <button
+              id="ProductSubmitButton-{{ section.id }}"
+              type="submit"
+              name="add"
+              class="cprod-atc-btn"
+              {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+            >
+              <span>
+                {%- if product.selected_or_first_available_variant.available -%}
+                  Add to Cart
+                {%- else -%}
+                  Sold Out
+                {%- endif -%}
+              </span>
+              <span class="loading__spinner hidden" aria-hidden="true">
+                <svg class="cprod-spinner-svg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+              </span>
+            </button>
+
+            <!-- Buy It Now (dynamic checkout) -->
+            <div class="cprod-buy-wrap">
+              {{ form | payment_button }}
+            </div>
+          </div>
+
+        {%- endform -%}
+      </product-form>
+
+      <!-- Trust signals -->
+      <div class="cprod-trust">
+        <div class="cprod-trust-item">
+          <svg class="cprod-trust-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Secure checkout
+        </div>
+        <div class="cprod-trust-item">
+          <svg class="cprod-trust-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="22" height="16" rx="2"/><line x1="1" y1="9" x2="23" y2="9"/></svg>
+          Multiple payment options
+        </div>
+        <div class="cprod-trust-item">
+          <svg class="cprod-trust-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="16" r="1"/></svg>
+          Fast shipping
         </div>
       </div>
 
-      <!-- Buttons -->
-      <div class="custom-product-buttons">
-        <button class="custom-add-to-cart">Add to Cart</button>
-        <button class="custom-buy-it-now">Buy it Now</button>
-      </div>
+      <!-- Product meta -->
+      {% if product.vendor != blank or product.sku != blank %}
+        <div class="cprod-meta">
+          {% if product.vendor != blank %}
+            <div><strong>Brand:</strong> {{ product.vendor }}</div>
+          {% endif %}
+          {% if product.selected_or_first_available_variant.sku != blank %}
+            <div id="CprodSku-{{ section.id }}"><strong>SKU:</strong> {{ product.selected_or_first_available_variant.sku }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
 
       <!-- Description -->
-      <div class="custom-product-description">
-        {{ product.description | default: 'Experience our premium product, carefully crafted with the highest quality ingredients. Designed to provide you with the best experience possible.' }}
-      </div>
-    </div>
+      {% if product.description != blank %}
+        <div class="cprod-description">
+          {{ product.description }}
+        </div>
+      {% endif %}
 
-  </div>
+    </div><!-- /details -->
+  </div><!-- /wrapper -->
 </div>
 
 <script>
-  // Simple functional JS to make the quantity buttons work locally in the UI
-  document.addEventListener('DOMContentLoaded', function() {
-    const qtyWrappers = document.querySelectorAll('.quantity-input-wrapper');
-    qtyWrappers.forEach(wrapper => {
-      const minus = wrapper.querySelector('.minus');
-      const plus = wrapper.querySelector('.plus');
-      const input = wrapper.querySelector('.qty-input');
+(function() {
+  const sectionId = '{{ section.id }}';
 
-      minus.addEventListener('click', () => {
-        let val = parseInt(input.value);
-        if (val > 1) {
-          input.value = val - 1;
+  // ── Thumbnail Gallery ──────────────────────────────
+  const thumbContainer = document.getElementById('CprodThumbs-' + sectionId);
+  const mainImg        = document.getElementById('CprodMainImgEl-' + sectionId);
+
+  if (thumbContainer && mainImg) {
+    thumbContainer.addEventListener('click', function(e) {
+      const thumb = e.target.closest('.cprod-thumb');
+      if (!thumb) return;
+      // Update active state
+      thumbContainer.querySelectorAll('.cprod-thumb').forEach(t => t.classList.remove('is-active'));
+      thumb.classList.add('is-active');
+      // Swap image with fade
+      mainImg.style.opacity = '0';
+      mainImg.src = thumb.dataset.mediaSrc;
+      mainImg.onload = () => { mainImg.style.opacity = '1'; };
+    });
+
+    thumbContainer.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.target.closest('.cprod-thumb')?.click();
+      }
+    });
+  }
+
+  // ── Quantity Controls ──────────────────────────────
+  const sectionContainer = document.querySelector('.section-' + sectionId + '-padding');
+  if (sectionContainer) {
+    const qtyInput = sectionContainer.querySelector('.cprod-qty-input');
+    sectionContainer.querySelectorAll('.cprod-qty-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (!qtyInput) return;
+        const current = parseInt(qtyInput.value) || 1;
+        if (btn.dataset.action === 'minus') {
+          qtyInput.value = Math.max(1, current - 1);
+        } else {
+          qtyInput.value = current + 1;
         }
-      });
-
-      plus.addEventListener('click', () => {
-        let val = parseInt(input.value);
-        input.value = val + 1;
+        qtyInput.dispatchEvent(new Event('change', { bubbles: true }));
       });
     });
+  }
+
+  // ── Variant picker ────────────────────────────────
+  const variantIdInput = document.getElementById('CprodVariantId-' + sectionId);
+  const submitBtn      = document.getElementById('ProductSubmitButton-' + sectionId);
+  const priceEl        = document.getElementById('CprodPrice-' + sectionId);
+  const comparePriceEl = document.getElementById('CprodComparePrice-' + sectionId);
+  const saleBadgeEl    = document.getElementById('CprodSaleBadge-' + sectionId);
+  const skuEl          = document.getElementById('CprodSku-' + sectionId);
+
+  // Build variant JSON map: option combo → variant object
+  const productVariants = {{ product.variants | json }};
+  const numOptions = {{ product.options.size }};
+
+  // Track current selection per option index
+  const selectedOptions = Array.from({ length: numOptions }, (_, i) => {
+    const activeBtn = document.querySelector(
+      `.cprod-option-list[data-option-index="${i}"] .cprod-option-btn.is-selected`
+    );
+    return activeBtn ? activeBtn.dataset.value : null;
   });
+
+  function formatMoney(cents) {
+    return '$' + (cents / 100).toFixed(2);
+  }
+
+  function findVariant(opts) {
+    return productVariants.find(v => {
+      return opts.every((val, idx) => v['option' + (idx + 1)] === val);
+    }) || null;
+  }
+
+  function updateUI(variant) {
+    if (!variant) {
+      variantIdInput.disabled = true;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        const t = submitBtn.querySelector('span:first-child');
+        if (t) t.textContent = 'Unavailable';
+      }
+      return;
+    }
+
+    // Update hidden variant ID
+    variantIdInput.value    = variant.id;
+    variantIdInput.disabled = !variant.available;
+
+    // Update submit button
+    if (submitBtn) {
+      submitBtn.disabled = !variant.available;
+      const btnText = submitBtn.querySelector('span:first-child');
+      if (btnText) btnText.textContent = variant.available ? 'Add to Cart' : 'Sold Out';
+    }
+
+    // Update price
+    if (priceEl) priceEl.textContent = formatMoney(variant.price);
+
+    // Compare / sale badge
+    if (comparePriceEl && saleBadgeEl) {
+      if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+        comparePriceEl.textContent = formatMoney(variant.compare_at_price);
+        comparePriceEl.style.display = '';
+        saleBadgeEl.style.display    = '';
+      } else {
+        comparePriceEl.style.display = 'none';
+        saleBadgeEl.style.display    = 'none';
+      }
+    }
+
+    // Update SKU
+    if (skuEl) {
+      if (variant.sku) {
+        skuEl.innerHTML = '<strong>SKU:</strong> ' + variant.sku;
+        skuEl.style.display = '';
+      } else {
+        skuEl.style.display = 'none';
+      }
+    }
+
+    // Update page URL (no reload)
+    if (history.replaceState && variant.url) {
+      history.replaceState({}, '', variant.url);
+    }
+  }
+
+  document.querySelectorAll('.cprod-option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const optionIndex = parseInt(btn.dataset.optionIndex);
+      const value       = btn.dataset.value;
+
+      // Update selected option
+      selectedOptions[optionIndex] = value;
+
+      // Update button active states for this option
+      const siblings = document.querySelectorAll(
+        `.cprod-option-list[data-option-index="${optionIndex}"] .cprod-option-btn`
+      );
+      siblings.forEach(s => s.classList.toggle('is-selected', s.dataset.value === value));
+
+      // Update displayed selected value label
+      const labelVal = document.getElementById('CprodOptVal-' + sectionId + '-' + optionIndex);
+      if (labelVal) labelVal.textContent = value;
+
+      // Find matching variant
+      const variant = findVariant(selectedOptions);
+      updateUI(variant);
+    });
+  });
+
+  // ── Initial run ───────────────────────────────────
+  if (numOptions > 0) {
+    const initialVariant = findVariant(selectedOptions);
+    if (initialVariant) updateUI(initialVariant);
+  }
+
+})();
 </script>
 
 {% schema %}
