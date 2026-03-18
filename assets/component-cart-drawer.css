@@ -665,9 +665,19 @@ cart-drawer-items,
 @media screen and (max-width: 749px) {
   .drawer__inner {
     width: 100vw;
+    overflow-y: auto !important; /* Allow the whole drawer page to scroll naturally */
   }
   .cart-drawer__grid {
     flex-direction: column-reverse; /* upsells at bottom on mobile */
+    height: auto !important; /* Let the container grow to fit its content */
+  }
+  .cart-drawer__main {
+    flex: none; /* remove flex 1 */
+    overflow: visible; /* Disable inner scroll on main container */
+  }
+  cart-drawer-items {
+    overflow: visible !important;
+    max-height: none !important;
   }
   .cart-drawer__aside {
     width: 100%;
