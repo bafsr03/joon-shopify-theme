@@ -1,11 +1,51 @@
 {%- style -%}
+  @keyframes benefits-gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes benefits-pulse {
+    0%, 100% { opacity: 0.15; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(1.15); }
+  }
+
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     position: relative;
-    background-color: #f4f4f4; /* Light gray background */
-    color: #222222; /* Dark text */
+    background: linear-gradient(135deg, #0a0a0a 0%, #0f1a12 50%, #0a1520 100%);
+    color: #ffffff; /* Light text for dark animated bg */
     overflow: hidden;
+  }
+
+  /* Animated gradient orbs */
+  .section-{{ section.id }}-padding::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 15% 50%, rgba(34, 197, 94, 0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 70% at 80% 40%, rgba(59, 178, 226, 0.10) 0%, transparent 70%);
+    animation: benefits-gradientShift 8s ease infinite;
+    background-size: 200% 200%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Floating dot particles */
+  .section-{{ section.id }}-padding::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.18) 0%, transparent 70%);
+    animation: benefits-pulse 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
   }
 
   @media screen and (min-width: 750px) {
@@ -21,8 +61,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    background-color: transparent; /* Changed to transparent since we use body background */
+    z-index: 0;
+    background-color: transparent;
   }
 
   .benefits-background img {
@@ -61,6 +101,7 @@
     text-transform: uppercase;
     font-weight: bold;
     margin-bottom: 12px;
+    color: #22c55e; /* Green accent from hero */
   }
 
   .benefits-title {
@@ -68,6 +109,12 @@
     line-height: 1.1;
     margin: 0;
     font-family: var(--font-heading-family);
+    background: linear-gradient(135deg, #ffffff 0%, #22c55e 50%, #3bb2e2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: benefits-gradientShift 6s ease infinite;
   }
 
   .benefits-icons-grid {
@@ -91,14 +138,16 @@
   .benefit-icon-wrapper {
     width: 90px;
     height: 90px;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05); /* Subtly translucent on dark BG */
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Lighter shadow for light theme */
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     cursor: default;
+    backdrop-filter: blur(4px);
   }
 
   @media screen and (min-width: 900px) {
