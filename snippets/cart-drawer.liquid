@@ -98,9 +98,6 @@
       <div class="drawer__header">
         <div class="drawer__header-top">
           <h2 class="drawer__heading">
-            <span class="svg-wrapper" style="color: #00BA4B; margin-right: 8px;">
-              <svg viewBox="0 0 24 24" fill="none" class="icon-checkmark"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
             Added to Cart
           </h2>
           <button
@@ -114,16 +111,7 @@
             </span>
           </button>
         </div>
-        {%- if cart != empty -%}
-        <div class="drawer__progress-bar-container">
-          <p class="drawer__progress-text">Congratulations, you unlocked free shipping!</p>
-          <div class="drawer__progress-bar">
-            <div class="drawer__progress-fill" style="width: 100%;">
-               <span class="progress-icon" style="position: absolute; right: -12px; top: -5px; font-size: 16px;">🚚</span>
-            </div>
-          </div>
-        </div>
-        {%- endif -%}
+
       </div>
       <cart-drawer-items
         {% if cart == empty %}
@@ -564,9 +552,22 @@
             {%- endif -%}
           </div>
 
-          <div class="totals" role="status">
-            <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-            <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+          <div class="totals" role="status" style="display: block; width: 100%;">
+            {%- if cart != empty -%}
+            <div class="drawer__progress-bar-container" style="margin-bottom: 2rem;">
+              <p class="drawer__progress-text">Congratulations, you unlocked free shipping!</p>
+              <div class="drawer__progress-bar">
+                <div class="drawer__progress-fill" style="width: 100%;">
+                   <span class="progress-icon" style="position: absolute; right: -12px; top: -5px; font-size: 16px;">🚚</span>
+                </div>
+              </div>
+            </div>
+            {%- endif -%}
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+              <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
+              <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+            </div>
           </div>
 
           <small class="tax-note caption-large rte">

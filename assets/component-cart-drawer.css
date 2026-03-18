@@ -87,8 +87,8 @@ cart-drawer:not(.is-empty) .cart-drawer__collection {
   min-height: 4.4rem;
   box-shadow: 0 0 0 0.2rem rgba(var(--color-button), 0);
   position: absolute;
-  top: 10px;
-  right: -10px;
+  top: 1.5rem;
+  right: 1.5rem;
   color: rgb(var(--color-foreground));
   background-color: transparent;
   border: none;
@@ -525,6 +525,8 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   color: rgb(var(--color-foreground));
   font-weight: 600;
   cursor: pointer;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .upsell-add-btn:hover {
@@ -648,6 +650,8 @@ cart-drawer-items,
   cursor: pointer;
   width: 100%;
   transition: background-color 0.2s ease;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .cart__continue-button:hover {
