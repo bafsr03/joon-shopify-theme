@@ -709,6 +709,80 @@ body.collection-page-all {
   border-color: rgba(50, 64, 44, 0.5);
 }
 
+/* Type-specific circle colours */
+.cah-circle--hemp {
+  background: linear-gradient(135deg, #2d5016 0%, #3a6b1a 100%);
+}
+
+.cah-circle--exotics {
+  background: linear-gradient(135deg, #4a1a6e 0%, #7b2fbf 100%);
+}
+
+.cah-circle--snacks {
+  background: linear-gradient(135deg, #7a3b00 0%, #c26a00 100%);
+}
+
+.cah-circle--nicotine {
+  background: linear-gradient(135deg, #1a2a4a 0%, #1e3a6e 100%);
+}
+
+.cah-circle--carts {
+  background: linear-gradient(135deg, #1a3a3a 0%, #0f6b6b 100%);
+}
+
+.cah-circle--trading-carts {
+  background: linear-gradient(135deg, #3a1a1a 0%, #8b2020 100%);
+}
+
+/* Brand Section */
+.cah-brand-section {
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 1.5rem;
+}
+
+.cah-brand-section__label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(0, 0, 0, 0.4);
+  margin: 0 0 0.8rem 0;
+}
+
+.cah-brand-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.cah-brand-pill {
+  padding: 0.5rem 1.4rem;
+  border-radius: 99px;
+  background: #ffffff;
+  color: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: 1.2rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.cah-brand-pill:hover {
+  color: #000;
+  border-color: rgba(0, 0, 0, 0.28);
+  background: #f5f5f5;
+}
+
+.cah-brand-pill.active {
+  background: rgba(50, 64, 44, 0.12);
+  color: #32402C;
+  border-color: rgba(50, 64, 44, 0.45);
+  font-weight: 600;
+}
+
 /* Filters Toggle Button */
 .cah-filters-toggle {
   display: inline-flex;

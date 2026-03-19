@@ -3,7 +3,7 @@
    ============================================================ */
 
 .product-grid-tilted {
-  padding-top: 6rem;
+  padding-top: 1rem;
   padding-bottom: 6rem;
   overflow: hidden; /* Prevent horizontal scrollbar on the whole page */
 }

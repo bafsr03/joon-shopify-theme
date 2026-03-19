@@ -100,75 +100,160 @@
     {%- endif -%}
 
     <div class="cah-custom-filters page-width">
-      <!-- Categories Row -->
+
+      {%- comment -%}
+        Detect which top-level type tag is active
+        (Hemp / Exotics / Snacks / Nicotine / Carts / Trading Carts)
+        and which brand (vendor) is active, by reading collection.filters.
+      {%- endcomment -%}
+      {%- assign active_type = '' -%}
+      {%- assign active_vendor = '' -%}
+      {%- assign brand_filter = nil -%}
+      {%- for f in collection.filters -%}
+        {%- if f.param_name == 'filter.p.tag' -%}
+          {%- for v in f.values -%}
+            {%- if v.active -%}
+              {%- if v.label == 'Hemp' or v.label == 'Exotics' or v.label == 'Snacks' or v.label == 'Nicotine' or v.label == 'Carts' or v.label == 'Trading Carts' -%}
+                {%- assign active_type = v.label -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+        {%- if f.param_name == 'filter.p.vendor' -%}
+          {%- assign brand_filter = f -%}
+          {%- for v in f.values -%}
+            {%- if v.active -%}{%- assign active_vendor = v.label -%}{%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      <!-- Row 1: Top-level Type Categories -->
       <div class="cah-scroll-row">
-        <a href="{{ collection.url }}" class="cah-category-item active">
+        <a href="{{ collection.url }}" class="cah-category-item {% if active_type == '' %}active{% endif %}">
           <div class="cah-category-circle" style="background: radial-gradient(circle, rgba(255,204,102,1) 0%, rgba(253,183,59,1) 100%);">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="white" opacity="0.8"/>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="white" opacity="0.9"/>
             </svg>
           </div>
-          <span class="cah-category-label">All Products</span>
+          <span class="cah-category-label">All</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.product_type=Gummies" class="cah-category-item">
-          <div class="cah-category-circle" style="background: #2a2a2a;">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="4"/></svg>
+        <a href="{{ collection.url }}?filter.p.tag=Hemp" class="cah-category-item {% if active_type == 'Hemp' %}active{% endif %}">
+          <div class="cah-category-circle cah-circle--hemp">
+            <!-- Leaf / Hemp -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22V12"/>
+              <path d="M12 12C12 12 7 11 5 7C7 4 11 5 12 8"/>
+              <path d="M12 12C12 12 17 11 19 7C17 4 13 5 12 8"/>
+              <path d="M12 12C12 12 8 8 8 4C10 3 13 5 12 8"/>
+              <path d="M12 12C12 12 16 8 16 4C14 3 11 5 12 8"/>
+            </svg>
           </div>
-          <span class="cah-category-label">Gummies</span>
+          <span class="cah-category-label">Hemp</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.product_type=Flower" class="cah-category-item">
-          <div class="cah-category-circle" style="background: #2a2a2a;">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 10C12 10 15 5 18 8C21 11 15 15 12 18C9 15 3 11 6 8C9 5 12 10 12 10Z"/></svg>
+        <a href="{{ collection.url }}?filter.p.tag=Exotics" class="cah-category-item {% if active_type == 'Exotics' %}active{% endif %}">
+          <div class="cah-category-circle cah-circle--exotics">
+            <!-- Gem / Diamond -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 3h12l4 6-10 12L2 9z"/>
+              <path d="M2 9h20M6 3l4 6m4 0l4-6"/>
+            </svg>
           </div>
-          <span class="cah-category-label">Flower</span>
+          <span class="cah-category-label">Exotics</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.product_type=Edibles" class="cah-category-item">
-          <div class="cah-category-circle" style="background: #2a2a2a;">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>
+        <a href="{{ collection.url }}?filter.p.tag=Snacks" class="cah-category-item {% if active_type == 'Snacks' %}active{% endif %}">
+          <div class="cah-category-circle cah-circle--snacks">
+            <!-- Cookie / Snack -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <circle cx="9" cy="10" r="1" fill="white" stroke="none"/>
+              <circle cx="14" cy="8" r="1" fill="white" stroke="none"/>
+              <circle cx="15" cy="14" r="1" fill="white" stroke="none"/>
+              <circle cx="10" cy="15" r="1" fill="white" stroke="none"/>
+            </svg>
           </div>
-          <span class="cah-category-label">Edibles</span>
+          <span class="cah-category-label">Snacks</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.product_type=Beverages" class="cah-category-item">
-          <div class="cah-category-circle" style="background: #2a2a2a;">
-             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M8 2V6M16 2V6M5 9V20C5 21.1 5.9 22 7 22H17C18.1 22 19 21.1 19 20V9C19 7.9 18.1 7 17 7H7C5.9 7 5 7.9 5 9Z"/></svg>
+        <a href="{{ collection.url }}?filter.p.tag=Nicotine" class="cah-category-item {% if active_type == 'Nicotine' %}active{% endif %}">
+          <div class="cah-category-circle cah-circle--nicotine">
+            <!-- Vape / Cigarette -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="10" width="16" height="4" rx="2"/>
+              <path d="M20 10v4M22 11v2"/>
+              <path d="M16 7c0-1.5 2-2 2-4"/>
+            </svg>
           </div>
-          <span class="cah-category-label">Beverages</span>
+          <span class="cah-category-label">Nicotine</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.product_type=Concentrates" class="cah-category-item">
-          <div class="cah-category-circle" style="background: #2a2a2a;">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 22h20L12 2z"/></svg>
+        <a href="{{ collection.url }}?filter.p.tag=Carts" class="cah-category-item {% if active_type == 'Carts' %}active{% endif %}">
+          <div class="cah-category-circle cah-circle--carts">
+            <!-- Vape cartridge -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="2" width="6" height="14" rx="3"/>
+              <path d="M9 10h6"/>
+              <path d="M12 16v6"/>
+            </svg>
           </div>
-          <span class="cah-category-label">Concentrates</span>
+          <span class="cah-category-label">Carts</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.product_type=Vapes" class="cah-category-item">
-          <div class="cah-category-circle" style="background: #2a2a2a;">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="10" y="2" width="4" height="20" rx="2"/></svg>
+        <a href="{{ collection.url }}?filter.p.tag=Trading+Carts" class="cah-category-item {% if active_type == 'Trading Carts' %}active{% endif %}">
+          <div class="cah-category-circle cah-circle--trading-carts">
+            <!-- Swap / Trade arrows -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 16V4m0 0L3 8m4-4l4 4"/>
+              <path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
+            </svg>
           </div>
-          <span class="cah-category-label">Vapes</span>
-        </a>
-        <a href="{{ collection.url }}?filter.p.product_type=Pre-Rolls" class="cah-category-item">
-          <div class="cah-category-circle" style="background: #2a2a2a;">
-             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 4L3 20M17 3l4 4"/></svg>
-          </div>
-          <span class="cah-category-label">Pre-Rolls</span>
-        </a>
-        <a href="{{ collection.url }}?filter.p.product_type=Merch" class="cah-category-item">
-          <div class="cah-category-circle" style="background: #2a2a2a;">
-             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20.38 3.46L16 2a8.59 8.59 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
-          </div>
-          <span class="cah-category-label">Merch</span>
+          <span class="cah-category-label">Trading Carts</span>
         </a>
       </div>
 
-      <!-- Mood Pill Row -->
+      <!-- Row 2: Mood Pills -->
+      {%- assign mood_filter = nil -%}
+      {%- assign mood_any_active = false -%}
+      {%- assign mood_active_better_sleep = false -%}
+      {%- assign mood_active_relief = false -%}
+      {%- assign mood_active_chill = false -%}
+      {%- assign mood_active_energized = false -%}
+      {%- assign mood_active_happy = false -%}
+      {%- for f in collection.filters -%}
+        {%- if f.param_name == 'filter.t.mood' -%}
+          {%- assign mood_filter = f -%}
+          {%- for v in f.values -%}
+            {%- if v.active -%}
+              {%- assign mood_any_active = true -%}
+              {%- if v.label == 'Better Sleep' -%}{%- assign mood_active_better_sleep = true -%}{%- endif -%}
+              {%- if v.label == 'Relief From Aches' -%}{%- assign mood_active_relief = true -%}{%- endif -%}
+              {%- if v.label == 'Chill Out' -%}{%- assign mood_active_chill = true -%}{%- endif -%}
+              {%- if v.label == 'Get Energized & Focused' -%}{%- assign mood_active_energized = true -%}{%- endif -%}
+              {%- if v.label == 'Feel Happy' -%}{%- assign mood_active_happy = true -%}{%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
       <div class="cah-mood-row">
-        <a href="{{ collection.url }}" class="cah-mood-pill active">All</a>
-        <a href="{{ collection.url }}?filter.t.mood=Better+Sleep" class="cah-mood-pill">Better Sleep</a>
-        <a href="{{ collection.url }}?filter.t.mood=Relief+From+Aches" class="cah-mood-pill">Relief From Aches</a>
-        <a href="{{ collection.url }}?filter.t.mood=Chill+Out" class="cah-mood-pill">Chill Out</a>
-        <a href="{{ collection.url }}?filter.t.mood=Get+Energized+%26+Focused" class="cah-mood-pill">Get Energized & Focused</a>
-        <a href="{{ collection.url }}?filter.t.mood=Feel+Happy" class="cah-mood-pill">Feel Happy</a>
+        <a href="{{ collection.url }}" class="cah-mood-pill {% unless mood_any_active %}active{% endunless %}">All</a>
+        <a href="{{ collection.url }}?filter.t.mood=Better+Sleep" class="cah-mood-pill {% if mood_active_better_sleep %}active{% endif %}">Better Sleep</a>
+        <a href="{{ collection.url }}?filter.t.mood=Relief+From+Aches" class="cah-mood-pill {% if mood_active_relief %}active{% endif %}">Relief From Aches</a>
+        <a href="{{ collection.url }}?filter.t.mood=Chill+Out" class="cah-mood-pill {% if mood_active_chill %}active{% endif %}">Chill Out</a>
+        <a href="{{ collection.url }}?filter.t.mood=Get+Energized+%26+Focused" class="cah-mood-pill {% if mood_active_energized %}active{% endif %}">Get Energized & Focused</a>
+        <a href="{{ collection.url }}?filter.t.mood=Feel+Happy" class="cah-mood-pill {% if mood_active_happy %}active{% endif %}">Feel Happy</a>
       </div>
+
+      <!-- Row 3: Brands (dynamic from product.vendor via Search & Discovery filter) -->
+      {%- if brand_filter and brand_filter.values.size > 0 -%}
+        <div class="cah-brand-section">
+          <p class="cah-brand-section__label">Brands</p>
+          <div class="cah-brand-row">
+            <a href="{{ collection.url }}" class="cah-brand-pill {% if active_vendor == '' %}active{% endif %}">All Brands</a>
+            {%- for value in brand_filter.values -%}
+              <a
+                href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}"
+                class="cah-brand-pill {% if value.active %}active{% endif %}"
+              >{{ value.label }}</a>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
 
       <button class="cah-filters-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); document.getElementById('cah-facets').classList.toggle('is-open');">
         Filters

@@ -11,8 +11,8 @@
   position: relative;
   background: var(--brand-marquee-bg);
   overflow: hidden;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
+  padding-top: 6rem;
+  padding-bottom: 2rem;
   color: #1a1a1a;
 }
 
@@ -102,7 +102,7 @@
 }
 
 .focus-carousel__image-wrap {
-  height: 4.5rem;
+  height: 6.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,13 +111,13 @@
 /* ── Targeted Brand Resizing ────────────────────────────────── */
 .focus-carousel__item[data-brand="wyld"] .focus-carousel__image-wrap,
 .focus-carousel__item[data-brand="geek-bar"] .focus-carousel__image-wrap {
-  height: 7.5rem;
+  height: 9rem;
 }
 
 .focus-carousel__item[data-brand="lost-mary"] .focus-carousel__image-wrap,
 .focus-carousel__item[data-brand="drops"] .focus-carousel__image-wrap,
 .focus-carousel__item[data-brand="formula420"] .focus-carousel__image-wrap {
-  height: 12rem;
+  height: 14rem;
 }
 
 
@@ -162,8 +162,8 @@
 /* ── Responsive ──────────────────────────────────────────────── */
 @media screen and (max-width: 749px) {
   .focus-carousel {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
   .focus-carousel__track {
@@ -173,16 +173,19 @@
   }
 
   .focus-carousel__image-wrap {
-    height: 3.2rem;
+    height: 4.5rem;
   }
 
   /* ── Targeted Brand Resizing (Mobile) ─────────────────────── */
+  .focus-carousel__item[data-brand="wyld"] .focus-carousel__image-wrap,
+  .focus-carousel__item[data-brand="geek-bar"] .focus-carousel__image-wrap {
+    height: 7.5rem;
+  }
+
   .focus-carousel__item[data-brand="lost-mary"] .focus-carousel__image-wrap,
   .focus-carousel__item[data-brand="drops"] .focus-carousel__image-wrap,
-  .focus-carousel__item[data-brand="wyld"] .focus-carousel__image-wrap,
-  .focus-carousel__item[data-brand="geek-bar"] .focus-carousel__image-wrap,
   .focus-carousel__item[data-brand="formula420"] .focus-carousel__image-wrap {
-    height: 5.5rem;
+    height: 12rem;
   }
 
   .focus-carousel__title {
