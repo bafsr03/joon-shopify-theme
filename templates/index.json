@@ -95,7 +95,7 @@
         "brand1": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/drops.jpg",
+            "image": "shopify://shop_images/Drop.png",
             "title": "Drops",
             "link": ""
           }
