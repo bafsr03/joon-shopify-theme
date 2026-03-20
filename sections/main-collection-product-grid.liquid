@@ -102,22 +102,17 @@
     <div class="cah-custom-filters page-width">
 
       {%- comment -%}
-        Detect active type tag (Hemp/Exotics/Snacks/Nicotine/Carts/Trading Carts)
-        and active brand via collection.filters.
+        Active state: check collection.handle against each category collection.
+        Brand filter: pulled from collection.filters (vendor or global.brand param).
       {%- endcomment -%}
-      {%- assign active_type = '' -%}
       {%- assign active_vendor = '' -%}
       {%- assign brand_filter = nil -%}
+      {%- assign type_handles = 'hemp,exotics,snacks,nicotine,carts,trading-carts' | split: ',' -%}
+      {%- assign is_type_collection = false -%}
+      {%- for h in type_handles -%}
+        {%- if collection.handle == h -%}{%- assign is_type_collection = true -%}{%- endif -%}
+      {%- endfor -%}
       {%- for f in collection.filters -%}
-        {%- if f.param_name == 'filter.p.tag' -%}
-          {%- for v in f.values -%}
-            {%- if v.active -%}
-              {%- if v.label == 'Hemp' or v.label == 'Exotics' or v.label == 'Snacks' or v.label == 'Nicotine' or v.label == 'Carts' or v.label == 'Trading Carts' -%}
-                {%- assign active_type = v.label -%}
-              {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
-        {%- endif -%}
         {%- if f.param_name == 'filter.p.vendor' or f.param_name == 'filter.p.m.global.brand' -%}
           {%- assign brand_filter = f -%}
           {%- for v in f.values -%}
@@ -126,9 +121,9 @@
         {%- endif -%}
       {%- endfor -%}
 
-      <!-- Row 1: Type Categories -->
+      <!-- Row 1: Type Categories (each links to its own collection) -->
       <div class="cah-scroll-row">
-        <a href="{{ collection.url }}" class="cah-category-item {% if active_type == '' %}active{% endif %}">
+        <a href="/collections/all" class="cah-category-item {% unless is_type_collection %}active{% endunless %}">
           <div class="cah-category-circle" style="background: radial-gradient(circle, rgba(255,204,102,1) 0%, rgba(253,183,59,1) 100%);">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="white" opacity="0.9"/>
@@ -136,7 +131,7 @@
           </div>
           <span class="cah-category-label">All</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.tag=Hemp" class="cah-category-item {% if active_type == 'Hemp' %}active{% endif %}">
+        <a href="/collections/hemp" class="cah-category-item {% if collection.handle == 'hemp' %}active{% endif %}">
           <div class="cah-category-circle cah-circle--hemp">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22V12"/>
@@ -148,7 +143,7 @@
           </div>
           <span class="cah-category-label">Hemp</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.tag=Exotics" class="cah-category-item {% if active_type == 'Exotics' %}active{% endif %}">
+        <a href="/collections/exotics" class="cah-category-item {% if collection.handle == 'exotics' %}active{% endif %}">
           <div class="cah-category-circle cah-circle--exotics">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M6 3h12l4 6-10 12L2 9z"/>
@@ -157,7 +152,7 @@
           </div>
           <span class="cah-category-label">Exotics</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.tag=Snacks" class="cah-category-item {% if active_type == 'Snacks' %}active{% endif %}">
+        <a href="/collections/snacks" class="cah-category-item {% if collection.handle == 'snacks' %}active{% endif %}">
           <div class="cah-category-circle cah-circle--snacks">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="9"/>
@@ -169,7 +164,7 @@
           </div>
           <span class="cah-category-label">Snacks</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.tag=Nicotine" class="cah-category-item {% if active_type == 'Nicotine' %}active{% endif %}">
+        <a href="/collections/nicotine" class="cah-category-item {% if collection.handle == 'nicotine' %}active{% endif %}">
           <div class="cah-category-circle cah-circle--nicotine">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="10" width="16" height="4" rx="2"/>
@@ -179,7 +174,7 @@
           </div>
           <span class="cah-category-label">Nicotine</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.tag=Carts" class="cah-category-item {% if active_type == 'Carts' %}active{% endif %}">
+        <a href="/collections/carts" class="cah-category-item {% if collection.handle == 'carts' %}active{% endif %}">
           <div class="cah-category-circle cah-circle--carts">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="9" y="2" width="6" height="14" rx="3"/>
@@ -189,7 +184,7 @@
           </div>
           <span class="cah-category-label">Carts</span>
         </a>
-        <a href="{{ collection.url }}?filter.p.tag=Trading+Carts" class="cah-category-item {% if active_type == 'Trading Carts' %}active{% endif %}">
+        <a href="/collections/trading-carts" class="cah-category-item {% if collection.handle == 'trading-carts' %}active{% endif %}">
           <div class="cah-category-circle cah-circle--trading-carts">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M7 16V4m0 0L3 8m4-4l4 4"/>
