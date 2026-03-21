@@ -33,7 +33,7 @@
         "cta_button_link": "",
         "wholesale_title": "Become a Wholesale Partner",
         "wholesale_description": "Apply for exclusive B2B pricing, bulk discounts, and dedicated support.",
-        "wholesale_link": "/pages/wholesale-apply",
+        "wholesale_link": "shopify://pages/wholesale-application",
         "wholesale_cta": "Apply Now",
         "account_subtext": "to earn rewards",
         "menu_type_desktop": "mega",
