@@ -8,10 +8,15 @@
     {%- for link in section.settings.menu.links -%}
       {%- liquid
         assign link_title = link.title
+        assign link_url = link.url
         if link_title == 'Catalog' or link_title == 'Products' or link_title == 'All Products'
           assign link_title = 'Shop'
         elsif link_title == 'About' or link_title == 'Our Story'
           assign link_title = 'Learn More'
+        endif
+        assign link_title_downcase = link_title | downcase
+        if link_title_downcase contains 'wholesale'
+          assign link_url = '/pages/wholesale-apply'
         endif
       -%}
       <li>
@@ -186,7 +191,7 @@
         {%- else -%}
           <a
             id="HeaderMenu-{{ link.handle }}"
-            href="{{ link.url }}"
+            href="{{ link_url }}"
             class="header__menu-item list-menu__item link link--text focus-inset"
             {% if link.current %}aria-current="page"{% endif %}
           >
