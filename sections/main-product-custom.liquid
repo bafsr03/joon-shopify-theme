@@ -468,7 +468,8 @@
 
       <h1 class="cprod-title">{{ product.title | escape }}</h1>
 
-      <!-- Price -->
+      <!-- Price + Purchase — wholesale approved only -->
+      {%- if customer and customer.tags contains 'wholesale' -%}
       <div class="cprod-price-row">
         <div class="cprod-price" id="CprodPrice-{{ section.id }}">
           {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
@@ -595,6 +596,9 @@
 
         {%- endform -%}
       </product-form>
+      {%- else -%}
+        {%- render 'wholesale-gate', context: 'page' -%}
+      {%- endif -%}
 
       <!-- Trust signals -->
       <div class="cprod-trust">

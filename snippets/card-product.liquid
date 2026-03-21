@@ -288,6 +288,7 @@
             {%- endif -%}
           </div>
         </div>
+        {%- if customer and customer.tags contains 'wholesale' -%}
         {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
         {% if quick_add == 'standard' %}
           <div class="quick-add no-js-hidden">
@@ -570,6 +571,7 @@
             </div>
           {% endif %}
         {% endif %}
+        {%- endif -%}
         <div class="card__badge {{ settings.badge_position }}">
           {%- if card_product.available == false -%}
             <span
