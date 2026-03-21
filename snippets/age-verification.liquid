@@ -1,0 +1,45 @@
+{{ 'component-age-verification.css' | asset_url | stylesheet_tag }}
+
+<div id="age-gate" class="age-gate" role="dialog" aria-modal="true" aria-labelledby="age-gate-heading" hidden>
+  <div class="age-gate__card">
+
+    {%- if settings.logo != blank -%}
+      <img
+        class="age-gate__logo"
+        src="{{ settings.logo | image_url: width: 280 }}"
+        alt="{{ shop.name }}"
+        width="140"
+        height="auto"
+        loading="eager"
+      >
+    {%- endif -%}
+
+
+    <h2 id="age-gate-heading" class="age-gate__heading">
+      Welcome to Joon 
+    </h2>
+
+    <p class="age-gate__subheading">
+      You must be 21 years of age or older to enter this site.<br>
+      Please verify your age to continue.
+    </p>
+
+    <div class="age-gate__actions">
+      <button class="age-gate__btn age-gate__btn--confirm" data-age-confirm type="button">
+        Yes, I'm 21+
+      </button>
+      <button class="age-gate__btn age-gate__btn--deny" data-age-deny type="button">
+        No, exit
+      </button>
+    </div>
+
+    <p class="age-gate__disclaimer">
+      By entering this site you are agreeing to our
+      <a href="/policies/terms-of-service" style="color: rgba(255,255,255,0.5); text-decoration: underline;">Terms of Service</a>
+      and confirm you are of legal age to purchase tobacco/vape products in your state.
+    </p>
+
+  </div>
+</div>
+
+<script src="{{ 'age-verification.js' | asset_url }}" defer="defer"></script>

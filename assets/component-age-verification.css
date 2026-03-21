@@ -1,0 +1,151 @@
+/* Age Verification Overlay */
+
+.age-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.6rem;
+  background-color: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.age-gate[hidden] {
+  display: none;
+}
+
+.age-gate__card {
+  position: relative;
+  width: 100%;
+  max-width: 48rem;
+  background-color: #1c2228;
+  border-radius: 8px;
+  padding: 4rem 3.2rem;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  animation: age-gate-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes age-gate-in {
+  from {
+    opacity: 0;
+    transform: translateY(2rem) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.age-gate__logo {
+  margin: 0 auto 2.8rem;
+  max-width: 14rem;
+  display: block;
+}
+
+.age-gate__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 50%;
+  border: 2px solid #f5cf8a;
+  margin: 0 auto 2.4rem;
+}
+
+.age-gate__badge-text {
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  font-weight: 400;
+  color: #f5cf8a;
+  line-height: 1;
+}
+
+.age-gate__heading {
+  font-family: var(--font-heading-family);
+  font-weight: 400;
+  font-size: 3.2rem;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0 0 1.2rem;
+  letter-spacing: 0.06rem;
+}
+
+.age-gate__subheading {
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 3.2rem;
+  letter-spacing: 0.04rem;
+}
+
+.age-gate__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+@media screen and (min-width: 480px) {
+  .age-gate__actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.age-gate__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 3rem;
+  border-radius: 6px;
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  min-width: 16rem;
+}
+
+.age-gate__btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.age-gate__btn--confirm {
+  background-color: #f5cf8a;
+  color: #2b2c2d;
+}
+
+.age-gate__btn--deny {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.age-gate__btn--deny:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.age-gate__disclaimer {
+  margin: 2.8rem 0 0;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.03rem;
+}
+
+/* Lock body scroll while gate is open */
+body.age-gate-open {
+  overflow: hidden;
+}
