@@ -1,0 +1,101 @@
+{% comment %}
+  Renders a wholesale access gate element.
+
+  Accepts:
+  - context: {String} 'inline' (inside product cards) or 'page' (product detail page). Default: 'inline'
+
+  Usage (inline — price area of a card):
+    {% render 'wholesale-gate', context: 'inline' %}
+
+  Usage (page — replaces buy button on product page):
+    {% render 'wholesale-gate', context: 'page' %}
+{% endcomment %}
+
+{{ 'component-wholesale-gate.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign gate_context = context | default: 'inline'
+
+  # Detect if logged-in but not yet approved (tag 'wholesale_pending')
+  assign is_pending = false
+  if customer and customer.tags contains 'wholesale_pending'
+    assign is_pending = true
+  endif
+-%}
+
+{%- if gate_context == 'inline' -%}
+
+  {%- if is_pending -%}
+    <span class="wholesale-gate--inline">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Approval pending
+    </span>
+  {%- elsif customer -%}
+    <span class="wholesale-gate--inline">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      Wholesale only
+    </span>
+  {%- else -%}
+    <span class="wholesale-gate--inline">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      <a href="/pages/wholesale-apply">Apply for pricing</a>
+    </span>
+  {%- endif -%}
+
+{%- elsif gate_context == 'page' -%}
+
+  {%- if is_pending -%}
+
+    <div class="wholesale-gate--pending">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <p>
+        <strong>Application under review</strong>
+        Your wholesale application has been received. We'll email you at {{ customer.email }} once your account is approved — usually within 1–2 business days.
+      </p>
+    </div>
+
+  {%- elsif customer -%}
+
+    <div class="wholesale-gate--page">
+      <div class="wholesale-gate__status">
+        <div class="wholesale-gate__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <p class="wholesale-gate__label">Wholesale Access Required</p>
+      </div>
+      <p class="wholesale-gate__heading">Pricing not available for this account</p>
+      <p class="wholesale-gate__body">
+        Your account ({{ customer.email }}) does not have approved wholesale access.
+        If you've already applied, your application may still be under review.
+      </p>
+      <div class="wholesale-gate__actions">
+        <a href="/pages/wholesale-apply" class="wholesale-gate__btn wholesale-gate__btn--primary">Apply for Wholesale Access</a>
+        <span class="wholesale-gate__divider">or</span>
+        <a href="{{ routes.account_logout_url }}" class="wholesale-gate__btn wholesale-gate__btn--secondary">Sign out</a>
+      </div>
+    </div>
+
+  {%- else -%}
+
+    <div class="wholesale-gate--page">
+      <div class="wholesale-gate__status">
+        <div class="wholesale-gate__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <p class="wholesale-gate__label">Wholesale Access Required</p>
+      </div>
+      <p class="wholesale-gate__heading">Apply to see pricing &amp; place orders</p>
+      <p class="wholesale-gate__body">
+        Joon Distribution is a wholesale-only store. Submit your business details and license for approval.
+        Once approved, you'll receive login credentials to access pricing and place orders.
+      </p>
+      <div class="wholesale-gate__actions">
+        <a href="/pages/wholesale-apply" class="wholesale-gate__btn wholesale-gate__btn--primary">Apply for Wholesale Access</a>
+        <span class="wholesale-gate__divider">or</span>
+        <a href="{{ routes.account_login_url }}" class="wholesale-gate__btn wholesale-gate__btn--secondary">Log in</a>
+      </div>
+    </div>
+
+  {%- endif -%}
+
+{%- endif -%}

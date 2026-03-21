@@ -40,7 +40,18 @@
   endif
 -%}
 
+{%- liquid
+  assign is_wholesale_approved = false
+  if customer and customer.tags contains 'wholesale'
+    assign is_wholesale_approved = true
+  endif
+-%}
+
 {%- unless target == null and placeholder == null -%}
+  {%- unless is_wholesale_approved -%}
+    {%- render 'wholesale-gate', context: 'inline' -%}
+  {%- endunless -%}
+  {%- if is_wholesale_approved -%}
   <div
     class="
       price
@@ -122,4 +133,5 @@
       </span>
     {%- endif -%}
   </div>
+  {%- endif -%}
 {% endunless %}

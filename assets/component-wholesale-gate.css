@@ -1,0 +1,186 @@
+/* ============================================================
+   Wholesale Gate — inline (price cards) + page (product page)
+   ============================================================ */
+
+/* ----- Inline variant (inside product cards) ----- */
+.wholesale-gate--inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.06rem;
+  color: rgba(var(--color-foreground), 0.55);
+  text-transform: uppercase;
+}
+
+.wholesale-gate--inline svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.wholesale-gate--inline a {
+  color: #f5cf8a;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245, 207, 138, 0.4);
+  transition: border-color 0.2s ease;
+}
+
+.wholesale-gate--inline a:hover {
+  border-color: #f5cf8a;
+}
+
+/* ----- Page variant (product detail page) ----- */
+.wholesale-gate--page {
+  padding: 2.4rem;
+  background-color: #1c2228;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.wholesale-gate__status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.wholesale-gate__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(245, 207, 138, 0.5);
+  flex-shrink: 0;
+}
+
+.wholesale-gate__icon svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: #f5cf8a;
+}
+
+.wholesale-gate__label {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: #f5cf8a;
+  margin: 0;
+}
+
+.wholesale-gate__heading {
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.wholesale-gate__body {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.wholesale-gate__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media screen and (min-width: 480px) {
+  .wholesale-gate__actions {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.wholesale-gate__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.3rem 2.4rem;
+  border-radius: 6px;
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.04rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.wholesale-gate__btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.wholesale-gate__btn--primary {
+  background-color: #f5cf8a;
+  color: #2b2c2d;
+  border: none;
+}
+
+.wholesale-gate__btn--secondary {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.wholesale-gate__btn--secondary:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.wholesale-gate__divider {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ----- Pending state (after applying, not yet approved) ----- */
+.wholesale-gate--pending {
+  padding: 2rem 2.4rem;
+  background-color: rgba(245, 207, 138, 0.08);
+  border: 1px solid rgba(245, 207, 138, 0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.wholesale-gate--pending svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  color: #f5cf8a;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.wholesale-gate--pending p {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+}
+
+.wholesale-gate--pending strong {
+  color: #f5cf8a;
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.04rem;
+}

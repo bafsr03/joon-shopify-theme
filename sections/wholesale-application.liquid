@@ -1,0 +1,528 @@
+{{ 'component-wholesale-gate.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .wholesale-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .wholesale-form__label {
+    font-family: var(--font-body-family);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.06rem;
+    color: rgb(var(--color-foreground));
+  }
+
+  .wholesale-form__label span {
+    color: #f5cf8a;
+    margin-left: 0.2rem;
+  }
+
+  .wholesale-form__input,
+  .wholesale-form__select,
+  .wholesale-form__textarea {
+    font-family: var(--font-body-family);
+    font-size: 1.5rem;
+    color: rgb(var(--color-foreground));
+    background-color: rgb(var(--color-background));
+    border: 1px solid rgba(var(--color-foreground), 0.25);
+    border-radius: 6px;
+    padding: 1.1rem 1.4rem;
+    width: 100%;
+    transition: border-color 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .wholesale-form__input:focus,
+  .wholesale-form__select:focus,
+  .wholesale-form__textarea:focus {
+    outline: none;
+    border-color: #f5cf8a;
+    box-shadow: 0 0 0 2px rgba(245, 207, 138, 0.15);
+  }
+
+  .wholesale-form__textarea {
+    resize: vertical;
+    min-height: 9rem;
+  }
+
+  .wholesale-form__select-wrapper {
+    position: relative;
+  }
+
+  .wholesale-form__select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 1.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(var(--color-foreground), 0.5);
+    pointer-events: none;
+  }
+
+  .wholesale-form__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .wholesale-form__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .wholesale-form__field--full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .wholesale-form__submit {
+    background-color: #f5cf8a;
+    color: #2b2c2d;
+    border: none;
+    border-radius: 6px;
+    padding: 1.4rem 3.2rem;
+    font-family: var(--font-body-family);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.04rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+  }
+
+  .wholesale-form__submit:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+
+  .wholesale-form__notice {
+    font-family: var(--font-body-family);
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.55);
+    margin: 0;
+  }
+
+  .wholesale-form__success {
+    padding: 2.4rem;
+    background-color: #1c2228;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .wholesale-form__success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5.6rem;
+    height: 5.6rem;
+    border-radius: 50%;
+    background-color: rgba(245, 207, 138, 0.12);
+    border: 1.5px solid rgba(245, 207, 138, 0.4);
+    margin: 0 auto 2rem;
+  }
+
+  .wholesale-form__success-icon svg {
+    width: 2.4rem;
+    height: 2.4rem;
+    color: #f5cf8a;
+  }
+
+  .wholesale-form__success h2 {
+    font-family: var(--font-heading-family);
+    font-size: 2.4rem;
+    color: #ffffff;
+    margin: 0 0 1rem;
+  }
+
+  .wholesale-form__success p {
+    font-family: var(--font-body-family);
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+  }
+
+  .wholesale-page__header {
+    margin-bottom: 4rem;
+  }
+
+  .wholesale-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-body-family);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+    color: #f5cf8a;
+    margin-bottom: 1.2rem;
+  }
+
+  .wholesale-page__heading {
+    font-family: var(--font-heading-family);
+    font-size: 3.6rem;
+    color: rgb(var(--color-foreground));
+    margin: 0 0 1.2rem;
+  }
+
+  .wholesale-page__subheading {
+    font-family: var(--font-body-family);
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: rgba(var(--color-foreground), 0.65);
+    margin: 0;
+    max-width: 52rem;
+  }
+
+  .wholesale-page__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    margin-bottom: 4rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .wholesale-page__steps {
+      flex-direction: row;
+    }
+  }
+
+  .wholesale-page__step {
+    flex: 1;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    padding: 2rem;
+    background-color: rgba(var(--color-foreground), 0.04);
+    border-radius: 8px;
+  }
+
+  .wholesale-page__step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    background-color: rgba(245, 207, 138, 0.12);
+    border: 1px solid rgba(245, 207, 138, 0.3);
+    font-family: var(--font-body-family);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #f5cf8a;
+    flex-shrink: 0;
+  }
+
+  .wholesale-page__step-text strong {
+    display: block;
+    font-family: var(--font-body-family);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: rgb(var(--color-foreground));
+    margin-bottom: 0.3rem;
+  }
+
+  .wholesale-page__step-text span {
+    font-family: var(--font-body-family);
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: rgba(var(--color-foreground), 0.55);
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+
+    {%- comment -%} Already logged in with wholesale tag → redirect away {%- endcomment -%}
+    {%- if customer and customer.tags contains 'wholesale' -%}
+      <script>window.location.href = "{{ routes.account_url }}";</script>
+    {%- endif -%}
+
+    {%- comment -%} Success state after form submission {%- endcomment -%}
+    {%- if form.posted_successfully? -%}
+      <div class="wholesale-form__success">
+        <div class="wholesale-form__success-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h2>Application Received!</h2>
+        <p>
+          Thank you for applying. We'll review your business details and follow up at the email you provided —
+          typically within 1–2 business days. Once approved, you'll receive an invitation to set your account password.
+        </p>
+      </div>
+
+    {%- else -%}
+
+      <div class="wholesale-page__header">
+        <p class="wholesale-page__eyebrow">B2B Wholesale</p>
+        <h1 class="wholesale-page__heading">{{ section.settings.heading | default: 'Apply for a Wholesale Account' }}</h1>
+        <p class="wholesale-page__subheading">{{ section.settings.subheading | default: 'Submit your business information below. Our team will review your application and contact you with login credentials upon approval.' }}</p>
+      </div>
+
+      <div class="wholesale-page__steps">
+        <div class="wholesale-page__step">
+          <div class="wholesale-page__step-num">1</div>
+          <div class="wholesale-page__step-text">
+            <strong>Submit Application</strong>
+            <span>Fill out the form with your business and license details.</span>
+          </div>
+        </div>
+        <div class="wholesale-page__step">
+          <div class="wholesale-page__step-num">2</div>
+          <div class="wholesale-page__step-text">
+            <strong>Review (1–2 days)</strong>
+            <span>Our team verifies your business credentials.</span>
+          </div>
+        </div>
+        <div class="wholesale-page__step">
+          <div class="wholesale-page__step-num">3</div>
+          <div class="wholesale-page__step-text">
+            <strong>Get Access</strong>
+            <span>Receive login credentials and access wholesale pricing.</span>
+          </div>
+        </div>
+      </div>
+
+      {%- form 'contact', id: 'wholesale-application-form' -%}
+
+        {%- if form.errors -%}
+          <div role="alert" style="color: #e57373; font-size: 1.4rem; margin-bottom: 2rem;">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        <input type="hidden" name="contact[tags]" value="wholesale_pending">
+        <input type="hidden" name="contact[subject]" value="Wholesale Account Application">
+
+        <div class="wholesale-form__grid">
+
+          <div class="wholesale-form__field">
+            <label class="wholesale-form__label" for="wholesale-first-name">
+              First Name <span aria-hidden="true">*</span>
+            </label>
+            <input
+              class="wholesale-form__input"
+              type="text"
+              id="wholesale-first-name"
+              name="contact[first_name]"
+              autocomplete="given-name"
+              required
+            >
+          </div>
+
+          <div class="wholesale-form__field">
+            <label class="wholesale-form__label" for="wholesale-last-name">
+              Last Name <span aria-hidden="true">*</span>
+            </label>
+            <input
+              class="wholesale-form__input"
+              type="text"
+              id="wholesale-last-name"
+              name="contact[last_name]"
+              autocomplete="family-name"
+              required
+            >
+          </div>
+
+          <div class="wholesale-form__field">
+            <label class="wholesale-form__label" for="wholesale-email">
+              Business Email <span aria-hidden="true">*</span>
+            </label>
+            <input
+              class="wholesale-form__input"
+              type="email"
+              id="wholesale-email"
+              name="contact[email]"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="wholesale-form__field">
+            <label class="wholesale-form__label" for="wholesale-phone">
+              Phone Number <span aria-hidden="true">*</span>
+            </label>
+            <input
+              class="wholesale-form__input"
+              type="tel"
+              id="wholesale-phone"
+              name="contact[phone]"
+              autocomplete="tel"
+              required
+            >
+          </div>
+
+          <div class="wholesale-form__field wholesale-form__field--full">
+            <label class="wholesale-form__label" for="wholesale-business-name">
+              Business / Company Name <span aria-hidden="true">*</span>
+            </label>
+            <input
+              class="wholesale-form__input"
+              type="text"
+              id="wholesale-business-name"
+              name="contact[business_name]"
+              autocomplete="organization"
+              required
+            >
+          </div>
+
+          <div class="wholesale-form__field">
+            <label class="wholesale-form__label" for="wholesale-business-type">
+              Business Type <span aria-hidden="true">*</span>
+            </label>
+            <div class="wholesale-form__select-wrapper">
+              <select
+                class="wholesale-form__select"
+                id="wholesale-business-type"
+                name="contact[business_type]"
+                required
+              >
+                <option value="" disabled selected>Select type&hellip;</option>
+                <option value="Retailer">Retailer</option>
+                <option value="Distributor">Distributor</option>
+                <option value="Smoke Shop">Smoke Shop</option>
+                <option value="Vape Shop">Vape Shop</option>
+                <option value="Convenience Store">Convenience Store</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="wholesale-form__field">
+            <label class="wholesale-form__label" for="wholesale-state">
+              State <span aria-hidden="true">*</span>
+            </label>
+            <div class="wholesale-form__select-wrapper">
+              <select
+                class="wholesale-form__select"
+                id="wholesale-state"
+                name="contact[state]"
+                required
+              >
+                <option value="" disabled selected>Select state&hellip;</option>
+                <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+                <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+                <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+                <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+                <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+                <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+                <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+                <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+                <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+                <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
+                <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
+                <option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option>
+                <option>Wisconsin</option><option>Wyoming</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="wholesale-form__field wholesale-form__field--full">
+            <label class="wholesale-form__label" for="wholesale-license">
+              Business / Tobacco License Number <span aria-hidden="true">*</span>
+            </label>
+            <input
+              class="wholesale-form__input"
+              type="text"
+              id="wholesale-license"
+              name="contact[license_number]"
+              placeholder="e.g. T-123456"
+              required
+            >
+          </div>
+
+          <div class="wholesale-form__field wholesale-form__field--full">
+            <label class="wholesale-form__label" for="wholesale-message">
+              Additional Notes
+            </label>
+            <textarea
+              class="wholesale-form__textarea"
+              id="wholesale-message"
+              name="contact[body]"
+              placeholder="Tell us more about your business, expected order volume, product interests, etc."
+            ></textarea>
+          </div>
+
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.6rem; margin-top: 2.8rem;">
+          <button type="submit" class="wholesale-form__submit">
+            Submit Application
+          </button>
+          <p class="wholesale-form__notice">
+            By submitting this form you confirm all business information is accurate. We'll reach out to the email provided within 1–2 business days with next steps.
+          </p>
+        </div>
+
+      {%- endform -%}
+
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Wholesale Application",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Apply for a Wholesale Account"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Submit your business information below. Our team will review your application and contact you with login credentials upon approval."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale Application"
+    }
+  ]
+}
+{% endschema %}

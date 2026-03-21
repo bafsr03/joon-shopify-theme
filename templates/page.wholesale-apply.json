@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "wholesale-application",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "heading": "Apply for a Wholesale Account",
+        "subheading": "Submit your business information below. Our team will review your application and contact you with login credentials upon approval.",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": ["main"]
+}
