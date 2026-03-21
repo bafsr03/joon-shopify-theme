@@ -198,6 +198,16 @@
       </li>
     {%- endfor -%}
 
+    <li>
+      <a
+        href="/pages/contact"
+        class="header__menu-item list-menu__item link link--text focus-inset"
+        {% if request.path == '/pages/contact' %}aria-current="page"{% endif %}
+      >
+        <span{% if request.path == '/pages/contact' %} class="header__active-menu-item"{% endif %}>Contact</span>
+      </a>
+    </li>
+
     {%- if section.settings.cta_button_label != blank -%}
       <li>
         <a
