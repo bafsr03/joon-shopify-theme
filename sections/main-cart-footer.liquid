@@ -1,3 +1,7 @@
+{%- unless customer and customer.tags contains 'wholesale' -%}
+  <script>window.location.replace('/pages/wholesale-apply');</script>
+{%- endunless -%}
+
 {{ 'component-cart.css' | asset_url | stylesheet_tag }}
 {{ 'component-totals.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}

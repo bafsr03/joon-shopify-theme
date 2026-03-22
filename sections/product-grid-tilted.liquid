@@ -57,7 +57,11 @@
                   <p class="product-grid-tilted__vendor">{{ product.vendor }}</p>
                 {%- endif -%}
                 <p class="product-grid-tilted__name">{{ product.title }}</p>
-                <p class="product-grid-tilted__price">{{ product.price | money }}</p>
+                {%- if customer and customer.tags contains 'wholesale' -%}
+                  <p class="product-grid-tilted__price">{{ product.price | money }}</p>
+                {%- else -%}
+                  {%- render 'wholesale-gate', context: 'inline' -%}
+                {%- endif -%}
                 <a href="{{ product.url }}" class="product-grid-tilted__cta">
                   {{ 'general.product_grid_tilted.shop_now' | t | default: 'Shop now' }}
                 </a>

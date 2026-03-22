@@ -172,32 +172,6 @@
     fill: none;
   }
 
-  /* CTA pill button inside nav */
-  .header__cta-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.8rem 2rem;
-    background: #32402C;
-    color: #ffffff;
-    border-radius: 10rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    transition: transform 0.2s ease, background 0.2s ease;
-    white-space: nowrap;
-    line-height: 1;
-    margin-left: 1.2rem;
-    height: 3.6rem; /* Fixed height for consistent alignment */
-    align-self: center;
-  }
-
-  .header__cta-btn:hover {
-    background: #333333;
-    transform: translateY(-1px);
-  }
 </style>
 
 {%- style -%}
@@ -426,7 +400,6 @@
                 {{ 'customer.log_in' | t | default: 'Sign in' }}
               {%- endif -%}
             </span>
-            <span class="header__account-text-sub">{{ section.settings.account_subtext | default: 'to earn rewards' }}</span>
           </span>
         </a>
       {%- endif -%}

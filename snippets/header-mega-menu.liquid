@@ -38,11 +38,54 @@
                 class="mega-menu__content motion-reduce global-settings-popup"
                 tabindex="-1"
               >
-                <div class="mega-menu__inner">
+                {%- assign promo_blocks = section.blocks | where: 'type', 'promo_card' -%}
+                <div class="mega-menu__inner{% if promo_blocks.size > 0 %} mega-menu__inner--has-promo{% endif %}">
 
                   {%- comment -%} Left: Link columns area {%- endcomment -%}
                   <div class="mega-menu__links-area">
-                    {%- if link.links != blank -%}
+                    {%- if link_title == 'Shop' -%}
+                      <div class="mega-menu__column">
+                        <span class="mega-menu__col-heading">Product Types</span>
+                        <ul class="mega-menu__col-links" role="list">
+                          {%- assign shown_types = 0 -%}
+                          {%- for collection in collections -%}
+                            {%- if collection.handle != 'all' and shown_types < 5 -%}
+                              <li>
+                                <a href="{{ collection.url }}" class="mega-menu__link">
+                                  {{- collection.title -}}
+                                </a>
+                              </li>
+                              {%- assign shown_types = shown_types | plus: 1 -%}
+                            {%- endif -%}
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                      <div class="mega-menu__column">
+                        <span class="mega-menu__col-heading">Other Brands</span>
+                        <ul class="mega-menu__col-links" role="list">
+                          {%- for vendor in shop.vendors limit: 5 -%}
+                            <li>
+                              <a href="/collections/all?filter.p.vendor={{ vendor | url_encode }}" class="mega-menu__link">
+                                {{- vendor -}}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                      <a href="/pages/wholesale-apply" class="mega-menu__partner-banner">
+                        {%- comment -%}
+                          To set the banner background image, upload your image to Shopify Files
+                          and update the CSS variable --partner-banner-bg in component-mega-menu.css
+                        {%- endcomment -%}
+                        <div class="mega-menu__partner-banner__overlay"></div>
+                        <div class="mega-menu__partner-banner__body">
+                          <p class="mega-menu__partner-banner__eyebrow">Wholesale</p>
+                          <h3 class="mega-menu__partner-banner__title">Become a Partner</h3>
+                          <p class="mega-menu__partner-banner__desc">Apply for a wholesale account and unlock exclusive pricing &amp; access.</p>
+                          <span class="mega-menu__partner-banner__cta">Apply Now</span>
+                        </div>
+                      </a>
+                    {%- elsif link.links != blank -%}
                       {%- for childlink in link.links limit: 3 -%}
                         <div class="mega-menu__column">
                           <a
@@ -69,32 +112,8 @@
                           {%- endif -%}
                         </div>
                       {%- endfor -%}
-                    {%- elsif link_title == 'Shop' -%}
-                      {%- comment -%} Fallback columns for Shop if no child links {%- endcomment -%}
-                      <div class="mega-menu__column">
-                        <span class="mega-menu__col-heading">Shop THCA</span>
-                        <ul class="mega-menu__col-links" role="list">
-                          <li><a href="/collections/all" class="mega-menu__link">THCA Flower</a></li>
-                          <li><a href="/collections/all" class="mega-menu__link">THCA Smalls</a></li>
-                          <li><a href="/collections/all" class="mega-menu__link">THCA Seeds</a></li>
-                        </ul>
-                      </div>
-                      <div class="mega-menu__column">
-                        <span class="mega-menu__col-heading">Product Type</span>
-                        <ul class="mega-menu__col-links" role="list">
-                          <li><a href="/collections/all" class="mega-menu__link">Gummies & Edibles</a></li>
-                          <li><a href="/collections/all" class="mega-menu__link">Merch & Accessories</a></li>
-                        </ul>
-                      </div>
-                      <div class="mega-menu__column">
-                        <span class="mega-menu__col-heading">Other Brands</span>
-                        <ul class="mega-menu__col-links" role="list">
-                          <li><a href="/collections/all" class="mega-menu__link">Only Gas</a></li>
-                          <li><a href="/collections/all" class="mega-menu__link">Hella Slumped</a></li>
-                        </ul>
-                      </div>
                     {%- else -%}
-                       <div class="mega-menu__column">
+                      <div class="mega-menu__column">
                         <span class="mega-menu__col-heading">About Us</span>
                         <ul class="mega-menu__col-links" role="list">
                           <li><a href="/pages/about" class="mega-menu__link">Our Story</a></li>
@@ -103,32 +122,8 @@
                       </div>
                     {%- endif -%}
 
-                    {%- comment -%} 4th panel: Wholesale or Testimonial {%- endcomment -%}
-                    {%- if link_title == 'Shop' -%}
-                      <div class="mega-menu__testimonial-panel">
-                        <div class="testimonial-stars">
-                          ★★★★★
-                        </div>
-                        <p class="testimonial-heading">Decent shipping time and excellent</p>
-                        <div class="testimonial-content">
-                          <button class="testimonial-arrow testimonial-arrow--left">
-                            <svg viewBox="0 0 100 100"><path d="M60 20 L30 50 L60 80" fill="none" stroke="currentColor" stroke-width="8"/></svg>
-                          </button>
-                          <div class="testimonial-text">
-                            "Got Here Super Fast & Excellent Quality Products That Cannot Be Beat"
-                          </div>
-                          <button class="testimonial-arrow testimonial-arrow--right">
-                            <svg viewBox="0 0 100 100"><path d="M40 20 L70 50 L40 80" fill="none" stroke="currentColor" stroke-width="8"/></svg>
-                          </button>
-                        </div>
-                        <div class="testimonial-author">
-                          <div class="author-info">
-                            <span class="author-name">Mark I.</span>
-                            <span class="author-status">Verified Buyer</span>
-                          </div>
-                        </div>
-                      </div>
-                    {%- else -%}
+                    {%- comment -%} 4th panel for non-Shop dropdowns: Wholesale panel {%- endcomment -%}
+                    {%- unless link_title == 'Shop' -%}
                       {%- if section.settings.wholesale_title != blank -%}
                         <a
                           href="{{ section.settings.wholesale_link | default: '#' }}"
@@ -145,11 +140,10 @@
                           {%- endif -%}
                         </a>
                       {%- endif -%}
-                    {%- endif -%}
+                    {%- endunless -%}
                   </div>
 
                   {%- comment -%} Right: Promo cards {%- endcomment -%}
-                  {%- assign promo_blocks = section.blocks | where: 'type', 'promo_card' -%}
                   {%- if promo_blocks.size > 0 -%}
                     <div class="mega-menu__promo-area">
                       <div class="mega-menu__promo-grid">
@@ -213,15 +207,5 @@
       </a>
     </li>
 
-    {%- if section.settings.cta_button_label != blank -%}
-      <li>
-        <a
-          href="{{ section.settings.cta_button_link | default: '#' }}"
-          class="header__cta-btn"
-        >
-          {{- section.settings.cta_button_label -}}
-        </a>
-      </li>
-    {%- endif -%}
   </ul>
 </nav>

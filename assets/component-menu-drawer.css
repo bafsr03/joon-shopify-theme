@@ -243,24 +243,34 @@ details[open].menu-opening>.menu-drawer__submenu {
 
 /* ── JOON: Custom Mobile Drawer & Header Button Updates ─────────────────── */
 
+/* Style the mobile SHOP toggle to match the desktop nav item look */
 .mobile-toggle-wrapper {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0.8rem 4rem;
-  background: #32402C;
-  color: #ffffff;
-  border-radius: 10rem;
-  font-size: 1.25rem;
-  font-weight: 700;
+  gap: 0.5rem;
+  padding: 1.2rem;
+  background: transparent;
+  color: rgba(var(--color-foreground), 0.75);
+  font-size: 1.4rem;
+  font-weight: 600;
   text-decoration: none !important;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: transform 0.2s ease, background 0.2s ease;
+  letter-spacing: 0.02em;
+  text-transform: none;
   white-space: nowrap;
   line-height: 1;
-  height: 3.6rem;
   border: none;
+  transition: color 0.15s ease;
+}
+
+.mobile-toggle-wrapper::after {
+  content: '';
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 0.15rem solid currentColor;
+  border-bottom: 0.15rem solid currentColor;
+  transform: rotate(45deg) translateY(-0.15rem);
+  transition: transform 0.2s ease;
 }
 
 .header__icon--menu,
@@ -269,9 +279,13 @@ details[open].menu-opening>.menu-drawer__submenu {
   text-decoration: none !important;
 }
 
-/* When the menu is open, invert the SHOP button colors slightly to match hover state */
-details[open]>.header__icon--menu .mobile-toggle-wrapper {
-  background: #333333;
+.header__icon--menu:hover .mobile-toggle-wrapper {
+  color: rgb(var(--color-foreground));
+}
+
+/* When the menu is open, flip the caret upward */
+details[open] > .header__icon--menu .mobile-toggle-wrapper::after {
+  transform: rotate(225deg) translateY(-0.15rem);
 }
 
 /* Floating X pill button for the drawer */

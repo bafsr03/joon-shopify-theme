@@ -44,7 +44,11 @@
                       {% endif %}
                     </div>
                     <h4 class="upsell-item__title">{{ upsell_product.title }}</h4>
-                    <p class="upsell-item__price">{{ upsell_product.price | money }}</p>
+                    {%- if customer and customer.tags contains 'wholesale' -%}
+                      <p class="upsell-item__price">{{ upsell_product.price | money }}</p>
+                    {%- else -%}
+                      {%- render 'wholesale-gate', context: 'inline' -%}
+                    {%- endif -%}
 
                     <a href="{{ upsell_product.url }}" class="button button--secondary upsell-add-btn">
                       View

@@ -1,6 +1,9 @@
 /* ============================================================
    Mega Menu — component-mega-menu.css
-   Dark, rich-layout with promo card grid
+   Joon Distribution design system:
+   - Dark navy bg (#060e18 / #0d1a2e) + gold accent (#f5cf8a)
+   - Card radius: 8px | Button radius: 6px
+   - Fonts: var(--font-heading-family) / var(--font-body-family)
    ============================================================ */
 
 .mega-menu {
@@ -8,20 +11,20 @@
 }
 
 .mega-menu__content {
-  background: #1e1e1e;
+  background: #1a1c20;
   border-left: 0;
   border-radius: 0;
   border-right: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(245, 207, 138, 0.18);
   left: 0;
   overflow-y: auto;
-  padding: 3.2rem 0 3.6rem;
+  padding: 2.8rem 0 3.2rem;
   position: absolute;
   right: 0;
   top: 100%;
-  /* Override color-scheme variables with dark values */
+  z-index: 50;
   --color-foreground: 255, 255, 255;
-  --color-background: 30, 30, 30;
+  --color-background: 26, 28, 32;
 }
 
 .shopify-section-header-sticky .mega-menu__content {
@@ -29,13 +32,13 @@
 }
 
 .header-wrapper--border-bottom .mega-menu__content {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(245, 207, 138, 0.18);
 }
 
 .js .mega-menu__content {
   opacity: 0;
-  transform: translateY(-0.8rem);
-  transition: opacity 0.2s ease, transform 0.22s ease;
+  transform: translateY(-0.5rem);
+  transition: opacity 0.18s ease, transform 0.2s ease;
 }
 
 .mega-menu[open] .mega-menu__content {
@@ -46,27 +49,31 @@
 /* ---- Inner layout ------------------------------------------ */
 .mega-menu__inner {
   display: grid;
-  grid-template-columns: 1fr 29rem;
-  gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 3.2rem;
   align-items: start;
   max-width: var(--page-width);
   margin: 0 auto;
-  padding: 0 3rem;
+  padding: 0 5rem;
 }
 
-/* ---- Link columns area — 4 column panel grid ------------------- */
+.mega-menu__inner--has-promo {
+  grid-template-columns: 1fr 29rem;
+}
+
+/* ---- Link columns area ------------------------------------ */
 .mega-menu__links-area {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: auto;
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 12px;
   align-items: stretch;
 }
 
-/* Each column is a dark rounded card panel */
+/* Card — dark navy, 8px radius per design system */
 .mega-menu__column {
-  background: #2a2a2a;
-  border-radius: 1.2rem;
+  background: #26282e;
+  border: 1px solid rgba(245, 207, 138, 0.07);
+  border-radius: 8px;
   padding: 2rem 2.4rem;
   display: flex;
   flex-direction: column;
@@ -74,20 +81,21 @@
 }
 
 .mega-menu__col-heading {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: var(--font-heading-family);
+  font-size: 1.1rem;
+  font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #f5cf8a;
   text-decoration: none;
   margin-bottom: 1.2rem;
   display: block;
   padding-bottom: 0.8rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(245, 207, 138, 0.12);
 }
 
 .mega-menu__col-heading:hover {
-  color: rgb(var(--color-button));
+  color: #ffffff;
 }
 
 .mega-menu__col-links {
@@ -98,116 +106,30 @@
   flex-direction: column;
 }
 
-/* Testimonial partner panel */
-.mega-menu__testimonial-panel {
-  background: #2a2a2a;
-  border-radius: 1.2rem;
-  padding: 2.4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 18rem;
-}
-
-.testimonial-stars {
-  color: #5bc0de;
-  font-size: 1.8rem;
-  margin-bottom: 1.6rem;
-  letter-spacing: 0.2rem;
-}
-
-.testimonial-heading {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 1.6rem;
-  line-height: 1.3;
-}
-
-.testimonial-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.6rem;
-}
-
-.testimonial-arrow {
-  background: #5bc0de;
-  border: none;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  cursor: pointer;
-  padding: 0;
-  flex-shrink: 0;
-}
-
-.testimonial-arrow svg {
-  width: 1.2rem;
-  height: 1.2rem;
-}
-
-.testimonial-text {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
-  font-style: italic;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.author-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.author-name {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #5bc0de;
-}
-
-.author-status {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.5);
-}
-
 /* ---- Individual links ------------------------------------- */
 .mega-menu__link {
+  font-family: var(--font-body-family);
   color: rgba(255, 255, 255, 0.6);
   display: block;
   font-size: 1.4rem;
   line-height: 1.35;
-  padding: 0.5rem 0;
+  padding: 0.55rem 0;
   text-decoration: none;
   transition: color 0.15s ease;
   word-wrap: break-word;
 }
 
-.mega-menu__link--level-2 {
-  font-weight: 700;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size: 1.25rem;
-  letter-spacing: 0.08em;
-}
-
 .mega-menu__link:hover,
 .mega-menu__link--active {
+  color: #f5cf8a;
+}
+
+.mega-menu__link--level-2 {
+  font-weight: 500;
   color: #ffffff;
-  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
 }
 
 .mega-menu__link--active:hover {
@@ -220,6 +142,155 @@
 
 .mega-menu__list--condensed .mega-menu__link {
   font-weight: normal;
+}
+
+/* ---- Wholesale partner banner (Shop dropdown) ------------ */
+/*
+  To set the background image, find .mega-menu__partner-banner below
+  and set: background-image: url('https://cdn.shopify.com/s/files/...');
+*/
+.mega-menu__partner-banner {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: 22rem;
+  text-decoration: none;
+  background-image: var(--partner-banner-bg, none);
+  background-color: #2e3038;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(245, 207, 138, 0.08);
+  transition: border-color 0.2s ease;
+}
+
+.mega-menu__partner-banner:hover {
+  border-color: rgba(245, 207, 138, 0.28);
+}
+
+.mega-menu__partner-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(1, 8, 20, 0.9) 0%,
+    rgba(1, 8, 20, 0.45) 50%,
+    rgba(1, 8, 20, 0.12) 100%
+  );
+}
+
+.mega-menu__partner-banner__body {
+  position: relative;
+  z-index: 1;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mega-menu__partner-banner__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f5cf8a;
+  margin: 0;
+}
+
+.mega-menu__partner-banner__title {
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: calc(var(--font-heading-scale, 1) * 0.06rem);
+}
+
+.mega-menu__partner-banner__desc {
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0.4rem 0 1rem;
+  line-height: 1.5;
+}
+
+/* Primary button — gold fill, dark text, 6px radius */
+.mega-menu__partner-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.8rem;
+  background: #f5cf8a;
+  color: #2b2c2d;
+  border-radius: 6px;
+  border: none;
+  font-family: var(--font-heading-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  align-self: flex-start;
+  transition: background 0.2s ease;
+}
+
+.mega-menu__partner-banner:hover .mega-menu__partner-banner__cta {
+  background: #ffffff;
+}
+
+/* ---- Wholesale CTA panel (Learn More dropdown) ------------ */
+.mega-menu__wholesale-panel {
+  background: #26282e;
+  border-radius: 8px;
+  padding: 2rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.6rem;
+  text-decoration: none;
+  min-height: 14rem;
+  border: 1px solid rgba(245, 207, 138, 0.07);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.mega-menu__wholesale-panel:hover {
+  background: #2e3038;
+  border-color: rgba(245, 207, 138, 0.18);
+}
+
+.mega-menu__wholesale-title {
+  font-family: var(--font-heading-family);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f5cf8a;
+  margin: 0 0 0.5rem;
+}
+
+.mega-menu__wholesale-desc {
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Primary button — gold fill, 6px radius */
+.mega-menu__wholesale-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 1.4rem;
+  background: #f5cf8a;
+  color: #2b2c2d;
+  border-radius: 6px;
+  font-family: var(--font-heading-family);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  align-self: flex-start;
 }
 
 /* ---- Legacy flat list (no rich layout) ------------------- */
@@ -253,17 +324,17 @@
 .mega-menu__promo-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
+  gap: 12px;
 }
 
 .mega-menu__promo-card {
   position: relative;
   aspect-ratio: 1 / 1;
-  border-radius: 1.2rem;
+  border-radius: 8px;
   overflow: hidden;
   display: block;
   text-decoration: none;
-  background: #2a2a2a;
+  background: #26282e;
 }
 
 .mega-menu__promo-card img,
@@ -276,13 +347,13 @@
 }
 
 .mega-menu__promo-card:hover img {
-  transform: scale(1.06);
+  transform: scale(1.05);
 }
 
 .mega-menu__promo-card__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 55%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 55%);
 }
 
 .mega-menu__promo-card__title {
@@ -290,16 +361,17 @@
   bottom: 1.2rem;
   left: 1.2rem;
   right: 1.2rem;
-  font-family: "Sergio Trendy", Arial, Helvetica, sans-serif;
+  font-family: var(--font-heading-family);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.15;
   color: #ffffff;
+  letter-spacing: calc(var(--font-heading-scale, 1) * 0.06rem);
 }
 
 .mega-menu__promo-card__title em {
   font-style: normal;
   display: block;
-  color: var(--promo-accent, rgb(var(--color-button)));
+  color: var(--promo-accent, #f5cf8a);
 }
