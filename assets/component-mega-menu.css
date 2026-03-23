@@ -10,6 +10,17 @@
   position: static;
 }
 
+/* Fix: make the caret a flex item so it's never clipped */
+.mega-menu > summary .icon-caret {
+  position: static;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+  top: auto;
+  right: auto;
+  width: 1rem;
+  height: 0.6rem;
+}
+
 .mega-menu__content {
   background: #1a1c20;
   border-left: 0;

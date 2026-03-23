@@ -72,19 +72,27 @@
                           {%- endfor -%}
                         </ul>
                       </div>
-                      <a href="/pages/wholesale-apply" class="mega-menu__partner-banner">
-                        {%- comment -%}
-                          To set the banner background image, upload your image to Shopify Files
-                          and update the CSS variable --partner-banner-bg in component-mega-menu.css
-                        {%- endcomment -%}
-                        <div class="mega-menu__partner-banner__overlay"></div>
-                        <div class="mega-menu__partner-banner__body">
-                          <p class="mega-menu__partner-banner__eyebrow">Wholesale</p>
-                          <h3 class="mega-menu__partner-banner__title">Become a Partner</h3>
-                          <p class="mega-menu__partner-banner__desc">Apply for a wholesale account and unlock exclusive pricing &amp; access.</p>
-                          <span class="mega-menu__partner-banner__cta">Apply Now</span>
+                      <div class="mega-menu__column mega-menu__column--wholesale" style="display: flex; flex-direction: column;">
+                        <a href="/pages/wholesale-apply" class="mega-menu__partner-banner">
+                          {%- comment -%}
+                            To set the banner background image, upload your image to Shopify Files
+                            and update the CSS variable --partner-banner-bg in component-mega-menu.css
+                          {%- endcomment -%}
+                          <div class="mega-menu__partner-banner__overlay"></div>
+                          <div class="mega-menu__partner-banner__body">
+                            <p class="mega-menu__partner-banner__eyebrow">Wholesale</p>
+                            <h3 class="mega-menu__partner-banner__title">Become a Partner</h3>
+                            <p class="mega-menu__partner-banner__desc">Apply for a wholesale account and unlock exclusive pricing &amp; access.</p>
+                            <span class="mega-menu__partner-banner__cta">Apply Now</span>
+                          </div>
+                        </a>
+                        <div class="mega-menu__partner-divided-section" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                          <ul class="mega-menu__col-links" role="list">
+                            <li><a href="/pages/about" class="mega-menu__link">About Us</a></li>
+                            <li><a href="/blogs/news" class="mega-menu__link">Blog</a></li>
+                          </ul>
                         </div>
-                      </a>
+                      </div>
                     {%- elsif link.links != blank -%}
                       {%- for childlink in link.links limit: 3 -%}
                         <div class="mega-menu__column">

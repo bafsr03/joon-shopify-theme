@@ -124,74 +124,46 @@
       <!-- Row 1: Type Categories (each links to its own collection) -->
       <div class="cah-scroll-row">
         <a href="/collections/all" class="cah-category-item {% unless is_type_collection %}active{% endunless %}">
-          <div class="cah-category-circle" style="background: radial-gradient(circle, rgba(255,204,102,1) 0%, rgba(253,183,59,1) 100%);">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="white" opacity="0.9"/>
-            </svg>
+          <div class="cah-category-circle">
+            <img src="{{ 'All.png' | asset_url }}" alt="All" loading="lazy">
           </div>
           <span class="cah-category-label">All</span>
         </a>
         <a href="/collections/hemp" class="cah-category-item {% if collection.handle == 'hemp' %}active{% endif %}">
-          <div class="cah-category-circle cah-circle--hemp">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22V12"/>
-              <path d="M12 12C12 12 7 11 5 7C7 4 11 5 12 8"/>
-              <path d="M12 12C12 12 17 11 19 7C17 4 13 5 12 8"/>
-              <path d="M12 12C12 12 8 8 8 4C10 3 13 5 12 8"/>
-              <path d="M12 12C12 12 16 8 16 4C14 3 11 5 12 8"/>
-            </svg>
+          <div class="cah-category-circle">
+            <img src="{{ 'Hemp.png' | asset_url }}" alt="Hemp" loading="lazy">
           </div>
           <span class="cah-category-label">Hemp</span>
         </a>
         <a href="/collections/exotics" class="cah-category-item {% if collection.handle == 'exotics' %}active{% endif %}">
-          <div class="cah-category-circle cah-circle--exotics">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 3h12l4 6-10 12L2 9z"/>
-              <path d="M2 9h20M6 3l4 6m4 0l4-6"/>
-            </svg>
+          <div class="cah-category-circle">
+            <img src="{{ 'Exotics.png' | asset_url }}" alt="Exotics" loading="lazy">
           </div>
           <span class="cah-category-label">Exotics</span>
         </a>
         <a href="/collections/snacks" class="cah-category-item {% if collection.handle == 'snacks' %}active{% endif %}">
-          <div class="cah-category-circle cah-circle--snacks">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/>
-              <circle cx="9" cy="10" r="1" fill="white" stroke="none"/>
-              <circle cx="14" cy="8" r="1" fill="white" stroke="none"/>
-              <circle cx="15" cy="14" r="1" fill="white" stroke="none"/>
-              <circle cx="10" cy="15" r="1" fill="white" stroke="none"/>
-            </svg>
+          <div class="cah-category-circle">
+            <img src="{{ 'Snacks_1.png' | asset_url }}" alt="Snacks" loading="lazy">
           </div>
           <span class="cah-category-label">Snacks</span>
         </a>
         <a href="/collections/nicotine" class="cah-category-item {% if collection.handle == 'nicotine' %}active{% endif %}">
-          <div class="cah-category-circle cah-circle--nicotine">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="10" width="16" height="4" rx="2"/>
-              <path d="M20 10v4M22 11v2"/>
-              <path d="M16 7c0-1.5 2-2 2-4"/>
-            </svg>
+          <div class="cah-category-circle">
+            <img src="{{ 'Nicotine.png' | asset_url }}" alt="Nicotine" loading="lazy">
           </div>
           <span class="cah-category-label">Nicotine</span>
         </a>
         <a href="/collections/carts" class="cah-category-item {% if collection.handle == 'carts' %}active{% endif %}">
-          <div class="cah-category-circle cah-circle--carts">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="9" y="2" width="6" height="14" rx="3"/>
-              <path d="M9 10h6"/>
-              <path d="M12 16v6"/>
-            </svg>
+          <div class="cah-category-circle">
+            <img src="{{ 'Carts.png' | asset_url }}" alt="Carts" loading="lazy">
           </div>
           <span class="cah-category-label">Carts</span>
         </a>
         <a href="/collections/trading-carts" class="cah-category-item {% if collection.handle == 'trading-carts' %}active{% endif %}">
-          <div class="cah-category-circle cah-circle--trading-carts">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M7 16V4m0 0L3 8m4-4l4 4"/>
-              <path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
-            </svg>
+          <div class="cah-category-circle">
+            <img src="{{ 'trading-cards.png' | asset_url }}" alt="Trading Cards" loading="lazy">
           </div>
-          <span class="cah-category-label">Trading Carts</span>
+          <span class="cah-category-label">Trading Cards</span>
         </a>
       </div>
 

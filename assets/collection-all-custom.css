@@ -364,7 +364,8 @@ body.collection-page-all {
   flex-grow: 1;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: flex-end !important; /* Pushes info to the bottom */
+  justify-content: flex-end !important;
+  /* Pushes info to the bottom */
   padding: 1.5rem !important;
   background: #ffffff;
 }
@@ -448,7 +449,8 @@ body.collection-page-all {
 .cah-grid-wrapper .product-form__submit,
 .cah-grid-wrapper input[type="submit"] {
   background: #32402C !important;
-  color: #ffffff !important; /* White text for better contrast on dark green */
+  color: #ffffff !important;
+  /* White text for better contrast on dark green */
   border: none !important;
   border-radius: 8px !important;
   font-weight: 700 !important;
@@ -595,6 +597,7 @@ body.collection-page-all {
   display: flex;
   gap: 2rem;
   overflow-x: auto;
+  padding-top: 1.5rem; /* added to prevent clipping on hover/shadows */
   padding-bottom: 1.5rem;
   scrollbar-width: none;
   /* Firefox */
@@ -628,20 +631,21 @@ body.collection-page-all {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: #1a1a1a;
+  background: #414617;
   border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   position: relative;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .cah-category-item.active .cah-category-circle {
-  border-color: #32402C;
+  background: #525a22;
+  border-color: #737f31;
   border-width: 2px;
-  box-shadow: 0 0 15px rgba(50, 64, 44, 0.4);
+  box-shadow: 0 0 15px rgba(42, 82, 130, 0.4);
 }
 
 .cah-category-item:hover .cah-category-circle {
@@ -651,8 +655,10 @@ body.collection-page-all {
 .cah-category-circle img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.3s ease;
+  padding: 8px;
+  /* small padding so the item has space around */
 }
 
 .cah-category-item:hover .cah-category-circle img {
@@ -709,30 +715,7 @@ body.collection-page-all {
   border-color: rgba(50, 64, 44, 0.5);
 }
 
-/* Type-specific circle colours */
-.cah-circle--hemp {
-  background: linear-gradient(135deg, #2d5016 0%, #3a6b1a 100%);
-}
-
-.cah-circle--exotics {
-  background: linear-gradient(135deg, #4a1a6e 0%, #7b2fbf 100%);
-}
-
-.cah-circle--snacks {
-  background: linear-gradient(135deg, #7a3b00 0%, #c26a00 100%);
-}
-
-.cah-circle--nicotine {
-  background: linear-gradient(135deg, #1a2a4a 0%, #1e3a6e 100%);
-}
-
-.cah-circle--carts {
-  background: linear-gradient(135deg, #1a3a3a 0%, #0f6b6b 100%);
-}
-
-.cah-circle--trading-carts {
-  background: linear-gradient(135deg, #3a1a1a 0%, #8b2020 100%);
-}
+/* Type-specific circle colours (removed in favour of the single colour style) */
 
 /* Brand Section */
 .cah-brand-section {
