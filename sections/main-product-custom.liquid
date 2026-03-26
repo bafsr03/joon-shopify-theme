@@ -468,6 +468,33 @@
 
       <h1 class="cprod-title">{{ product.title | escape }}</h1>
 
+      <!-- Variant options — visible to ALL visitors, drives image switching -->
+      {% unless product.has_only_default_variant %}
+        <!-- Always-present hidden input so JS can track selected variant regardless of wholesale status -->
+        <input
+          type="hidden"
+          id="CprodVariantId-{{ section.id }}"
+          value="{{ product.selected_or_first_available_variant.id }}"
+        >
+        {% for option in product.options_with_values %}
+          <div class="cprod-option-group">
+            <div class="cprod-option-label">
+              {{ option.name }}<span id="CprodOptVal-{{ section.id }}-{{ forloop.index0 }}">{{ option.selected_value }}</span>
+            </div>
+            <div class="cprod-option-list" data-option-index="{{ forloop.index0 }}">
+              {% for value in option.values %}
+                <button
+                  type="button"
+                  class="cprod-option-btn {% if value == option.selected_value %}is-selected{% endif %}"
+                  data-value="{{ value | escape }}"
+                  data-option-index="{{ forloop.parentloop.index0 }}"
+                >{{ value }}</button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      {% endunless %}
+
       <!-- Price + Purchase — wholesale approved only -->
       {%- if customer and customer.tags contains 'wholesale' -%}
       <div class="cprod-price-row">
@@ -502,7 +529,6 @@
         data-section-id="{{ section.id }}"
         data-hide-errors="false"
       >
-        <!-- Error message wrapper — exact class names required by product-form.js -->
         <div class="product-form__error-message-wrapper" role="alert" hidden>
           <span class="product-form__error-message"></span>
         </div>
@@ -515,35 +541,14 @@
           data-type: 'add-to-cart-form'
         -%}
 
+          <!-- Synced by JS from the always-present CprodVariantId input above -->
           <input
             type="hidden"
             name="id"
-            id="CprodVariantId-{{ section.id }}"
+            id="CprodFormVariantId-{{ section.id }}"
             value="{{ product.selected_or_first_available_variant.id }}"
             class="product-variant-id"
           >
-
-          <!-- Variant options -->
-          {% unless product.has_only_default_variant %}
-            {% assign current_variant = product.selected_or_first_available_variant %}
-            {% for option in product.options_with_values %}
-              <div class="cprod-option-group">
-                <div class="cprod-option-label">
-                  {{ option.name }}<span id="CprodOptVal-{{ section.id }}-{{ forloop.index0 }}">{{ option.selected_value }}</span>
-                </div>
-                <div class="cprod-option-list" data-option-index="{{ forloop.index0 }}">
-                  {% for value in option.values %}
-                    <button
-                      type="button"
-                      class="cprod-option-btn {% if value == option.selected_value %}is-selected{% endif %}"
-                      data-value="{{ value | escape }}"
-                      data-option-index="{{ forloop.parentloop.index0 }}"
-                    >{{ value }}</button>
-                  {% endfor %}
-                </div>
-              </div>
-            {% endfor %}
-          {% endunless %}
 
           <!-- Quantity -->
           <div class="cprod-qty-row">
@@ -563,11 +568,6 @@
             </div>
           </div>
 
-          <!-- Add to Cart button -->
-          <!-- NOTE: product-form.js does submitButton.querySelector('span') for text,
-               and querySelector('.loading__spinner') for the spinner.
-               The FIRST <span> must be the text, hidden class toggled by JS.
-               The spinner span must have class 'loading__spinner' + 'hidden'. -->
           <div class="cprod-buttons">
             <button
               id="ProductSubmitButton-{{ section.id }}"
@@ -588,7 +588,6 @@
               </span>
             </button>
 
-            <!-- Buy It Now (dynamic checkout) -->
             <div class="cprod-buy-wrap">
               {{ form | payment_button }}
             </div>
@@ -686,12 +685,15 @@
   }
 
   // ── Variant picker ────────────────────────────────
-  const variantIdInput = document.getElementById('CprodVariantId-' + sectionId);
-  const submitBtn      = document.getElementById('ProductSubmitButton-' + sectionId);
-  const priceEl        = document.getElementById('CprodPrice-' + sectionId);
-  const comparePriceEl = document.getElementById('CprodComparePrice-' + sectionId);
-  const saleBadgeEl    = document.getElementById('CprodSaleBadge-' + sectionId);
-  const skuEl          = document.getElementById('CprodSku-' + sectionId);
+  // variantIdInput is always rendered (outside wholesale gate) — drives image switching for all users
+  // formVariantInput is only present for wholesale users — synced for form submission
+  const variantIdInput   = document.getElementById('CprodVariantId-' + sectionId);
+  const formVariantInput = document.getElementById('CprodFormVariantId-' + sectionId);
+  const submitBtn        = document.getElementById('ProductSubmitButton-' + sectionId);
+  const priceEl          = document.getElementById('CprodPrice-' + sectionId);
+  const comparePriceEl   = document.getElementById('CprodComparePrice-' + sectionId);
+  const saleBadgeEl      = document.getElementById('CprodSaleBadge-' + sectionId);
+  const skuEl            = document.getElementById('CprodSku-' + sectionId);
 
   // Build variant JSON map: option combo → variant object
   const productVariants = {{ product.variants | json }};
@@ -717,7 +719,8 @@
 
   function updateUI(variant) {
     if (!variant) {
-      variantIdInput.disabled = true;
+      if (variantIdInput) variantIdInput.disabled = true;
+      if (formVariantInput) formVariantInput.disabled = true;
       if (submitBtn) {
         submitBtn.disabled = true;
         const t = submitBtn.querySelector('span:first-child');
@@ -726,9 +729,17 @@
       return;
     }
 
-    // Update hidden variant ID
-    variantIdInput.value    = variant.id;
-    variantIdInput.disabled = !variant.available;
+    // Update always-present tracking input
+    if (variantIdInput) {
+      variantIdInput.value    = variant.id;
+      variantIdInput.disabled = !variant.available;
+    }
+
+    // Sync form submission input (wholesale users only)
+    if (formVariantInput) {
+      formVariantInput.value    = variant.id;
+      formVariantInput.disabled = !variant.available;
+    }
 
     // Update submit button
     if (submitBtn) {
