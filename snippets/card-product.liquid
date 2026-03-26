@@ -27,6 +27,42 @@
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'quick-order-list.css' | asset_url | stylesheet_tag }}
   {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
+  <style>
+    .card-variant-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .card-variant-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 0.72rem;
+      line-height: 1.4;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      color: #444;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .card-variant-pill:hover {
+      border-color: #32402C;
+      color: #32402C;
+    }
+    .card-variant-pill--sold-out {
+      opacity: 0.45;
+      text-decoration: line-through;
+    }
+    .card-variant-pill--more {
+      border-style: dashed;
+      color: #888;
+    }
+    .card-variant-pill--more:hover {
+      color: #32402C;
+      border-color: #32402C;
+    }
+  </style>
 {%- endunless -%}
 {%- if card_product and card_product != empty -%}
   {%- liquid
@@ -205,6 +241,26 @@
             {%- endif -%}
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+
+            {%- unless card_product.has_only_default_variant -%}
+              <div class="card-variant-pills">
+                {%- assign pill_limit = 5 -%}
+                {%- assign variant_count = card_product.variants.size -%}
+                {%- for variant in card_product.variants limit: pill_limit -%}
+                  <a
+                    href="{{ card_product.url }}?variant={{ variant.id }}"
+                    class="card-variant-pill{% unless variant.available %} card-variant-pill--sold-out{% endunless %}"
+                    title="{{ variant.option1 | escape }}"
+                  >{{ variant.option1 | truncate: 22 }}</a>
+                {%- endfor -%}
+                {%- if variant_count > pill_limit -%}
+                  <a href="{{ card_product.url }}" class="card-variant-pill card-variant-pill--more">
+                    +{{ variant_count | minus: pill_limit }} more
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endunless -%}
+
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                 {% liquid
