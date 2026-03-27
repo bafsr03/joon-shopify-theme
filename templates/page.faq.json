@@ -1,0 +1,386 @@
+{
+  "sections": {
+    "hero": {
+      "type": "rich-text",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "padding_top": 64,
+        "padding_bottom": 28
+      },
+      "blocks": {
+        "caption": {
+          "type": "caption",
+          "settings": {
+            "caption": "WHOLESALE SUPPORT",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Frequently Asked Questions",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Everything you need to know about ordering with Joon Distribution. Can't find your answer? <a href='/pages/contact'>Contact our team</a>.</p>"
+          }
+        }
+      },
+      "block_order": ["caption", "heading", "text"]
+    },
+    "faq_account": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "GETTING STARTED",
+        "heading": "Account & Ordering",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": true,
+        "padding_top": 36,
+        "padding_bottom": 8
+      },
+      "blocks": {
+        "acct_q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I become a wholesale customer?",
+            "icon": "question_mark",
+            "row_content": "<p>Complete our <a href='/pages/wholesale-apply'>online wholesale application</a>. Our team reviews all applications within 1–2 business days. Upon approval, you'll receive login credentials giving you full access to our catalog, wholesale pricing, and order history.</p>"
+          }
+        },
+        "acct_q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is there a minimum order requirement?",
+            "icon": "price_tag",
+            "row_content": "<p>Yes. Orders must meet our minimum order value to proceed to checkout. Certain brands or product lines may have individual minimums — these are noted on each product listing. Contact your account manager for details on your current pricing tier.</p>"
+          }
+        },
+        "acct_q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I browse the catalog or purchase without an account?",
+            "icon": "lock",
+            "row_content": "<p>Joon Distribution is exclusively a B2B wholesale platform. All catalog access, wholesale pricing, and purchasing requires an approved trade account. <a href='/pages/wholesale-apply'>Apply here</a> to get started.</p>"
+          }
+        },
+        "acct_q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I reset my password or update account details?",
+            "icon": "silhouette",
+            "row_content": "<p>Use the 'Forgot Password' link on the login page to reset your password via email. To update billing addresses, contacts, or business information on your account, log in and navigate to Account Settings, or <a href='/pages/contact'>contact our support team</a> directly.</p>"
+          }
+        }
+      },
+      "block_order": ["acct_q1", "acct_q2", "acct_q3", "acct_q4"]
+    },
+    "faq_products": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "CATALOG",
+        "heading": "Products & Brands",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": false,
+        "padding_top": 8,
+        "padding_bottom": 8
+      },
+      "blocks": {
+        "prod_q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What brands and product categories do you carry?",
+            "icon": "star",
+            "row_content": "<p>We carry a broad selection of vape devices, disposables, e-liquids, cannabis accessories, and related products from leading brands. Our catalog is updated regularly with new arrivals. Log in to browse the full selection with live inventory and wholesale pricing.</p>"
+          }
+        },
+        "prod_q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Are your products authentic and from authorized sources?",
+            "icon": "check_mark",
+            "row_content": "<p>Yes. Joon Distribution sources directly from authorized brand distributors and manufacturers. We do not carry counterfeit, grey-market, or unverified merchandise. All products in our catalog meet applicable regulatory and safety standards at the time of listing.</p>"
+          }
+        },
+        "prod_q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you offer early access to new product launches?",
+            "icon": "lightning_bolt",
+            "row_content": "<p>Yes. Approved wholesale accounts receive early access to new product launches, limited releases, and promotional bundles. Sign up for our trade newsletter or contact your account representative to stay current on upcoming drops and exclusive offers.</p>"
+          }
+        },
+        "prod_q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I request a product that isn't in your catalog?",
+            "icon": "chat_bubble",
+            "row_content": "<p>We welcome product requests from our wholesale partners. <a href='/pages/contact'>Contact our purchasing team</a> with the brand name, product, and estimated quantity needed. We'll do our best to source it or connect you with an alternative.</p>"
+          }
+        }
+      },
+      "block_order": ["prod_q1", "prod_q2", "prod_q3", "prod_q4"]
+    },
+    "faq_shipping": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "FULFILLMENT",
+        "heading": "Shipping & Delivery",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": false,
+        "padding_top": 8,
+        "padding_bottom": 8
+      },
+      "blocks": {
+        "ship_q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long does order processing take?",
+            "icon": "stopwatch",
+            "row_content": "<p>Orders are processed within 1–2 business days, Monday through Friday. Orders placed after 2:00 PM PST, or on weekends and holidays, will begin processing the next business day.</p>"
+          }
+        },
+        "ship_q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What shipping carriers do you use?",
+            "icon": "truck",
+            "row_content": "<p>We ship via UPS, FedEx, and USPS. Carrier selection is based on order weight, dimensions, destination, and the service tier selected at checkout. Tracking information is emailed automatically once your order ships.</p>"
+          }
+        },
+        "ship_q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you ship to all U.S. states?",
+            "icon": "map_pin",
+            "row_content": "<p>We ship to most U.S. states. Certain products are restricted in specific states due to local regulations and will not be available in your cart. It is the retailer's sole responsibility to verify that all products comply with applicable local, state, and federal laws before purchasing and reselling in their market.</p>"
+          }
+        },
+        "ship_q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you offer expedited or overnight shipping?",
+            "icon": "plane",
+            "row_content": "<p>Yes. 2-day and overnight shipping options are available for most destinations and can be selected at checkout for an additional fee. Expedited options are subject to availability based on carrier cutoff times and your location.</p>"
+          }
+        },
+        "ship_q5": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is an adult signature required on delivery?",
+            "icon": "clipboard",
+            "row_content": "<p>Adult signature (21+) may be required for delivery depending on the product type and destination state, as determined by carrier regulations and applicable law. If no one is available to sign, the carrier will leave a redelivery notice or hold the package at a local facility for pickup.</p>"
+          }
+        }
+      },
+      "block_order": ["ship_q1", "ship_q2", "ship_q3", "ship_q4", "ship_q5"]
+    },
+    "faq_payments": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "BILLING",
+        "heading": "Payments & Pricing",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": false,
+        "padding_top": 8,
+        "padding_bottom": 8
+      },
+      "blocks": {
+        "pay_q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What payment methods do you accept?",
+            "icon": "price_tag",
+            "row_content": "<p>We accept all major credit cards (Visa, Mastercard, American Express), ACH bank transfer, and Net 30 credit terms for qualified accounts. Payment must be confirmed before orders are released for fulfillment.</p>"
+          }
+        },
+        "pay_q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How do I qualify for Net 30 payment terms?",
+            "icon": "clipboard",
+            "row_content": "<p>Net 30 payment terms are available for established wholesale accounts in good standing with a satisfactory order history. To apply, contact our accounts team at <a href='mailto:accounts@joon.com'>accounts@joon.com</a>. A credit review may be required.</p>"
+          }
+        },
+        "pay_q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Are there volume discounts or tiered pricing?",
+            "icon": "star",
+            "row_content": "<p>Yes. Wholesale pricing is tiered based on order volume — larger orders unlock better per-unit rates. Your current pricing tier is visible in your account dashboard. Contact your account manager to discuss custom pricing for high-volume orders.</p>"
+          }
+        },
+        "pay_q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What happens if my payment is declined?",
+            "icon": "lock",
+            "row_content": "<p>If a payment fails, your order will be held until payment is successfully processed. You'll receive an email notification with instructions to retry or update your payment method. For ongoing billing issues, contact our accounts team at <a href='mailto:accounts@joon.com'>accounts@joon.com</a>.</p>"
+          }
+        }
+      },
+      "block_order": ["pay_q1", "pay_q2", "pay_q3", "pay_q4"]
+    },
+    "faq_returns": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "AFTER YOUR ORDER",
+        "heading": "Returns & Order Issues",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": false,
+        "padding_top": 8,
+        "padding_bottom": 8
+      },
+      "blocks": {
+        "ret_q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is your return policy?",
+            "icon": "return",
+            "row_content": "<p>Due to the regulated nature of our product categories, all sales are final. Returns are only accepted for items that arrive damaged, defective, or are the result of a fulfillment error. Claims must be submitted within <strong>5 business days</strong> of confirmed delivery with photo documentation.</p>"
+          }
+        },
+        "ret_q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "My order arrived damaged — what do I do?",
+            "icon": "box",
+            "row_content": "<p>Contact us immediately at <a href='mailto:orders@joon.com'>orders@joon.com</a> with your order number and clear photos of the damaged packaging and product. We will arrange a replacement shipment or issue a store credit within 2–3 business days of claim approval.</p>"
+          }
+        },
+        "ret_q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I cancel or modify an order after placing it?",
+            "icon": "stopwatch",
+            "row_content": "<p>Orders may be cancelled or modified within <strong>2 hours</strong> of placement. After that window, your order enters our fulfillment queue and changes are no longer possible. To request a change, contact us immediately at <a href='mailto:orders@joon.com'>orders@joon.com</a> with your order number.</p>"
+          }
+        },
+        "ret_q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "I received the wrong item — how is this resolved?",
+            "icon": "check_mark",
+            "row_content": "<p>We apologize for the error. Email <a href='mailto:orders@joon.com'>orders@joon.com</a> within 5 business days of delivery with your order number and a photo of the incorrect item. We will ship the correct item and arrange return of the wrong one at no cost to you.</p>"
+          }
+        }
+      },
+      "block_order": ["ret_q1", "ret_q2", "ret_q3", "ret_q4"]
+    },
+    "faq_compliance": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "REGULATORY",
+        "heading": "Compliance & Legal",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": false,
+        "padding_top": 8,
+        "padding_bottom": 36
+      },
+      "blocks": {
+        "comp_q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do I need a license to purchase from Joon Distribution?",
+            "icon": "clipboard",
+            "row_content": "<p>Licensing requirements vary by product type and state. Certain vape and tobacco-related products require a valid state-issued retail license. By applying for a wholesale account, you certify that your business holds all required licenses, permits, and registrations necessary to purchase and resell our products legally in your jurisdiction.</p>"
+          }
+        },
+        "comp_q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you verify age and business legitimacy?",
+            "icon": "eye",
+            "row_content": "<p>Yes. All wholesale applicants undergo business verification during the approval process. Account holders must be 21 years of age or older and operate a legitimate, licensed retail business. Joon Distribution reserves the right to request additional documentation — including business licenses, tax IDs, or government-issued ID — at any time.</p>"
+          }
+        },
+        "comp_q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Are your products compliant with federal and state regulations?",
+            "icon": "check_mark",
+            "row_content": "<p>We make reasonable efforts to ensure all products listed in our catalog comply with applicable federal and state regulations at the time of listing. However, regulations change frequently and vary by jurisdiction. It is the buyer's sole responsibility to verify product compliance in their market before purchasing, stocking, and selling.</p>"
+          }
+        },
+        "comp_q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What happens if my account is suspended?",
+            "icon": "lock",
+            "row_content": "<p>Joon Distribution reserves the right to suspend or terminate any wholesale account that violates our <a href='/policies/terms-of-service'>Terms of Service</a>, operates without required licenses, or engages in fraudulent or prohibited activity. If you believe your account was suspended in error, contact us at <a href='mailto:support@joon.com'>support@joon.com</a>.</p>"
+          }
+        }
+      },
+      "block_order": ["comp_q1", "comp_q2", "comp_q3", "comp_q4"]
+    },
+    "cta": {
+      "type": "rich-text",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-2",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      },
+      "blocks": {
+        "cta_heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Still have questions?",
+            "heading_size": "h2"
+          }
+        },
+        "cta_text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our wholesale support team is available Monday–Friday, 9 AM–5 PM PST.</p>"
+          }
+        },
+        "cta_buttons": {
+          "type": "button",
+          "settings": {
+            "button_label": "Contact Us",
+            "button_link": "/pages/contact",
+            "button_style_secondary": false,
+            "button_label_2": "Apply for Wholesale",
+            "button_link_2": "/pages/wholesale-apply",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": ["cta_heading", "cta_text", "cta_buttons"]
+    }
+  },
+  "order": ["hero", "faq_account", "faq_products", "faq_shipping", "faq_payments", "faq_returns", "faq_compliance", "cta"]
+}

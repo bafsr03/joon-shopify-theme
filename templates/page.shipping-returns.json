@@ -1,0 +1,210 @@
+{
+  "sections": {
+    "hero": {
+      "type": "rich-text",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "padding_top": 64,
+        "padding_bottom": 28
+      },
+      "blocks": {
+        "caption": {
+          "type": "caption",
+          "settings": {
+            "caption": "WHOLESALE ORDERS",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Shipping & Returns",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>All policies below apply to approved Joon Distribution wholesale accounts. For order-specific questions, email <a href='mailto:orders@joon.com'>orders@joon.com</a> or call during business hours.</p>"
+          }
+        }
+      },
+      "block_order": ["caption", "heading", "text"]
+    },
+    "shipping_info": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "FULFILLMENT",
+        "heading": "Shipping Information",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": true,
+        "padding_top": 36,
+        "padding_bottom": 8
+      },
+      "blocks": {
+        "ship_processing": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Order Processing Times",
+            "icon": "stopwatch",
+            "row_content": "<p>Orders are processed within <strong>1–2 business days</strong>, Monday through Friday, excluding federal holidays. Orders placed after 2:00 PM PST or submitted on weekends and holidays will begin processing the next business day. Processing time does not include transit time.</p><p>During peak seasons (Q4 holidays, major product launches), processing may extend to 3 business days. We'll notify you by email if there is a significant delay.</p>"
+          }
+        },
+        "ship_carriers": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Carriers & Tracking",
+            "icon": "truck",
+            "row_content": "<p>We ship via <strong>UPS, FedEx, and USPS</strong>. Carrier selection is determined by order weight, package dimensions, destination, and the service tier chosen at checkout. We reserve the right to upgrade your carrier at no additional cost to ensure timely delivery.</p><p>Tracking information is automatically emailed to the address on file once your order ships. If you do not receive tracking within 3 business days of your order confirmation, contact <a href='mailto:orders@joon.com'>orders@joon.com</a>.</p>"
+          }
+        },
+        "ship_estimates": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Delivery Estimates",
+            "icon": "map_pin",
+            "row_content": "<p>Estimated transit times after shipment:</p><ul><li><strong>Standard (Ground):</strong> 3–7 business days depending on destination zone</li><li><strong>2-Day:</strong> 2 business days (carrier cutoff times apply)</li><li><strong>Overnight:</strong> Next business day by end of day (carrier cutoff times apply)</li></ul><p>Delivery estimates are not guaranteed and may be affected by carrier delays, weather, or high-volume periods. Joon Distribution is not responsible for delays caused by the carrier once the shipment is in transit.</p>"
+          }
+        },
+        "ship_signature": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Adult Signature Requirement",
+            "icon": "clipboard",
+            "row_content": "<p>Adult signature (21+) is required at delivery for certain product categories as mandated by applicable law or carrier policy. If no one is available to sign, the carrier will leave a notice and attempt redelivery or hold the package at a local facility for pickup. Packages held for more than 5 business days may be returned to our warehouse — reshipping fees will apply.</p>"
+          }
+        },
+        "ship_restrictions": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Geographic Restrictions",
+            "icon": "lock",
+            "row_content": "<p>We ship to most U.S. states. However, certain products are restricted in specific states due to local laws and regulations. Restricted products will not be available for purchase in your cart based on your shipping address.</p><p><strong>It is the retailer's sole responsibility</strong> to verify that all purchased products comply with local, state, and federal regulations before ordering, stocking, and reselling in their market. Joon Distribution assumes no liability for purchases that violate applicable law in the buyer's jurisdiction.</p>"
+          }
+        },
+        "ship_freight": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Freight & Large Orders",
+            "icon": "box",
+            "row_content": "<p>For high-volume orders that exceed standard parcel thresholds, freight shipping may be arranged. Contact your account manager or email <a href='mailto:orders@joon.com'>orders@joon.com</a> prior to placing a large order to discuss freight options, lead times, and any applicable freight surcharges. Freight orders require a confirmed delivery appointment.</p>"
+          }
+        }
+      },
+      "block_order": ["ship_processing", "ship_carriers", "ship_estimates", "ship_signature", "ship_restrictions", "ship_freight"]
+    },
+    "returns_info": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "CLAIMS & ADJUSTMENTS",
+        "heading": "Returns & Order Issues",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": false,
+        "padding_top": 8,
+        "padding_bottom": 36
+      },
+      "blocks": {
+        "ret_policy": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Return Policy — All Sales Final",
+            "icon": "return",
+            "row_content": "<p>Due to the regulated and consumable nature of our product categories, <strong>all sales are final</strong>. We do not accept returns or exchanges for change of mind, overstock, or ordering errors made by the buyer.</p><p>Exceptions are made only for:</p><ul><li>Items that arrive <strong>damaged or defective</strong></li><li>Items shipped in <strong>error</strong> (wrong product or quantity) due to a fulfillment mistake on our part</li></ul><p>All claims must be submitted within <strong>5 business days</strong> of confirmed delivery.</p>"
+          }
+        },
+        "ret_damaged": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Damaged or Defective Items",
+            "icon": "box",
+            "row_content": "<p>If your order arrives damaged or contains a defective item, contact us within <strong>5 business days</strong> of the confirmed delivery date.</p><p>Email <a href='mailto:orders@joon.com'>orders@joon.com</a> with the following:</p><ul><li>Your order number</li><li>Clear photos of the damaged or defective item(s)</li><li>Photos of the outer packaging showing any damage</li><li>A brief description of the issue</li></ul><p>Upon claim approval, we will issue a replacement shipment or a store credit to your account within <strong>2–3 business days</strong>. Approved replacements will be shipped at no additional cost.</p>"
+          }
+        },
+        "ret_wrong_item": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Wrong Item Received",
+            "icon": "check_mark",
+            "row_content": "<p>If you received an item that does not match your order, contact us within <strong>5 business days</strong> of delivery at <a href='mailto:orders@joon.com'>orders@joon.com</a> with your order number and a photo of the incorrect item received.</p><p>We will ship the correct item as soon as possible and provide a prepaid return label for the wrong item at no cost to you. Please hold the incorrect item until we arrange the return — do not discard packaging.</p>"
+          }
+        },
+        "ret_cancellation": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Order Cancellations & Modifications",
+            "icon": "stopwatch",
+            "row_content": "<p>Orders may be cancelled or modified within <strong>2 hours</strong> of placement. After this window, your order enters the fulfillment queue and cancellations or changes are not guaranteed.</p><p>To request a cancellation or modification, email <a href='mailto:orders@joon.com'>orders@joon.com</a> immediately with your order number and the specific change needed. We will confirm whether the request can be accommodated. If an order has already shipped, it cannot be cancelled or rerouted.</p>"
+          }
+        },
+        "ret_shortage": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Short Shipments & Missing Items",
+            "icon": "clipboard",
+            "row_content": "<p>Please inspect all shipments upon delivery and compare contents against your packing slip. If items are missing or quantities are short, notify us within <strong>3 business days</strong> of delivery at <a href='mailto:orders@joon.com'>orders@joon.com</a> with your order number and details of the discrepancy.</p><p>Claims submitted after this window may not be eligible for credit or replacement. We strongly recommend taking photos when opening large shipments.</p>"
+          }
+        },
+        "ret_contact": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How to Reach Our Orders Team",
+            "icon": "chat_bubble",
+            "row_content": "<p>Our orders and claims team is available <strong>Monday–Friday, 9:00 AM–5:00 PM PST</strong>.</p><ul><li><strong>Email:</strong> <a href='mailto:orders@joon.com'>orders@joon.com</a></li><li><strong>General Support:</strong> <a href='/pages/contact'>Submit a support request</a></li></ul><p>Please include your order number in all communications to ensure the fastest resolution.</p>"
+          }
+        }
+      },
+      "block_order": ["ret_policy", "ret_damaged", "ret_wrong_item", "ret_cancellation", "ret_shortage", "ret_contact"]
+    },
+    "cta": {
+      "type": "rich-text",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-2",
+        "full_width": true,
+        "padding_top": 52,
+        "padding_bottom": 52
+      },
+      "blocks": {
+        "cta_heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Need help with an order?",
+            "heading_size": "h2"
+          }
+        },
+        "cta_text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our team is here Monday–Friday, 9 AM–5 PM PST. Include your order number for the fastest response.</p>"
+          }
+        },
+        "cta_buttons": {
+          "type": "button",
+          "settings": {
+            "button_label": "Contact Us",
+            "button_link": "/pages/contact",
+            "button_style_secondary": false,
+            "button_label_2": "View FAQ",
+            "button_link_2": "/pages/faq",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": ["cta_heading", "cta_text", "cta_buttons"]
+    }
+  },
+  "order": ["hero", "shipping_info", "returns_info", "cta"]
+}
