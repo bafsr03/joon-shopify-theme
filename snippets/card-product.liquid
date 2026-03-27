@@ -244,7 +244,7 @@
 
             {%- unless card_product.has_only_default_variant -%}
               <div class="card-variant-pills">
-                {%- assign pill_limit = 5 -%}
+                {%- assign pill_limit = 1 -%}
                 {%- assign variant_count = card_product.variants.size -%}
                 {%- for variant in card_product.variants limit: pill_limit -%}
                   <a
