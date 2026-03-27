@@ -658,6 +658,30 @@
       mainImg.style.opacity = '0';
       mainImg.src = thumb.dataset.mediaSrc;
       mainImg.onload = () => { mainImg.style.opacity = '1'; };
+      // Sync variant buttons to whichever variant uses this media
+      const clickedMediaId = thumb.dataset.mediaId;
+      if (clickedMediaId) {
+        const matchedVariant = productVariants.find(
+          v => v.featured_media && String(v.featured_media.id) === clickedMediaId
+        );
+        if (matchedVariant) {
+          // Update selectedOptions array
+          ['option1','option2','option3'].forEach((opt, i) => {
+            if (matchedVariant[opt]) selectedOptions[i] = matchedVariant[opt];
+          });
+          // Highlight buttons
+          document.querySelectorAll('.cprod-option-btn').forEach(btn => {
+            const idx = parseInt(btn.dataset.optionIndex);
+            btn.classList.toggle('is-selected', btn.dataset.value === selectedOptions[idx]);
+          });
+          // Update label spans
+          selectedOptions.forEach((val, i) => {
+            const lbl = document.getElementById('CprodOptVal-' + sectionId + '-' + i);
+            if (lbl && val) lbl.textContent = val;
+          });
+          updateUI(matchedVariant);
+        }
+      }
     });
 
     thumbContainer.addEventListener('keydown', function(e) {
