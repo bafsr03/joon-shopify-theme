@@ -47,6 +47,9 @@
                       <div class="mega-menu__column">
                         <span class="mega-menu__col-heading">Product Types</span>
                         <ul class="mega-menu__col-links" role="list">
+                          <li>
+                            <a href="/collections/all" class="mega-menu__link">All</a>
+                          </li>
                           {%- assign shown_types = 0 -%}
                           {%- for collection in collections -%}
                             {%- if collection.handle != 'all' and shown_types < 5 -%}
