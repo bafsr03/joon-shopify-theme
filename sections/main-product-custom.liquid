@@ -426,6 +426,7 @@
         <div
           class="cprod-thumb {% if forloop.first %}is-active{% endif %}"
           data-media-src="{{ media.preview_image | image_url: width: 1000 }}"
+          data-media-id="{{ media.id }}"
           data-index="{{ forloop.index0 }}"
           tabindex="0"
           role="button"
@@ -770,6 +771,19 @@
         skuEl.style.display = '';
       } else {
         skuEl.style.display = 'none';
+      }
+    }
+
+    // Switch image to variant's featured media
+    if (variant.featured_media && thumbContainer && mainImg) {
+      const mediaId = String(variant.featured_media.id);
+      const matchingThumb = thumbContainer.querySelector('.cprod-thumb[data-media-id="' + mediaId + '"]');
+      if (matchingThumb) {
+        thumbContainer.querySelectorAll('.cprod-thumb').forEach(t => t.classList.remove('is-active'));
+        matchingThumb.classList.add('is-active');
+        mainImg.style.opacity = '0';
+        mainImg.src = matchingThumb.dataset.mediaSrc;
+        mainImg.onload = () => { mainImg.style.opacity = '1'; };
       }
     }
 
