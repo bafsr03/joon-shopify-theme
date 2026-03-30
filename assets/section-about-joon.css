@@ -226,14 +226,18 @@
   color: #fff;
 }
 
+.joon-about-hero__line {
+  display: block;
+}
+
 .joon-about-hero__word {
   display: inline-block;
+  margin-right: 0.22em;
   animation: joon-word-reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: calc(var(--i, 1) * 0.12s + 0.3s);
 }
 
-/* Gradient on every other word */
-.joon-about-hero__word:nth-child(odd) {
+.joon-about-hero__word {
   background: linear-gradient(135deg, #fff 0%, #f5cf8a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
