@@ -22,7 +22,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Shipping & Returns",
+            "heading": "Shipping and Returns",
             "heading_size": "h1"
           }
         },
@@ -61,7 +61,7 @@
         "ship_carriers": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Carriers & Tracking",
+            "heading": "Carriers and Tracking",
             "icon": "truck",
             "row_content": "<p>We ship via <strong>UPS, FedEx, and USPS</strong>. Carrier selection is determined by order weight, package dimensions, destination, and the service tier chosen at checkout. We reserve the right to upgrade your carrier at no additional cost to ensure timely delivery.</p><p>Tracking information is automatically emailed to the address on file once your order ships. If you do not receive tracking within 3 business days of your order confirmation, contact <a href='mailto:orders@joon.com'>orders@joon.com</a>.</p>"
           }
@@ -93,7 +93,7 @@
         "ship_freight": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Freight & Large Orders",
+            "heading": "Freight and Large Orders",
             "icon": "box",
             "row_content": "<p>For high-volume orders that exceed standard parcel thresholds, freight shipping may be arranged. Contact your account manager or email <a href='mailto:orders@joon.com'>orders@joon.com</a> prior to placing a large order to discuss freight options, lead times, and any applicable freight surcharges. Freight orders require a confirmed delivery appointment.</p>"
           }
@@ -105,7 +105,7 @@
       "type": "collapsible-content",
       "settings": {
         "caption": "CLAIMS & ADJUSTMENTS",
-        "heading": "Returns & Order Issues",
+        "heading": "Returns and Order Issues",
         "heading_size": "h2",
         "heading_alignment": "left",
         "layout": "none",
@@ -119,7 +119,7 @@
         "ret_policy": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Return Policy — All Sales Final",
+            "heading": "Return Policy, All Sales Final",
             "icon": "return",
             "row_content": "<p>Due to the regulated and consumable nature of our product categories, <strong>all sales are final</strong>. We do not accept returns or exchanges for change of mind, overstock, or ordering errors made by the buyer.</p><p>Exceptions are made only for:</p><ul><li>Items that arrive <strong>damaged or defective</strong></li><li>Items shipped in <strong>error</strong> (wrong product or quantity) due to a fulfillment mistake on our part</li></ul><p>All claims must be submitted within <strong>5 business days</strong> of confirmed delivery.</p>"
           }
@@ -143,7 +143,7 @@
         "ret_cancellation": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Order Cancellations & Modifications",
+            "heading": "Order Cancellations and Modifications",
             "icon": "stopwatch",
             "row_content": "<p>Orders may be cancelled or modified within <strong>2 hours</strong> of placement. After this window, your order enters the fulfillment queue and cancellations or changes are not guaranteed.</p><p>To request a cancellation or modification, email <a href='mailto:orders@joon.com'>orders@joon.com</a> immediately with your order number and the specific change needed. We will confirm whether the request can be accommodated. If an order has already shipped, it cannot be cancelled or rerouted.</p>"
           }
@@ -151,7 +151,7 @@
         "ret_shortage": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Short Shipments & Missing Items",
+            "heading": "Short Shipments and Missing Items",
             "icon": "clipboard",
             "row_content": "<p>Please inspect all shipments upon delivery and compare contents against your packing slip. If items are missing or quantities are short, notify us within <strong>3 business days</strong> of delivery at <a href='mailto:orders@joon.com'>orders@joon.com</a> with your order number and details of the discrepancy.</p><p>Claims submitted after this window may not be eligible for credit or replacement. We strongly recommend taking photos when opening large shipments.</p>"
           }
@@ -181,7 +181,7 @@
         "cta_heading": {
           "type": "heading",
           "settings": {
-            "heading": "Need help with an order?",
+            "heading": "We are happy to  help with your order",
             "heading_size": "h2"
           }
         },
