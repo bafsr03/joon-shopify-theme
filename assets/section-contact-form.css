@@ -1,39 +1,499 @@
-.contact img {
-  max-width: 100%;
+/* ============================================================
+   Joon Distribution — Contact Form Section
+   Redesigned with animations and split layout
+   ============================================================ */
+
+/* ── Keyframes ── */
+@keyframes joon-orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -60px) scale(1.08); }
+  66%       { transform: translate(-30px, 30px) scale(0.94); }
 }
 
-.contact .form__message {
+@keyframes joon-orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-50px, 40px) scale(1.1); }
+  70%       { transform: translate(30px, -20px) scale(0.92); }
+}
+
+@keyframes joon-orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(20px, 50px) scale(1.06); }
+}
+
+@keyframes joon-shimmer {
+  0%   { left: -80%; }
+  100% { left: 130%; }
+}
+
+@keyframes joon-pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(245, 207, 138, 0.35); }
+  70%  { box-shadow: 0 0 0 10px rgba(245, 207, 138, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 207, 138, 0); }
+}
+
+@keyframes joon-eyebrow-glow {
+  0%, 100% { opacity: 0.8; }
+  50%       { opacity: 1; }
+}
+
+/* ── Wrapper ── */
+.joon-contact-wrap {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ── Decorative background ── */
+.joon-contact-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.joon-contact-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+}
+
+.joon-contact-orb--1 {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, #f5cf8a 0%, transparent 70%);
+  top: -120px;
+  right: -80px;
+  animation: joon-orb-float-1 14s ease-in-out infinite;
+}
+
+.joon-contact-orb--2 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #f2994b 0%, transparent 70%);
+  bottom: -60px;
+  left: -60px;
+  opacity: 0.14;
+  animation: joon-orb-float-2 18s ease-in-out infinite;
+}
+
+.joon-contact-orb--3 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, #f5cf8a 0%, transparent 70%);
+  top: 50%;
+  left: 40%;
+  transform: translateY(-50%);
+  opacity: 0.07;
+  animation: joon-orb-float-3 22s ease-in-out infinite;
+}
+
+.joon-contact-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245, 207, 138, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 207, 138, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* ── Inner layout ── */
+.joon-contact-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media screen and (min-width: 900px) {
+  .joon-contact-inner {
+    grid-template-columns: 1fr 1.3fr;
+    gap: 5rem;
+    align-items: center;
+  }
+}
+
+/* ── Info panel ── */
+.joon-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.joon-contact-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #f5cf8a;
+  border: 1px solid rgba(245, 207, 138, 0.3);
+  border-radius: 100px;
+  padding: 0.3rem 0.9rem;
+  margin-bottom: 1.5rem;
+  animation: joon-eyebrow-glow 3s ease-in-out infinite;
+  width: fit-content;
+}
+
+.joon-contact-heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 1.25rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f5cf8a 60%, #f2994b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.joon-contact-subtext {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  opacity: 0.7;
+  margin: 0 0 2.5rem;
+  max-width: 38ch;
+}
+
+/* ── Contact detail items ── */
+.joon-contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.joon-contact-detail {
+  display: flex;
   align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
-.contact .icon-success {
-  margin-top: 0.2rem;
+.joon-contact-detail:hover {
+  background: rgba(245, 207, 138, 0.06);
+  border-color: rgba(245, 207, 138, 0.2);
+  transform: translateX(4px);
 }
 
-.contact .field {
+.joon-contact-detail__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(245, 207, 138, 0.1);
+  border: 1px solid rgba(245, 207, 138, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5cf8a;
+}
+
+.joon-contact-detail__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.joon-contact-detail__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.joon-contact-detail__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+.joon-contact-detail__value {
+  font-size: 1.05rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* ── Form card ── */
+.joon-contact-form-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.joon-contact-form-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 207, 138, 0.4), transparent);
+}
+
+@media screen and (min-width: 750px) {
+  .joon-contact-form-card {
+    padding: 3rem 2.75rem;
+  }
+}
+
+/* ── Form fields ── */
+.joon-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.joon-contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+@media screen and (min-width: 600px) {
+  .joon-contact-form__row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 1.5rem;
+  }
+}
+
+.joon-contact-field {
   margin-bottom: 1.5rem;
 }
 
 @media screen and (min-width: 750px) {
-  .contact .field {
-    margin-bottom: 2rem;
+  .joon-contact-field {
+    margin-bottom: 1.75rem;
   }
 }
 
-.contact__button {
-  margin-top: 3rem;
+/* Enhanced field focus glow */
+.joon-contact-field .field__input:focus {
+  box-shadow: 0 0 0 2px rgba(245, 207, 138, 0.5), 0 0 20px rgba(245, 207, 138, 0.08);
+  border-color: rgba(245, 207, 138, 0.7) !important;
+  outline: none;
 }
 
-@media screen and (min-width: 750px) {
-  .contact__button {
-    margin-top: 4rem;
-  }
+.joon-contact-field .field__input {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
-@media screen and (min-width: 750px) {
-  .contact__fields {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 2rem;
-  }
+.joon-contact-field .field__input:focus + .field__label,
+.joon-contact-field .field__input:not(:placeholder-shown) + .field__label {
+  color: #f5cf8a;
+}
+
+/* ── Submit ── */
+.joon-contact-form__submit {
+  margin-top: 0.5rem;
+}
+
+.joon-contact-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  justify-content: center;
+  padding: 0.9rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: #f5cf8a;
+  color: #2b2c2d;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.joon-contact-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-15deg);
+  transition: none;
+}
+
+.joon-contact-btn:hover {
+  background: #fad96a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 207, 138, 0.3);
+}
+
+.joon-contact-btn:hover::after {
+  animation: joon-shimmer 0.7s ease forwards;
+}
+
+.joon-contact-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(245, 207, 138, 0.2);
+}
+
+.joon-contact-btn svg {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.joon-contact-btn:hover svg {
+  transform: translateX(3px) rotate(-45deg);
+}
+
+/* ── Success state ── */
+.joon-contact-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 1rem;
+  gap: 1rem;
+  animation: joon-orb-float-3 0.5s ease;
+}
+
+.joon-contact-success__icon .icon-success {
+  width: 52px;
+  height: 52px;
+  color: #f5cf8a;
+}
+
+.joon-contact-success h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.joon-contact-success p {
+  opacity: 0.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ── Error state ── */
+.joon-contact-error {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  background: rgba(220, 60, 60, 0.1);
+  border: 1px solid rgba(220, 60, 60, 0.3);
+  color: #ff8080;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Legacy compatibility: keep .contact for Shopify form hooks ── */
+.contact img {
+  max-width: 100%;
+}
+.contact .form__message {
+  align-items: flex-start;
+}
+.contact .icon-success {
+  margin-top: 0.2rem;
+}
+
+/* ── Light scheme overrides (scheme-1 / scheme-2) ── */
+.color-scheme-1 .joon-contact-wrap,
+.color-scheme-2 .joon-contact-wrap,
+.joon-contact-wrap.color-scheme-1,
+.joon-contact-wrap.color-scheme-2 {
+  --joon-orb-opacity: 0.12;
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-orb,
+.color-scheme-2.joon-contact-wrap .joon-contact-orb {
+  opacity: 0.12;
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-heading,
+.color-scheme-2.joon-contact-wrap .joon-contact-heading {
+  background: linear-gradient(135deg, #1c2228 0%, #c4871e 60%, #f2994b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-eyebrow,
+.color-scheme-2.joon-contact-wrap .joon-contact-eyebrow {
+  color: #b87c0e;
+  border-color: rgba(184, 124, 14, 0.35);
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-detail,
+.color-scheme-2.joon-contact-wrap .joon-contact-detail {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-detail:hover,
+.color-scheme-2.joon-contact-wrap .joon-contact-detail:hover {
+  background: rgba(184, 124, 14, 0.06);
+  border-color: rgba(184, 124, 14, 0.25);
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-detail__icon,
+.color-scheme-2.joon-contact-wrap .joon-contact-detail__icon {
+  background: rgba(184, 124, 14, 0.1);
+  border-color: rgba(184, 124, 14, 0.2);
+  color: #b87c0e;
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-form-card,
+.color-scheme-2.joon-contact-wrap .joon-contact-form-card {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.06);
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-form-card::before,
+.color-scheme-2.joon-contact-wrap .joon-contact-form-card::before {
+  background: linear-gradient(90deg, transparent, rgba(184, 124, 14, 0.35), transparent);
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-grid,
+.color-scheme-2.joon-contact-wrap .joon-contact-grid {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-field .field__input:focus,
+.color-scheme-2.joon-contact-wrap .joon-contact-field .field__input:focus {
+  box-shadow: 0 0 0 2px rgba(184, 124, 14, 0.4), 0 0 16px rgba(184, 124, 14, 0.06);
+  border-color: rgba(184, 124, 14, 0.6) !important;
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-field .field__input:focus + .field__label,
+.color-scheme-1.joon-contact-wrap .joon-contact-field .field__input:not(:placeholder-shown) + .field__label,
+.color-scheme-2.joon-contact-wrap .joon-contact-field .field__input:focus + .field__label,
+.color-scheme-2.joon-contact-wrap .joon-contact-field .field__input:not(:placeholder-shown) + .field__label {
+  color: #b87c0e;
+}
+
+.color-scheme-1.joon-contact-wrap .joon-contact-error,
+.color-scheme-2.joon-contact-wrap .joon-contact-error {
+  color: #c0392b;
+  background: rgba(192, 57, 43, 0.08);
+  border-color: rgba(192, 57, 43, 0.25);
 }
