@@ -1,12 +1,38 @@
 {
   "sections": {
-    "main": {
-      "type": "main-page",
+    "about": {
+      "type": "about-joon",
       "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36
+        "hero_eyebrow": "Premium Wholesale Distribution",
+        "hero_heading": "Built  for  Business",
+        "hero_tagline": "Quality products. Trusted brands. Real value for every retailer.",
+        "story_eyebrow": "Who We Are",
+        "story_heading": "Your trusted wholesale partner",
+        "story_text": "Joon Distribution was founded with one goal — to make wholesale simple, reliable, and worth it for every retailer we serve. From premium vape hardware to lifestyle products, we carry the brands your customers want and deliver with speed and consistency you can count on.",
+        "stat_1_number": "500",
+        "stat_1_label": "SKUs Available",
+        "stat_2_number": "100",
+        "stat_2_label": "Verified Products",
+        "stat_3_number": "48",
+        "stat_3_label": "Hour Fulfillment",
+        "gallery_eyebrow": "What We Carry",
+        "gallery_heading": "A catalog built for modern retail",
+        "gallery_cap_1": "Vape Hardware",
+        "gallery_cap_2": "Premium Exotics",
+        "gallery_cap_3": "Nicotine Products",
+        "values_eyebrow": "Our Pillars",
+        "values_heading": "What we stand for",
+        "value_1_title": "Compliance First",
+        "value_1_text": "Every product we carry meets industry regulations. We vet our brands so you can sell with confidence.",
+        "value_2_title": "Speed and Reliability",
+        "value_2_text": "Fast fulfillment, accurate orders, and transparent tracking — every single time.",
+        "value_3_title": "Partner Focused",
+        "value_3_text": "We grow when our retailers grow. Dedicated support and flexible terms built around your business.",
+        "closing_quote": "We do not just distribute products — we deliver the foundation for your business to thrive."
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "about"
+  ]
 }

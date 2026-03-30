@@ -1,53 +1,155 @@
-{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
 
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
+{%- paginate blog.articles by 7 -%}
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
-
-{%- paginate blog.articles by 6 -%}
-  <div class="main-blog page-width section-{{ section.id }}-padding">
-    <h1 class="title--primary{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      {{ blog.title | escape }}
-    </h1>
-
-    <div class="blog-articles {% if section.settings.layout == 'collage' %}blog-articles--collage{% endif %}">
-      {%- for article in blog.articles -%}
-        <div
-          class="blog-articles__article article{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {% if settings.animations_reveal_on_scroll %}
-            data-cascade
-            style="--animation-order: {{ forloop.index }};"
-          {% endif %}
-        >
-          {%- render 'article-card',
-            article: article,
-            media_height: section.settings.image_height,
-            media_aspect_ratio: article.image.aspect_ratio,
-            show_image: section.settings.show_image,
-            show_date: section.settings.show_date,
-            show_author: section.settings.show_author,
-            show_excerpt: true
-          -%}
-        </div>
-      {%- endfor -%}
-    </div>
-
-    {%- if paginate.pages > 1 -%}
-      {%- render 'pagination', paginate: paginate -%}
-    {%- endif -%}
+<!-- ── Blog Header ── -->
+<div class="joon-blog-header">
+  <div class="joon-blog-header__bg">
+    <div class="joon-blog-header__orb joon-blog-header__orb--1"></div>
+    <div class="joon-blog-header__orb joon-blog-header__orb--2"></div>
+    <div class="joon-blog-header__grid"></div>
   </div>
+  <div class="page-width joon-blog-header__inner">
+    <span class="joon-blog-eyebrow">
+      <span class="joon-blog-eyebrow__line"></span>
+      {{ section.settings.eyebrow }}
+      <span class="joon-blog-eyebrow__line"></span>
+    </span>
+    <h1 class="joon-blog-header__title">{{ blog.title | escape }}</h1>
+    {%- if section.settings.description != blank -%}
+      <p class="joon-blog-header__desc">{{ section.settings.description }}</p>
+    {%- endif -%}
+    <div class="joon-blog-header__meta">
+      <span>{{ blog.articles_count }} {{ blog.articles_count | pluralize: 'Article', 'Articles' }}</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Articles ── -->
+<div class="joon-blog-body">
+  <div class="page-width">
+
+    <!-- Featured article (first only) -->
+    {%- for article in blog.articles limit: 1 -%}
+      {%- assign read_time = article.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 -%}
+      <a
+        href="{{ article.url }}"
+        class="joon-blog-featured{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+        aria-label="{{ article.title | escape }}"
+      >
+        <div class="joon-blog-featured__media">
+          {%- if article.image -%}
+            <img
+              src="{{ article.image | image_url: width: 1200 }}"
+              alt="{{ article.image.alt | escape }}"
+              width="{{ article.image.width }}"
+              height="{{ article.image.height }}"
+              loading="eager"
+              class="joon-blog-featured__img"
+            >
+          {%- else -%}
+            <div class="joon-blog-featured__img-placeholder">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {%- endif -%}
+          <div class="joon-blog-featured__overlay"></div>
+        </div>
+
+        <div class="joon-blog-featured__content">
+          <span class="joon-blog-tag">Featured</span>
+          <div class="joon-blog-featured__meta">
+            <span>{{ article.published_at | date: '%b %d, %Y' }}</span>
+            <span class="joon-blog-dot">·</span>
+            <span>{{ read_time }} min read</span>
+          </div>
+          <h2 class="joon-blog-featured__title">{{ article.title | escape }}</h2>
+          {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+            <p class="joon-blog-featured__excerpt">
+              {%- if article.excerpt.size > 0 -%}
+                {{ article.excerpt | strip_html | truncatewords: 25 }}
+              {%- else -%}
+                {{ article.content | strip_html | truncatewords: 25 }}
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+          <span class="joon-blog-readmore">
+            Read article
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="3" y1="10" x2="17" y2="10"/><polyline points="11 4 17 10 11 16"/></svg>
+          </span>
+        </div>
+      </a>
+    {%- endfor -%}
+
+    <!-- Grid: all articles after the first -->
+    {%- for article in blog.articles offset: 1 -%}
+      {%- assign read_time = article.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 -%}
+
+      {%- if forloop.first -%}
+        <div class="joon-blog-grid">
+      {%- endif -%}
+
+      <a
+        href="{{ article.url }}"
+        class="joon-blog-card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+        aria-label="{{ article.title | escape }}"
+        style="--animation-order: {{ forloop.index }};"
+      >
+        <div class="joon-blog-card__media">
+          {%- if article.image -%}
+            <img
+              src="{{ article.image | image_url: width: 700 }}"
+              alt="{{ article.image.alt | escape }}"
+              width="{{ article.image.width }}"
+              height="{{ article.image.height }}"
+              loading="lazy"
+              class="joon-blog-card__img"
+            >
+          {%- else -%}
+            <div class="joon-blog-card__img-placeholder">
+              {{ 'image' | placeholder_svg_tag }}
+            </div>
+          {%- endif -%}
+          <div class="joon-blog-card__shine"></div>
+        </div>
+        <div class="joon-blog-card__body">
+          <div class="joon-blog-card__meta">
+            <span>{{ article.published_at | date: '%b %d, %Y' }}</span>
+            <span class="joon-blog-dot">·</span>
+            <span>{{ read_time }} min read</span>
+          </div>
+          <h3 class="joon-blog-card__title">{{ article.title | truncate: 60 | escape }}</h3>
+          {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+            <p class="joon-blog-card__excerpt">
+              {%- if article.excerpt.size > 0 -%}
+                {{ article.excerpt | strip_html | truncatewords: 18 }}
+              {%- else -%}
+                {{ article.content | strip_html | truncatewords: 18 }}
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+          <span class="joon-blog-readmore joon-blog-readmore--dark">
+            Read article
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><line x1="3" y1="10" x2="17" y2="10"/><polyline points="11 4 17 10 11 16"/></svg>
+          </span>
+        </div>
+        <div class="joon-blog-card__top-line"></div>
+      </a>
+
+      {%- if forloop.last -%}
+        </div>
+      {%- endif -%}
+
+    {%- endfor -%}
+
+  </div>
+</div>
+
+{%- if paginate.pages > 1 -%}
+  <div class="joon-blog-pagination page-width">
+    {%- render 'pagination', paginate: paginate -%}
+  </div>
+{%- endif -%}
+
 {%- endpaginate -%}
 
 {% schema %}
@@ -57,62 +159,16 @@
   "class": "section",
   "settings": [
     {
-      "type": "select",
-      "id": "layout",
-      "options": [
-        {
-          "value": "grid",
-          "label": "t:sections.main-blog.settings.layout.options__1.label"
-        },
-        {
-          "value": "collage",
-          "label": "t:sections.main-blog.settings.layout.options__2.label"
-        }
-      ],
-      "default": "collage",
-      "label": "t:sections.main-blog.settings.layout.label"
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Header eyebrow",
+      "default": "Insights and Updates"
     },
     {
-      "type": "checkbox",
-      "id": "show_image",
-      "default": true,
-      "label": "t:sections.main-blog.settings.show_image.label"
-    },
-    {
-      "type": "select",
-      "id": "image_height",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.main-blog.settings.image_height.options__1.label"
-        },
-        {
-          "value": "small",
-          "label": "t:sections.main-blog.settings.image_height.options__2.label"
-        },
-        {
-          "value": "medium",
-          "label": "t:sections.main-blog.settings.image_height.options__3.label"
-        },
-        {
-          "value": "large",
-          "label": "t:sections.main-blog.settings.image_height.options__4.label"
-        }
-      ],
-      "default": "medium",
-      "label": "t:sections.main-blog.settings.image_height.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_date",
-      "default": true,
-      "label": "t:sections.main-blog.settings.show_date.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_author",
-      "default": false,
-      "label": "t:sections.main-blog.settings.show_author.label"
+      "type": "textarea",
+      "id": "description",
+      "label": "Header description",
+      "default": "Industry news, product highlights, and wholesale tips from the Joon team."
     },
     {
       "type": "header",

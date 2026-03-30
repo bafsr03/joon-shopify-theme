@@ -1,0 +1,564 @@
+{{ 'section-about-joon.css' | asset_url | stylesheet_tag }}
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="joon-about-hero" aria-label="About Joon Distribution">
+
+  <div class="joon-about-hero__bg">
+    <div class="joon-about-hero__orb joon-about-hero__orb--1"></div>
+    <div class="joon-about-hero__orb joon-about-hero__orb--2"></div>
+    <div class="joon-about-hero__grid"></div>
+  </div>
+
+  <div class="joon-about-hero__inner page-width">
+
+    <div class="joon-about-hero__logo-wrap">
+      <div class="joon-about-hero__logo-ring joon-about-hero__logo-ring--outer"></div>
+      <div class="joon-about-hero__logo-ring joon-about-hero__logo-ring--inner"></div>
+      {%- if settings.logo != blank -%}
+        {{
+          settings.logo
+          | image_url: width: 260
+          | image_tag:
+            class: 'joon-about-hero__logo-img',
+            loading: 'eager',
+            alt: shop.name
+        }}
+      {%- else -%}
+        <span class="joon-about-hero__logo-text">{{ shop.name }}</span>
+      {%- endif -%}
+    </div>
+
+    <div class="joon-about-hero__copy">
+      <p class="joon-about-hero__eyebrow">
+        <span class="joon-about-hero__eyebrow-line"></span>
+        {{ section.settings.hero_eyebrow }}
+        <span class="joon-about-hero__eyebrow-line"></span>
+      </p>
+      <h1 class="joon-about-hero__heading">
+        {%- assign words = section.settings.hero_heading | split: ' ' -%}
+        {%- for word in words -%}
+          <span class="joon-about-hero__word" style="--i: {{ forloop.index }}">{{ word }}</span>
+          {%- unless forloop.last %} {%- endunless -%}
+        {%- endfor -%}
+      </h1>
+      <p class="joon-about-hero__tagline">{{ section.settings.hero_tagline }}</p>
+    </div>
+
+  </div>
+
+  <!-- Marquee strip -->
+  <div class="joon-about-marquee" aria-hidden="true">
+    <div class="joon-about-marquee__track">
+      {%- for i in (1..8) -%}
+        <span>{{ shop.name }}</span>
+        <span class="joon-about-marquee__dot">✦</span>
+        <span>Wholesale Distribution</span>
+        <span class="joon-about-marquee__dot">✦</span>
+        <span>Premium Products</span>
+        <span class="joon-about-marquee__dot">✦</span>
+      {%- endfor -%}
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     STORY
+══════════════════════════════════════════ -->
+<section class="joon-about-story color-scheme-2 gradient">
+
+  <div class="page-width joon-about-story__inner">
+
+    <div class="joon-about-story__text{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <span class="joon-about-eyebrow">{{ section.settings.story_eyebrow }}</span>
+      <h2 class="joon-about-story__heading">{{ section.settings.story_heading }}</h2>
+      <div class="joon-about-story__divider"></div>
+      <p class="joon-about-story__body">{{ section.settings.story_text }}</p>
+
+      <div class="joon-about-stats">
+        {%- if section.settings.stat_1_number != blank -%}
+          <div class="joon-about-stat">
+            <span class="joon-about-stat__number" data-target="{{ section.settings.stat_1_number }}">0</span>
+            <span class="joon-about-stat__label">{{ section.settings.stat_1_label }}</span>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.stat_2_number != blank -%}
+          <div class="joon-about-stat">
+            <span class="joon-about-stat__number" data-target="{{ section.settings.stat_2_number }}">0</span>
+            <span class="joon-about-stat__label">{{ section.settings.stat_2_label }}</span>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.stat_3_number != blank -%}
+          <div class="joon-about-stat">
+            <span class="joon-about-stat__number" data-target="{{ section.settings.stat_3_number }}">0</span>
+            <span class="joon-about-stat__label">{{ section.settings.stat_3_label }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="joon-about-story__image-wrap{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {%- if section.settings.image_1 != blank -%}
+        <div class="joon-about-story__img-frame">
+          {{
+            section.settings.image_1
+            | image_url: width: 800
+            | image_tag:
+              class: 'joon-about-story__img',
+              loading: 'lazy',
+              alt: section.settings.story_heading
+          }}
+          <div class="joon-about-story__img-accent"></div>
+        </div>
+      {%- else -%}
+        <div class="joon-about-story__img-frame joon-about-story__img-frame--placeholder">
+          <div class="joon-about-story__img-placeholder">{{ 'image' | placeholder_svg_tag }}</div>
+          <div class="joon-about-story__img-accent"></div>
+        </div>
+      {%- endif -%}
+
+      <!-- Floating logo badge -->
+      <div class="joon-about-story__badge">
+        {%- if settings.logo != blank -%}
+          {{
+            settings.logo
+            | image_url: width: 80
+            | image_tag:
+              class: 'joon-about-story__badge-logo',
+              loading: 'lazy',
+              alt: shop.name
+          }}
+        {%- else -%}
+          <span class="joon-about-story__badge-text">{{ shop.name | upcase }}</span>
+        {%- endif -%}
+        <span class="joon-about-story__badge-label">Est. 2020</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GALLERY — 3 images
+══════════════════════════════════════════ -->
+<section class="joon-about-gallery color-scheme-4 gradient">
+
+  <div class="joon-about-gallery__bg">
+    <div class="joon-about-gallery__orb"></div>
+  </div>
+
+  <div class="page-width joon-about-gallery__inner">
+
+    <div class="joon-about-gallery__header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      <span class="joon-about-eyebrow joon-about-eyebrow--light">{{ section.settings.gallery_eyebrow }}</span>
+      <h2 class="joon-about-gallery__heading">{{ section.settings.gallery_heading }}</h2>
+    </div>
+
+    <div class="joon-about-gallery__grid">
+
+      <!-- Image 1 — tall left -->
+      <div class="joon-about-gallery__item joon-about-gallery__item--tall{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        {%- if section.settings.image_2 != blank -%}
+          {{
+            section.settings.image_2
+            | image_url: width: 700
+            | image_tag:
+              class: 'joon-about-gallery__img',
+              loading: 'lazy',
+              alt: section.settings.gallery_cap_1
+          }}
+        {%- else -%}
+          <div class="joon-about-gallery__img-placeholder">{{ 'collection-1' | placeholder_svg_tag }}</div>
+        {%- endif -%}
+        <div class="joon-about-gallery__overlay">
+          <span class="joon-about-gallery__cap">{{ section.settings.gallery_cap_1 }}</span>
+        </div>
+        <div class="joon-about-gallery__corner joon-about-gallery__corner--tl"></div>
+        <div class="joon-about-gallery__corner joon-about-gallery__corner--br"></div>
+      </div>
+
+      <!-- Images 2 & 3 — stacked right -->
+      <div class="joon-about-gallery__stack">
+
+        <div class="joon-about-gallery__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="--delay: 0.15s">
+          {%- if section.settings.image_3 != blank -%}
+            {{
+              section.settings.image_3
+              | image_url: width: 700
+              | image_tag:
+                class: 'joon-about-gallery__img',
+                loading: 'lazy',
+                alt: section.settings.gallery_cap_2
+            }}
+          {%- else -%}
+            <div class="joon-about-gallery__img-placeholder">{{ 'collection-2' | placeholder_svg_tag }}</div>
+          {%- endif -%}
+          <div class="joon-about-gallery__overlay">
+            <span class="joon-about-gallery__cap">{{ section.settings.gallery_cap_2 }}</span>
+          </div>
+          <div class="joon-about-gallery__corner joon-about-gallery__corner--tl"></div>
+          <div class="joon-about-gallery__corner joon-about-gallery__corner--br"></div>
+        </div>
+
+        <div class="joon-about-gallery__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="--delay: 0.3s">
+          {%- if section.settings.image_4 != blank -%}
+            {{
+              section.settings.image_4
+              | image_url: width: 700
+              | image_tag:
+                class: 'joon-about-gallery__img',
+                loading: 'lazy',
+                alt: section.settings.gallery_cap_3
+            }}
+          {%- else -%}
+            <div class="joon-about-gallery__img-placeholder">{{ 'collection-3' | placeholder_svg_tag }}</div>
+          {%- endif -%}
+          <div class="joon-about-gallery__overlay">
+            <span class="joon-about-gallery__cap">{{ section.settings.gallery_cap_3 }}</span>
+          </div>
+          <div class="joon-about-gallery__corner joon-about-gallery__corner--tl"></div>
+          <div class="joon-about-gallery__corner joon-about-gallery__corner--br"></div>
+        </div>
+
+      </div><!-- /.joon-about-gallery__stack -->
+    </div><!-- /.joon-about-gallery__grid -->
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     VALUES
+══════════════════════════════════════════ -->
+<section class="joon-about-values color-scheme-1 gradient">
+  <div class="page-width joon-about-values__inner">
+
+    <div class="joon-about-values__header{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      <span class="joon-about-eyebrow">{{ section.settings.values_eyebrow }}</span>
+      <h2 class="joon-about-values__heading">{{ section.settings.values_heading }}</h2>
+    </div>
+
+    <div class="joon-about-values__grid">
+
+      <div class="joon-about-value{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <div class="joon-about-value__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <h3 class="joon-about-value__title">{{ section.settings.value_1_title }}</h3>
+        <p class="joon-about-value__text">{{ section.settings.value_1_text }}</p>
+      </div>
+
+      <div class="joon-about-value{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="--delay: 0.15s">
+        <div class="joon-about-value__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <h3 class="joon-about-value__title">{{ section.settings.value_2_title }}</h3>
+        <p class="joon-about-value__text">{{ section.settings.value_2_text }}</p>
+      </div>
+
+      <div class="joon-about-value{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="--delay: 0.3s">
+        <div class="joon-about-value__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3 class="joon-about-value__title">{{ section.settings.value_3_title }}</h3>
+        <p class="joon-about-value__text">{{ section.settings.value_3_text }}</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CLOSING
+══════════════════════════════════════════ -->
+<section class="joon-about-closing color-scheme-4 gradient">
+  <div class="joon-about-closing__bg-logo" aria-hidden="true">
+    {%- if settings.logo != blank -%}
+      {{
+        settings.logo
+        | image_url: width: 600
+        | image_tag:
+          loading: 'lazy',
+          alt: ''
+      }}
+    {%- endif -%}
+  </div>
+  <div class="page-width joon-about-closing__inner">
+    <p class="joon-about-closing__quote{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      &ldquo;{{ section.settings.closing_quote }}&rdquo;
+    </p>
+    <div class="joon-about-closing__logo{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      {%- if settings.logo != blank -%}
+        {{
+          settings.logo
+          | image_url: width: 160
+          | image_tag:
+            class: 'joon-about-closing__logo-img',
+            loading: 'lazy',
+            alt: shop.name
+        }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<!-- Counter animation script -->
+<script>
+(function() {
+  var counters = document.querySelectorAll('.joon-about-stat__number');
+  if (!counters.length) return;
+
+  function animateCounter(el) {
+    var target = parseInt(el.getAttribute('data-target'), 10);
+    var suffix = el.getAttribute('data-target').replace(/[0-9]/g, '');
+    var duration = 1800;
+    var start = null;
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + (suffix || '+');
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function(c) { observer.observe(c); });
+  } else {
+    counters.forEach(animateCounter);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "About Joon",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow text",
+      "default": "Premium Wholesale Distribution"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero heading",
+      "default": "Built for Business"
+    },
+    {
+      "type": "text",
+      "id": "hero_tagline",
+      "label": "Tagline",
+      "default": "Connecting retailers with the brands they need to succeed."
+    },
+    {
+      "type": "header",
+      "content": "Story"
+    },
+    {
+      "type": "text",
+      "id": "story_eyebrow",
+      "label": "Eyebrow",
+      "default": "Who We Are"
+    },
+    {
+      "type": "text",
+      "id": "story_heading",
+      "label": "Heading",
+      "default": "Your trusted wholesale partner"
+    },
+    {
+      "type": "textarea",
+      "id": "story_text",
+      "label": "Story text",
+      "default": "Joon Distribution was founded with one goal — to make wholesale simple, reliable, and worth it for every retailer we serve. From premium vape hardware to lifestyle products, we carry the brands your customers want and deliver with speed and consistency you can count on."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Story image"
+    },
+    {
+      "type": "header",
+      "content": "Stats"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_number",
+      "label": "Stat 1 number",
+      "default": "500"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 label",
+      "default": "SKUs Available"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_number",
+      "label": "Stat 2 number",
+      "default": "1200"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 label",
+      "default": "Retail Partners"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_number",
+      "label": "Stat 3 number",
+      "default": "48"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 label",
+      "default": "Hour Fulfillment"
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "text",
+      "id": "gallery_eyebrow",
+      "label": "Eyebrow",
+      "default": "What We Carry"
+    },
+    {
+      "type": "text",
+      "id": "gallery_heading",
+      "label": "Heading",
+      "default": "A catalog built for modern retail"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Gallery image 1 (tall left)"
+    },
+    {
+      "type": "text",
+      "id": "gallery_cap_1",
+      "label": "Caption 1",
+      "default": "Vape Hardware"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Gallery image 2 (top right)"
+    },
+    {
+      "type": "text",
+      "id": "gallery_cap_2",
+      "label": "Caption 2",
+      "default": "Premium Exotics"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Gallery image 3 (bottom right)"
+    },
+    {
+      "type": "text",
+      "id": "gallery_cap_3",
+      "label": "Caption 3",
+      "default": "Nicotine Products"
+    },
+    {
+      "type": "header",
+      "content": "Values"
+    },
+    {
+      "type": "text",
+      "id": "values_eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Pillars"
+    },
+    {
+      "type": "text",
+      "id": "values_heading",
+      "label": "Heading",
+      "default": "What we stand for"
+    },
+    {
+      "type": "text",
+      "id": "value_1_title",
+      "label": "Value 1 title",
+      "default": "Compliance First"
+    },
+    {
+      "type": "textarea",
+      "id": "value_1_text",
+      "label": "Value 1 text",
+      "default": "Every product we carry meets industry regulations. We vet our brands so you can sell with confidence."
+    },
+    {
+      "type": "text",
+      "id": "value_2_title",
+      "label": "Value 2 title",
+      "default": "Speed and Reliability"
+    },
+    {
+      "type": "textarea",
+      "id": "value_2_text",
+      "label": "Value 2 text",
+      "default": "Fast fulfillment, accurate orders, and transparent tracking — every single time."
+    },
+    {
+      "type": "text",
+      "id": "value_3_title",
+      "label": "Value 3 title",
+      "default": "Partner Focused"
+    },
+    {
+      "type": "textarea",
+      "id": "value_3_text",
+      "label": "Value 3 text",
+      "default": "We grow when our retailers grow. Dedicated support and flexible terms built around your business."
+    },
+    {
+      "type": "header",
+      "content": "Closing"
+    },
+    {
+      "type": "textarea",
+      "id": "closing_quote",
+      "label": "Closing quote",
+      "default": "We do not just distribute products — we deliver the foundation for your business to thrive."
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Joon"
+    }
+  ]
+}
+{% endschema %}
