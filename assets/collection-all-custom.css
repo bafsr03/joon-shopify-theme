@@ -5,7 +5,7 @@
  *  Color palette (mirrors front-page):
  *    Background  : #0f0f0f  / #141414
  *    Card bg     : #1a1a1a  / #1e1e1e
- *    Green accent: #32402C
+ *    Green accent: #3C5C32
  *    Cyan accent : #3bb2e2
  *    Text        : #ffffff  / rgba(255,255,255,0.75)
  * ============================================================
@@ -69,11 +69,11 @@
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    box-shadow: 0 0 0 0 rgba(140, 214, 118, 0);
   }
 
   50% {
-    box-shadow: 0 0 18px 2px rgba(34, 197, 94, 0.18);
+    box-shadow: 0 0 18px 2px rgba(140, 214, 118, 0.18);
   }
 }
 
@@ -92,7 +92,7 @@ body.collection-page-all {
   min-height: 280px;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #0a0a0a 0%, #0f1a12 50%, #0a1520 100%);
+  background: linear-gradient(135deg, #141C10 0%, #1F2F1A 65%, #3C5C32 100%);
   overflow: hidden;
   padding: 0 !important;
 }
@@ -103,8 +103,8 @@ body.collection-page-all {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 80% at 15% 50%, rgba(34, 197, 94, 0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 70% at 80% 40%, rgba(59, 178, 226, 0.10) 0%, transparent 70%);
+    radial-gradient(ellipse 60% 80% at 15% 50%, rgba(60, 92, 50, 0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 70% at 80% 40%, rgba(87, 133, 73, 0.12) 0%, transparent 70%);
   animation: cah-gradientShift 8s ease infinite;
   background-size: 200% 200%;
   pointer-events: none;
@@ -120,7 +120,7 @@ body.collection-page-all {
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(34, 197, 94, 0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(140, 214, 118, 0.20) 0%, transparent 70%);
   animation: cah-pulse 4s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -149,9 +149,9 @@ body.collection-page-all {
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #22c55e;
-  background: rgba(34, 197, 94, 0.12);
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #8CD676;
+  background: rgba(140, 214, 118, 0.12);
+  border: 1px solid rgba(140, 214, 118, 0.35);
   border-radius: 99px;
   padding: 0.4rem 1.2rem;
   animation: cah-fadeSlideUp 0.6s ease both;
@@ -164,8 +164,8 @@ body.collection-page-all {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 8px #22c55e;
+  background: #8CD676;
+  box-shadow: 0 0 8px rgba(140, 214, 118, 0.5);
 }
 
 /* Main title */
@@ -175,13 +175,9 @@ body.collection-page-all {
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #ffffff 0%, #22c55e 50%, #3bb2e2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% 200%;
-  animation: cah-fadeSlideUp 0.7s ease both, cah-gradientShift 6s ease infinite;
-  animation-delay: 0.2s, 0.9s;
+  color: rgba(255, 255, 255, 0.88);
+  animation: cah-fadeSlideUp 0.7s ease both;
+  animation-delay: 0.2s;
 }
 
 /* Description */
@@ -201,7 +197,7 @@ body.collection-page-all {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: linear-gradient(to bottom, transparent, #22c55e, transparent);
+  background: linear-gradient(to bottom, transparent, #72AD5F, transparent);
   opacity: 0.5;
 }
 
@@ -228,14 +224,14 @@ body.collection-page-all {
 
 /* Active filter pills */
 .cah-grid-wrapper .active-facets__button {
-  background: rgba(50, 64, 44, 0.15) !important;
-  border-color: rgba(50, 64, 44, 0.5) !important;
-  color: #32402C !important;
+  background: rgba(60, 92, 50, 0.15) !important;
+  border-color: rgba(60, 92, 50, 0.5) !important;
+  color: #3C5C32 !important;
   border-radius: 99px;
 }
 
 .cah-grid-wrapper .active-facets__button:hover {
-  background: rgba(50, 64, 44, 0.28) !important;
+  background: rgba(60, 92, 50, 0.28) !important;
 }
 
 /* Filter button */
@@ -250,8 +246,8 @@ body.collection-page-all {
 
 .cah-grid-wrapper .facets__toggle:hover,
 .cah-grid-wrapper button.facets__summary:hover {
-  background: rgba(50, 64, 44, 0.1);
-  border-color: rgba(50, 64, 44, 0.4);
+  background: rgba(60, 92, 50, 0.1);
+  border-color: rgba(60, 92, 50, 0.4);
 }
 
 /* Sort & filter labels */
@@ -341,10 +337,10 @@ body.collection-page-all {
 .cah-grid-wrapper .card-wrapper:hover,
 .cah-grid-wrapper .card:hover {
   transform: translateY(-6px);
-  border-color: rgba(50, 64, 44, 0.45);
+  border-color: rgba(60, 92, 50, 0.45);
   box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.5),
-    0 0 24px rgba(50, 64, 44, 0.12);
+    0 0 24px rgba(60, 92, 50, 0.12);
   animation: none;
 }
 
@@ -398,7 +394,7 @@ body.collection-page-all {
 }
 
 .cah-grid-wrapper .card__heading a:hover {
-  color: #32402C !important;
+  color: #3C5C32 !important;
 }
 
 /* Vendor / subtitle */
@@ -422,7 +418,7 @@ body.collection-page-all {
 }
 
 .cah-grid-wrapper .price-item--sale {
-  color: #32402C !important;
+  color: #3C5C32 !important;
 }
 
 .cah-grid-wrapper .price-item--original {
@@ -433,9 +429,9 @@ body.collection-page-all {
 /* Sale badge */
 .cah-grid-wrapper .badge,
 .cah-grid-wrapper .card__badge .badge {
-  background: rgba(50, 64, 44, 0.2);
-  color: #32402C;
-  border: 1px solid rgba(50, 64, 44, 0.4);
+  background: rgba(60, 92, 50, 0.2);
+  color: #3C5C32;
+  border: 1px solid rgba(60, 92, 50, 0.4);
   border-radius: 6px;
   font-weight: 700;
   font-size: 1.1rem;
@@ -448,7 +444,7 @@ body.collection-page-all {
 .cah-grid-wrapper button[name="add"],
 .cah-grid-wrapper .product-form__submit,
 .cah-grid-wrapper input[type="submit"] {
-  background: #32402C !important;
+  background: #3C5C32 !important;
   color: #ffffff !important;
   /* White text for better contrast on dark green */
   border: none !important;
@@ -461,7 +457,7 @@ body.collection-page-all {
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1) !important;
-  box-shadow: 0 2px 8px rgba(50, 64, 44, 0.15);
+  box-shadow: 0 2px 8px rgba(60, 92, 50, 0.15);
 }
 
 .cah-premium-add-btn {
@@ -482,8 +478,8 @@ body.collection-page-all {
 .cah-grid-wrapper .card__add-button:hover,
 .cah-grid-wrapper button[name="add"]:hover,
 .cah-grid-wrapper .product-form__submit:hover {
-  background: #16a34a !important;
-  box-shadow: 0 4px 16px rgba(50, 64, 44, 0.35) !important;
+  background: #578549 !important;
+  box-shadow: 0 4px 16px rgba(60, 92, 50, 0.35) !important;
   transform: translateY(-1px) !important;
 }
 
@@ -505,7 +501,7 @@ body.collection-page-all {
 }
 
 .cah-grid-wrapper .collection--empty .link {
-  color: #32402C;
+  color: #3C5C32;
 }
 
 /* ── PAGINATION ────────────────────────────────────────────── */
@@ -522,9 +518,9 @@ body.collection-page-all {
 .cah-grid-wrapper .pagination__item a:hover,
 .cah-grid-wrapper .pagination__item button:hover,
 .cah-grid-wrapper .pagination__item--current a {
-  background: rgba(50, 64, 44, 0.15);
-  border-color: rgba(50, 64, 44, 0.4);
-  color: #32402C;
+  background: rgba(60, 92, 50, 0.15);
+  border-color: rgba(60, 92, 50, 0.4);
+  color: #3C5C32;
 }
 
 /* ── MOBILE RESPONSIVE ─────────────────────────────────────── */
@@ -631,7 +627,7 @@ body.collection-page-all {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: #414617;
+  background: #3C5C32;
   border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
@@ -642,8 +638,8 @@ body.collection-page-all {
 }
 
 .cah-category-item.active .cah-category-circle {
-  background: #525a22;
-  border-color: #737f31;
+  background: #578549;
+  border-color: #72AD5F;
   border-width: 2px;
   box-shadow: 0 0 15px rgba(42, 82, 130, 0.4);
 }
@@ -710,9 +706,9 @@ body.collection-page-all {
 }
 
 .cah-mood-pill.active {
-  background: rgba(50, 64, 44, 0.15);
-  color: #16a34a;
-  border-color: rgba(50, 64, 44, 0.5);
+  background: rgba(60, 92, 50, 0.15);
+  color: #578549;
+  border-color: rgba(60, 92, 50, 0.5);
 }
 
 /* Type-specific circle colours (removed in favour of the single colour style) */
@@ -760,9 +756,9 @@ body.collection-page-all {
 }
 
 .cah-brand-pill.active {
-  background: rgba(50, 64, 44, 0.12);
-  color: #32402C;
-  border-color: rgba(50, 64, 44, 0.45);
+  background: rgba(60, 92, 50, 0.12);
+  color: #3C5C32;
+  border-color: rgba(60, 92, 50, 0.45);
   font-weight: 600;
 }
 
@@ -783,7 +779,7 @@ body.collection-page-all {
 }
 
 .cah-filters-toggle:hover {
-  color: #32402C;
+  color: #3C5C32;
 }
 
 .cah-filters-toggle svg {

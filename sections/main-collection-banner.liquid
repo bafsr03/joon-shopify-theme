@@ -2,6 +2,18 @@
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 {{ 'collection-all-custom.css' | asset_url | stylesheet_tag }}
 
+{%- style -%}
+  .collection-hero {
+    background: linear-gradient(90deg, #141C10, #1F2F1A 65%, #3C5C32);
+    color: #ffffff;
+  }
+  .collection-hero .collection-hero__title,
+  .collection-hero .cah-eyebrow,
+  .collection-hero .collection-hero__description {
+    color: #ffffff;
+  }
+{%- endstyle -%}
+
 <div class="collection-hero cah-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %}">
 
   {%- comment -%}Decorative side accent line{%- endcomment -%}
