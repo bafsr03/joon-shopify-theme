@@ -56,9 +56,10 @@
 .product-grid-tilted__track {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   padding: 1.6rem var(--page-width-margin, 3.2rem);
   gap: 3.2rem;
-  min-width: max-content;
 }
 
 /* Individual Card */
